@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e60000">
+<title>مكتبة النور الرقمية — كتب PDF بفودافون كاش</title>
+<meta name="description" content="متجر كتب PDF — الدفع بفودافون كاش والتحميل فورًا.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#f6f1e7; --panel:#fffdf9; --panel2:#fdf8f0;
+  --ink:#1b2431; --ink2:#33415a; --muted:#6b7280; --line:#e7ddcb;
+  --red:#e60000; --red-dark:#b90000; --gold:#c8a24a; --green:#0f8a4c;
+  --radius:16px; --radius-sm:11px;
+  --shadow:0 10px 30px rgba(27,36,49,.09);
+  --shadow-lg:0 24px 60px rgba(27,36,49,.22);
+  --font:"Segoe UI",Tahoma,"Noto Sans Arabic",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font); background:var(--bg); color:var(--ink);
+  line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:inherit}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:18px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:999px;border:1px solid transparent;
+  font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s;
+  font-size:.95rem;line-height:1.2;
+}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 20px rgba(230,0,0,.28)}
+.btn-red:hover{background:var(--red-dark)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#0d1420}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--gold);background:#fffdf6}
+.btn-gold{background:var(--gold);color:#241c06}
+.btn-wa{background:#25d366;color:#04310f}
+.btn-wa:hover{background:#1fb855}
+.btn-sm{padding:7px 13px;font-size:.82rem}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.linkbtn{background:none;border:0;padding:4px;cursor:pointer;color:var(--muted);text-decoration:underline;font-size:.82rem}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(246,241,231,.88);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{display:flex;align-items:center;gap:14px;min-height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 1 auto;min-width:0}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(140deg,var(--red),#8f0000);
+  display:grid;place-items:center;color:#fff;flex:none;box-shadow:0 6px 16px rgba(230,0,0,.3)}
+.brand-txt{min-width:0}
+.brand-name{font-weight:800;font-size:1.02rem;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-sub{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.main-nav{display:flex;gap:4px;margin-inline-start:auto;align-items:center}
+.main-nav a{
+  text-decoration:none;font-size:.9rem;font-weight:600;color:var(--ink2);
+  padding:8px 11px;border-radius:9px;
+}
+.main-nav a:hover{background:#fff;color:var(--red)}
+.hbtns{display:flex;gap:8px;align-items:center}
+.lang-btn{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;
+  font-weight:800;cursor:pointer;font-size:.82rem;letter-spacing:.4px
+}
+.lang-btn:hover{border-color:var(--red);color:var(--red)}
+.icon-btn{
+  width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;
+  display:grid;place-items:center;cursor:pointer;color:var(--ink2);position:relative
+}
+.icon-btn:hover{border-color:var(--red);color:var(--red)}
+.icon-btn .dot{position:absolute;top:-4px;inset-inline-end:-4px;background:var(--red);color:#fff;
+  font-size:.62rem;border-radius:999px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px;font-weight:800}
+@media(max-width:860px){.main-nav .nav-link{display:none}}
+@media(max-width:520px){.brand-sub{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:54px 0 30px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset-inline-start:-160px;top:-160px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(200,162,74,.30),transparent 68%);pointer-events:none
+}
+.hero::after{
+  content:"";position:absolute;inset-inline-end:-140px;bottom:-220px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle at 60% 40%,rgba(230,0,0,.13),transparent 68%);pointer-events:none
+}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px}}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:6px 14px;font-size:.8rem;font-weight:700;color:var(--ink2);box-shadow:var(--shadow)
+}
+.badge .pip{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(15,138,76,.15)}
+h1.hero-title{font-size:clamp(1.75rem,4.4vw,3rem);line-height:1.28;margin:16px 0 12px;font-weight:800;letter-spacing:-.2px}
+h1.hero-title em{font-style:normal;color:var(--red);position:relative;white-space:nowrap}
+h1.hero-title em::after{content:"";position:absolute;inset-inline:0;bottom:4px;height:9px;background:rgba(200,162,74,.35);z-index:-1;border-radius:4px}
+.hero-sub{color:var(--ink2);font-size:1.03rem;max-width:56ch;margin:0 0 22px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+
+/* pay card */
+.paycard{
+  background:linear-gradient(160deg,#1b2431,#28374f);color:#fff;border-radius:22px;padding:22px;
+  box-shadow:var(--shadow-lg);position:relative;overflow:hidden
+}
+.paycard::after{content:"";position:absolute;inset-inline-end:-60px;top:-60px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,0,0,.55),transparent 70%)}
+.paycard h3{margin:0 0 4px;font-size:1rem;font-weight:700;position:relative}
+.paycard .paylabel{font-size:.78rem;color:#c9d3e3;margin:0 0 14px;position:relative}
+.paynum{
+  position:relative;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.09);
+  border:1px dashed rgba(255,255,255,.32);border-radius:14px;padding:12px 14px
+}
+.paynum .num{font-size:1.42rem;font-weight:800;letter-spacing:1.2px;direction:ltr;flex:1}
+.paynum .op{font-size:.7rem;color:#c9d3e3;display:block;letter-spacing:0}
+.copy-btn{background:#fff;color:var(--ink);border:0;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer;font-size:.8rem}
+.copy-btn:hover{background:var(--gold)}
+.paysteps{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:9px;position:relative}
+.paysteps li{display:flex;gap:9px;font-size:.85rem;color:#dbe3ee;align-items:flex-start}
+.paysteps b{color:#fff}
+.stepn{flex:none;width:21px;height:21px;border-radius:50%;background:var(--red);color:#fff;font-size:.72rem;
+  display:grid;place-items:center;font-weight:800;margin-top:3px}
+.paycard .foot{margin-top:16px;font-size:.76rem;color:#aab6c9;position:relative;display:flex;gap:6px;align-items:center}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 6px}
+@media(max-width:640px){.stats{grid-template-columns:1fr;gap:10px}}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;gap:12px;align-items:center}
+.stat .ic{width:40px;height:40px;border-radius:12px;background:var(--panel2);display:grid;place-items:center;color:var(--red);flex:none}
+.stat b{display:block;font-size:1.02rem}
+.stat span{font-size:.8rem;color:var(--muted)}
+
+/* ---------- sections ---------- */
+section{padding:34px 0}
+.sec-head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sec-head h2{margin:0;font-size:1.5rem;font-weight:800}
+.sec-head p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.sec-head .spacer{margin-inline-start:auto}
+
+/* toolbar */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.search{position:relative;flex:1 1 260px;min-width:200px}
+.search input{
+  width:100%;padding:12px 42px 12px 14px;border-radius:999px;border:1px solid var(--line);
+  background:#fff;outline:none
+}
+html[dir="rtl"] .search input{padding:12px 14px 12px 42px}
+.search input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(230,0,0,.08)}
+.search svg{position:absolute;top:50%;transform:translateY(-50%);inset-inline-start:14px;color:var(--muted);pointer-events:none}
+html[dir="rtl"] .search svg{inset-inline-start:auto;inset-inline-end:14px}
+select.sel{padding:11px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;outline:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 15px;font-size:.85rem;
+  font-weight:600;cursor:pointer;color:var(--ink2)
+}
+.chip:hover{border-color:var(--gold)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- book grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:20px}
+@media(max-width:560px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:13px}}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.coverwrap{position:relative;aspect-ratio:3/4;perspective:1100px;background:#efe7d8;overflow:hidden;cursor:pointer}
+.flipinner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.1,.2,1)}
+.coverwrap:hover .flipinner,.coverwrap.flipped .flipinner{transform:rotateY(180deg)}
+html[dir="rtl"] .coverwrap:hover .flipinner,html[dir="rtl"] .coverwrap.flipped .flipinner{transform:rotateY(-180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden}
+.face img{width:100%;height:100%;object-fit:cover}
+.face.back{transform:rotateY(180deg)}
+html[dir="rtl"] .face.back{transform:rotateY(-180deg)}
+.face .noart{width:100%;height:100%;display:grid;place-items:center;color:#a89b7e;font-size:.8rem;text-align:center;padding:14px}
+.spine{position:absolute;inset-block:0;inset-inline-start:0;width:11px;
+  background:linear-gradient(90deg,rgba(0,0,0,.30),rgba(0,0,0,0));z-index:2;pointer-events:none}
+.cover-tag{position:absolute;bottom:8px;inset-inline-end:8px;background:rgba(27,36,49,.78);color:#fff;
+  font-size:.66rem;padding:3px 9px;border-radius:999px;z-index:3;backdrop-filter:blur(4px);opacity:0;transition:opacity .25s}
+.coverwrap:hover .cover-tag{opacity:1}
+.price-tag{position:absolute;top:8px;inset-inline-start:8px;z-index:3;background:#fff;border-radius:999px;
+  padding:5px 11px;font-weight:800;font-size:.82rem;box-shadow:0 4px 12px rgba(0,0,0,.18);display:flex;gap:6px;align-items:baseline}
+.price-tag s{color:var(--muted);font-weight:600;font-size:.7rem}
+.card-body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card-body h3{margin:0;font-size:.98rem;font-weight:800;line-height:1.45}
+.card-body .by{font-size:.78rem;color:var(--muted);margin:0}
+.card-body .cat{font-size:.72rem;color:var(--red);font-weight:700}
+.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:11px}
+.card-actions .btn{flex:1;padding:9px 12px;font-size:.84rem}
+.badge-pub{position:absolute;top:8px;inset-inline-end:8px;z-index:3;background:#fff8e6;color:#8a6a12;
+  border:1px solid #f0dfae;font-size:.68rem;padding:3px 9px;border-radius:999px;font-weight:700}
+.empty{text-align:center;padding:46px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius);background:var(--panel)}
+.count{font-size:.82rem;color:var(--muted);margin-top:14px}
+.skeleton{background:linear-gradient(90deg,#eee5d5,#f7f2e8,#eee5d5);background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-40% 0}}
+
+/* ---------- cards row (how to buy) ---------- */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:820px){.cards3{grid-template-columns:1fr}}
+.stepcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative}
+.stepcard .n{width:36px;height:36px;border-radius:11px;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.stepcard h4{margin:0 0 6px;font-size:1.02rem}
+.stepcard p{margin:0;color:var(--muted);font-size:.88rem}
+.stepcard .hl{color:var(--red);font-weight:800;direction:ltr;display:inline-block}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:10px;max-width:820px;margin-inline:auto}
+details.q{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+details.q summary{cursor:pointer;font-weight:700;list-style:none;display:flex;gap:10px;align-items:center}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::before{content:"+";color:var(--red);font-weight:800;font-size:1.15rem;width:16px;text-align:center}
+details.q[open] summary::before{content:"–"}
+details.q p{margin:10px 0 0;color:var(--ink2);font-size:.9rem}
+
+/* ---------- contact ---------- */
+.contact-box{
+  background:linear-gradient(150deg,#1b2431,#2c3b53);border-radius:24px;color:#fff;padding:34px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;box-shadow:var(--shadow-lg)
+}
+@media(max-width:820px){.contact-box{grid-template-columns:1fr;padding:24px}}
+.contact-box h2{margin:0 0 8px;font-size:1.5rem}
+.contact-box p{margin:0 0 18px;color:#c9d3e3;font-size:.92rem}
+.contact-actions{display:flex;gap:10px;flex-wrap:wrap}
+.contact-side{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px}
+.contact-side .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.16);font-size:.88rem}
+.contact-side .row:last-child{border-bottom:0}
+.contact-side .k{color:#aab6c9}
+.contact-side .v{font-weight:700;direction:ltr}
+
+/* ---------- footer ---------- */
+footer{background:#151d29;color:#9fb0c6;margin-top:34px;padding:30px 0 24px;font-size:.85rem}
+.foot-grid{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+footer a{color:#dbe3ee;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.foot-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800}
+.foot-note{margin-top:14px;padding-top:14px;border-top:1px solid #26313f;color:#7d8ea5;font-size:.78rem}
+
+/* ---------- modals ---------- */
+.modal{
+  position:fixed;inset:0;z-index:80;display:none;padding:18px;
+  background:rgba(17,23,33,.62);backdrop-filter:blur(6px);overflow-y:auto
+}
+.modal.open{display:block}
+.modal-card{
+  background:var(--bg);border-radius:22px;max-width:960px;margin:26px auto;box-shadow:var(--shadow-lg);
+  overflow:hidden;animation:pop .28s cubic-bezier(.2,.9,.3,1.1);position:relative
+}
+.modal-card.narrow{max-width:520px}
+.modal-card.mid{max-width:660px}
+.modal-card.wide{max-width:1040px}
+@keyframes pop{from{transform:translateY(18px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.modal-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+.modal-head h3{margin:0;font-size:1.08rem;font-weight:800;flex:1;min-width:0}
+.x{width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;flex:none;font-size:1.1rem;line-height:1;color:var(--ink2)}
+.x:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:20px}
+.modal-foot{padding:14px 20px;border-top:1px solid var(--line);background:var(--panel);display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;position:sticky;bottom:0}
+
+/* book detail */
+.book-view{display:grid;grid-template-columns:330px 1fr;gap:26px}
+@media(max-width:800px){.book-view{grid-template-columns:1fr;gap:18px}}
+.bigcover{position:relative;perspective:1400px}
+.bigcover .flipinner{position:relative;aspect-ratio:3/4;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.4,.1,.2,1)}
+.bigcover.flipped .flipinner{transform:rotateY(180deg)}
+html[dir="rtl"] .bigcover.flipped .flipinner{transform:rotateY(-180deg)}
+.bigcover .face{border-radius:14px;box-shadow:var(--shadow-lg);overflow:hidden;background:#efe7d8}
+.bigcover .face img{width:100%;height:100%;object-fit:cover}
+.cover-controls{display:flex;gap:8px;margin-top:14px;justify-content:center}
+.cover-label{text-align:center;font-size:.78rem;color:var(--muted);margin-top:8px}
+.book-info h2{margin:0 0 2px;font-size:1.6rem;line-height:1.35}
+.book-info .authorline{color:var(--muted);margin:0 0 12px;font-size:.92rem}
+.book-price{display:flex;align-items:baseline;gap:10px;margin:14px 0;flex-wrap:wrap}
+.book-price .now{font-size:2rem;font-weight:800;color:var(--red)}
+.book-price s{color:var(--muted)}
+.book-price .off{background:#e9f7ee;color:var(--green);border:1px solid #c9ecd6;border-radius:999px;padding:3px 10px;font-size:.78rem;font-weight:800}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.meta span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.78rem;color:var(--ink2)}
+.desc{color:var(--ink2);font-size:.93rem;white-space:pre-wrap}
+.preview-box{margin-top:16px}
+.preview-box iframe{width:100%;height:420px;border:1px solid var(--line);border-radius:14px;background:#fff}
+@media(max-width:600px){.preview-box iframe{height:320px}}
+.notice{display:flex;gap:10px;align-items:flex-start;background:#fff8e6;border:1px solid #f0dfae;color:#7a5c0d;
+  border-radius:12px;padding:11px 13px;font-size:.85rem;margin-top:14px}
+.notice.red{background:#fdeceb;border-color:#f7c9c4;color:#8b1d13}
+.notice.green{background:#eaf8f0;border-color:#c3e9d3;color:#0f6b3d}
+
+/* forms */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.82rem;font-weight:700;color:var(--ink2)}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;
+  transition:border-color .16s,box-shadow .16s
+}
+.field textarea{min-height:96px;resize:vertical;line-height:1.6}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(230,0,0,.08)}
+.field .hint{font-size:.74rem;color:var(--muted)}
+.field.err input,.field.err textarea{border-color:var(--red);background:#fff8f8}
+input[type=file]{padding:9px;font-size:.84rem;background:var(--panel2)}
+.fileprev{display:flex;gap:10px;align-items:center;margin-top:8px}
+.fileprev img{width:52px;height:69px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#fff}
+.fileprev .fp-name{font-size:.76rem;color:var(--muted);word-break:break-all}
+.fileprev .fp-doc{width:52px;height:69px;border-radius:8px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--red);font-size:1.3rem}
+.switch{display:flex;align-items:center;gap:9px;font-size:.85rem;font-weight:600;color:var(--ink2);cursor:pointer}
+.switch input{width:auto;padding:0;margin:0;width:18px;height:18px;accent-color:var(--red)}
+.checkline{display:flex;gap:9px;align-items:flex-start;font-size:.85rem;color:var(--ink2);margin-bottom:12px}
+.checkline input{margin-top:5px;accent-color:var(--red)}
+
+/* admin */
+.tabs{display:flex;gap:6px;padding:10px 16px 0;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{border:1px solid transparent;border-bottom:0;background:transparent;padding:10px 15px;border-radius:12px 12px 0 0;
+  cursor:pointer;font-weight:700;color:var(--muted);font-size:.88rem;white-space:nowrap}
+.tab.on{background:var(--bg);border-color:var(--line);color:var(--red)}
+.tabpanel{display:none;padding:20px}
+.tabpanel.on{display:block}
+.admin-list{display:grid;gap:10px}
+.arow{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.arow img{width:48px;height:64px;object-fit:cover;border-radius:8px;background:#efe7d8}
+.arow .noart{width:48px;height:64px;border-radius:8px;background:#efe7d8;display:grid;place-items:center;color:#a89b7e;font-size:.65rem;text-align:center}
+.arow h5{margin:0;font-size:.92rem}
+.arow .sub{font-size:.75rem;color:var(--muted)}
+.arow .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.pill{font-size:.68rem;padding:3px 9px;border-radius:999px;font-weight:800;border:1px solid}
+.pill.on{background:#e9f7ee;color:#0f6b3d;border-color:#c9ecd6}
+.pill.off{background:#f4f1ea;color:#8a7f68;border-color:#e2d9c8}
+.danger-zone{border:1px solid #f0c9c4;background:#fff7f6;border-radius:14px;padding:16px;margin-top:18px}
+.danger-zone h4{margin:0 0 6px;color:#a3200f;font-size:.98rem}
+.danger-zone p{margin:0 0 12px;font-size:.82rem;color:#8b5d55}
+.sizebar{height:8px;background:#eee5d5;border-radius:999px;overflow:hidden;margin-top:8px}
+.sizebar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--red))}
+
+/* downloads */
+.dl-row{display:flex;gap:12px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:12px;margin-bottom:10px}
+.dl-row img{width:44px;height:59px;object-fit:cover;border-radius:8px}
+.dl-row .t{flex:1;min-width:0}
+.dl-row h5{margin:0;font-size:.9rem}
+.dl-row .s{font-size:.74rem;color:var(--muted)}
+
+/* toast + banner */
+#toast{position:fixed;inset-inline:0;bottom:24px;display:flex;justify-content:center;z-index:120;pointer-events:none;padding-inline:16px}
+.toast-msg{
+  background:var(--ink);color:#fff;border-radius:999px;padding:11px 20px;font-size:.88rem;font-weight:600;
+  box-shadow:var(--shadow-lg);animation:pop .22s ease;max-width:90vw
+}
+.toast-msg.ok{background:#0f8a4c}
+.toast-msg.bad{background:#b90000}
+#banner{
+  display:none;background:#fff8e6;border-bottom:1px solid #f0dfae;color:#7a5c0d;font-size:.82rem;padding:9px 0
+}
+#banner.on{display:block}
+#banner .wrap{display:flex;gap:10px;align-items:center}
+.hidden{display:none !important}
+.manager-btn{display:inline-flex !important;width:auto;padding:0 13px;gap:7px;font-weight:800;font-size:.84rem}
+@media(max-width:600px){.manager-btn span{display:none}.manager-btn{padding:0;width:38px}}
+.hintbox{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(150deg,#fffdf6,#fff6e8);border:1px solid #f0dfae;border-radius:16px;padding:16px;margin-bottom:18px;flex-wrap:wrap}
+.hintbox h4{margin:0 0 5px;font-size:1rem}
+.hintbox p{margin:0 0 6px;font-size:.85rem;color:#6b5a2e;line-height:1.65}
+.hintbox .hb-note{font-size:.8rem;color:#8a7a52;margin:0}
+.hintbox .hb-ic{font-size:1.4rem;line-height:1}
+.hintbox .hb-txt{flex:1;min-width:220px}
+.bulkbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--panel2);border:1px dashed var(--line);border-radius:14px;padding:11px 13px;margin-bottom:16px}
+.bulkbar .bk-t{font-size:.84rem;font-weight:700;color:var(--ink2)}
+.bulk-price{width:96px;padding:8px 11px;border-radius:10px;border:1px solid var(--line);background:#fff;outline:none}
+.bulk-price:focus{border-color:var(--red)}
+.pricedit{display:inline-flex;align-items:center;gap:3px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:1px 8px}
+.pricedit input{width:66px;border:0;outline:none;background:transparent;font-weight:800;text-align:center;padding:7px 0;font-size:.88rem}
+.pricedit span{font-size:.72rem;color:var(--muted)}
+.foot-manager{margin-top:10px;font-size:.8rem;color:#8b9cb3}
+.foot-manager button{color:#dbe3ee;font-size:.8rem}
+.foot-manager button:hover{color:#fff}
+@media(max-width:640px){.arow{grid-template-columns:44px 1fr}.arow .acts{grid-column:1/-1;justify-content:flex-start}}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;
+  animation:sp .7s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div id="banner"><div class="wrap"><span>⚠️</span><span data-i18n="banner_storage"></span></div></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="logo" aria-hidden="true">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </span>
+      <span class="brand-txt">
+        <span class="brand-name" id="brandName">مكتبة النور الرقمية</span>
+        <span class="brand-sub" id="brandSub">كتب PDF · دفع بفودافون كاش</span>
+      </span>
+    </a>
+    <nav class="main-nav">
+      <a class="nav-link" href="#books" data-i18n="nav_books">الكتب</a>
+      <a class="nav-link" href="#how" data-i18n="nav_how">كيف أشتري</a>
+      <a class="nav-link" href="#faq" data-i18n="nav_faq">أسئلة شائعة</a>
+      <a class="nav-link" href="#contact" data-i18n="nav_contact">تواصل معنا</a>
+    </nav>
+    <div class="hbtns">
+      <button class="icon-btn" id="downloadsBtn" title="تحميلاتي" aria-label="تحميلاتي">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="dot hidden" id="dlDot">0</span>
+      </button>
+      <button class="icon-btn manager-btn" id="adminBtn" title="لوحة المدير — رفع الكتب وتحديد الأسعار" aria-label="لوحة المدير">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09A1.65 1.65 0 0 0 20.91 10H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span data-i18n="manager_btn">لوحة المدير</span>
+      </button>
+      <button class="lang-btn" id="langBtn">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="badge"><span class="pip"></span><span data-i18n="hero_badge">الدفع بفودافون كاش · تحميل فوري</span></span>
+        <h1 class="hero-title" data-i18n-html="hero_title"></h1>
+        <p class="hero-sub" data-i18n="hero_sub"></p>
+        <div class="hero-cta">
+          <a class="btn btn-red" href="#books" data-i18n="hero_cta_books">تصفح الكتب</a>
+          <a class="btn btn-wa" id="heroWhats" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.13-.42-2.15-1.33-.8-.71-1.33-1.59-1.48-1.89-.15-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.62-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.03 1-1.03 2.45s1.05 2.84 1.2 3.04c.15.2 2.06 3.29 5.02 4.49.7.3 1.25.48 1.68.62.7.22 1.35.19 1.86.12.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.57-.35z"/><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.74.46 3.44 1.32 4.94L2 22l5.36-1.4a9.8 9.8 0 0 0 4.68 1.19h.01c5.43 0 9.84-4.4 9.84-9.84S17.47 2 12.04 2zm0 17.9h-.01a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.07.8.82-3-.19-.31a8.06 8.06 0 0 1-1.24-4.31c0-4.47 3.64-8.1 8.12-8.1a8.1 8.1 0 0 1 8.11 8.11c0 4.47-3.64 8.11-8.11 8.11z"/></svg>
+            <span data-i18n="hero_cta_whatsapp">اسأل على واتساب</span>
+          </a>
+        </div>
+      </div>
+      <div class="paycard">
+        <h3 data-i18n="pay_title">الدفع عبر فودافون كاش</h3>
+        <p class="paylabel" data-i18n="pay_label">حوّل مبلغ الكتاب على رقم المحفظة التالي</p>
+        <div class="paynum">
+          <span class="num" id="heroPayNum" dir="ltr">01034117684</span>
+          <button class="copy-btn" id="copyBtn" data-i18n="copy">نسخ</button>
+        </div>
+        <ol class="paysteps">
+          <li><span class="stepn">1</span><span data-i18n-html="pay_s1"></span></li>
+          <li><span class="stepn">2</span><span data-i18n-html="pay_s2"></span></li>
+          <li><span class="stepn">3</span><span data-i18n-html="pay_s3"></span></li>
+        </ol>
+        <div class="foot">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="pay_foot">رقم التحويل الرسمي للمتجر — لو الرقم مختلف يبقى مش متجرنا.</span>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span><b id="statBooks">0</b><span data-i18n="stat_books">كتاب متاح الآن</span></span>
+        </div>
+        <div class="stat">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+          <span><b data-i18n="stat_instant_v">تحميل فوري</b><span data-i18n="stat_instant">بعد تأكيد التحويل</span></span>
+        </div>
+        <div class="stat">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18"/></svg></span>
+          <span><b data-i18n="stat_local_v">دفع محلي</b><span data-i18n="stat_local">فودافون كاش من أي محفظة</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="books">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 data-i18n="books_title">الكتب المتاحة</h2>
+          <p data-i18n="books_sub">اضغط على أي غلاف لتقلبه وتشوف الغلاف الخلفي والتفاصيل.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="search">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.7" y2="16.7"/></svg>
+          <input type="search" id="searchInput" data-i18n-ph="search_ph" placeholder="ابحث باسم الكتاب أو المؤلف...">
+        </div>
+        <select class="sel" id="sortSelect">
+          <option value="new" data-i18n="sort_new">الأحدث</option>
+          <option value="price_asc" data-i18n="sort_price_asc">الأرخص أولاً</option>
+          <option value="price_desc" data-i18n="sort_price_desc">الأغلى أولاً</option>
+        </select>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="booksGrid"></div>
+      <div class="empty hidden" id="emptyState">
+        <div id="emptyMsg" style="margin-bottom:14px"></div>
+        <button class="btn btn-red" id="emptyCta">+ <span data-i18n="admin_add_book">كتاب جديد</span></button>
+      </div>
+      <div class="count" id="countLine"></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 data-i18n="how_title">كيف أشتري؟</h2><p data-i18n="how_sub">٣ خطوات بسيطة — بدون بطاقة بنكية.</p></div></div>
+      <div class="cards3">
+        <div class="stepcard">
+          <div class="n">1</div>
+          <h4 data-i18n="how_1_t">اختر الكتاب</h4>
+          <p data-i18n="how_1_d">اضغط على الغلاف، اقفلّب الغلاف الخلفي واقرأ الوصف، وبعدها اضغط «اشترِ الآن».</p>
+        </div>
+        <div class="stepcard">
+          <div class="n">2</div>
+          <h4 data-i18n="how_2_t">حوّل المبلغ بفودافون كاش</h4>
+          <p data-i18n-html="how_2_d"></p>
+        </div>
+        <div class="stepcard">
+          <div class="n">3</div>
+          <h4 data-i18n="how_3_t">أكّد وحمّل الكتاب</h4>
+          <p data-i18n="how_3_d">اكتب اسمك ورقمك ورقم عملية التحويل، واضغط «تأكيد وحمّل الكتاب» — الملف ينزل على جهازك فورًا.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head" style="justify-content:center;text-align:center"><div><h2 data-i18n="faq_title">أسئلة شائعة</h2></div></div>
+      <div class="faq">
+        <details class="q" open><summary data-i18n="faq_1_q">الملفات بصيغة إيه؟</summary><p data-i18n="faq_1_a">كل الكتب بصيغة PDF وتفتح على الموبايل واللابتوب وأي قارئ كتب إلكترونية.</p></details>
+        <details class="q"><summary data-i18n="faq_2_q">أنا مش عندي محفظة فودافون كاش، أعمل إيه؟</summary><p data-i18n="faq_2_a">اطلب من أي صديق أو قريب عنده محفظة يحوّل المبلغ نيابة عنك، وبعدها اكتب بياناتك في خانة التحويل.</p></details>
+        <details class="q"><summary data-i18n="faq_3_q">هل التحويل آمن؟</summary><p data-i18n="faq_3_a">بنطلب منك رقم فودافون كاش فقط — مش بنطلب أي بيانات بطاقة بنكية أو كلمات سر المحفظة. اتحقق من الرقم قبل التحويل.</p></details>
+        <details class="q"><summary data-i18n="faq_4_q">لو الملف مش عايز ينزل معايا؟</summary><p data-i18n="faq_4_a">من زر «تحميلاتي» فوق تقدر تنزّل الكتاب تاني على نفس الجهاز، ولو لسه فيه مشكلة كلّمنا على واتساب ونرسله لك على طول.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2 data-i18n="contact_title">عندك سؤال؟ كلّمنا</h2>
+          <p data-i18n="contact_sub">ابعت لنا على واتساب في أي وقت — بنرد بأسرع وقت، وبنقدر نرسل لك الكتاب يدويًا لو احتجت.</p>
+          <div class="contact-actions">
+            <a class="btn btn-wa" id="contactWhats" target="_blank" rel="noopener" data-i18n="contact_whats">محادثة واتساب</a>
+            <a class="btn btn-ghost" href="#books" data-i18n="contact_browse">تصفح الكتب</a>
+          </div>
+        </div>
+        <div class="contact-side">
+          <div class="row"><span class="k" data-i18n="c_vodafone">رقم فودافون كاش</span><span class="v" id="contactPay">01034117684</span></div>
+          <div class="row"><span class="k" data-i18n="c_whatsapp">رقم واتساب</span><span class="v" id="contactWa">+20 10 3411 7684</span></div>
+          <div class="row"><span class="k" data-i18n="c_hours">مواعيد الرد</span><span class="v" data-i18n="c_hours_v">يوميًا 10ص – 11م</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="logo" style="width:32px;height:32px;border-radius:9px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        <span id="footName">مكتبة النور الرقمية</span>
+      </div>
+      <div>
+        <span data-i18n="foot_pay">الدفع بفودافون كاش:</span> <a id="footPay" href="#" dir="ltr">01034117684</a>
+      </div>
+      <div>© <span id="year">2026</span> <span id="footName2">مكتبة النور الرقمية</span></div>
+    </div>
+    <div class="foot-manager"><span data-i18n="footer_manager"></span> <button class="linkbtn" id="footAdminBtn" data-i18n="manager_btn">لوحة المدير</button></div>
+    <div class="foot-note" data-i18n="foot_note">المتجر يبيع كتبًا رقمية بصيغة PDF. كل كتاب يُرسَل بعد تأكيد عملية التحويل. لا نطلب بيانات بطاقتك البنكية في أي وقت.</div>
+  </div>
+</footer>
+
+<!-- ===== Book detail modal ===== -->
+<div class="modal" id="bookModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="bmTitleHead">تفاصيل الكتاب</h3>
+      <button class="x" data-close="bookModal" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="book-view">
+        <div>
+          <div class="bigcover" id="bigCover">
+            <div class="flipinner">
+              <div class="face front"><img id="bmFront" alt="front cover"></div>
+              <div class="face back"><img id="bmBack" alt="back cover"></div>
+            </div>
+          </div>
+          <div class="cover-controls">
+            <button class="btn btn-ghost btn-sm" id="bmFlip">↻ <span data-i18n="flip">قلّب الغلاف</span></button>
+          </div>
+          <div class="cover-label"><span data-i18n="cover_hint">الغلاف الأمامي / الخلفي</span></div>
+        </div>
+        <div class="book-info">
+          <h2 id="bmTitle">—</h2>
+          <p class="authorline"><span data-i18n="by">تأليف</span>: <span id="bmAuthor">—</span></p>
+          <div class="meta" id="bmMeta"></div>
+          <div class="book-price">
+            <span class="now" id="bmPrice"></span>
+            <s id="bmOld" class="hidden"></s>
+            <span class="off hidden" id="bmOff"></span>
+          </div>
+          <p class="desc" id="bmDesc"></p>
+          <div id="bmNoPdfNotice" class="notice hidden">
+            <span>💬</span><span data-i18n="no_pdf_notice">هذا الكتاب متاح بالتواصل المباشر: كلّمنا على واتساب بعد التحويل ونرسله لك.</span>
+          </div>
+          <div class="preview-box hidden" id="bmPreviewBox">
+            <h4 style="margin:0 0 8px;font-size:.95rem" data-i18n="preview_title">معاينة قبل الشراء</h4>
+            <iframe id="bmPreviewFrame" title="preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close="bookModal" data-i18n="close">إغلاق</button>
+      <button class="btn btn-red" id="bmBuy"><span data-i18n="buy_now">اشترِ الآن</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Payment modal ===== -->
+<div class="modal" id="payModal" role="dialog" aria-modal="true">
+  <div class="modal-card mid">
+    <div class="modal-head">
+      <h3><span data-i18n="buy_title">إتمام الشراء</span></h3>
+      <button class="x" data-close="payModal" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="modal-body" id="payView">
+      <div class="notice green" style="margin-top:0">
+        <span>📘</span><span><b id="pmBook">—</b> — <span data-i18n="pm_amount_is">المطلوب تحويله:</span> <b id="pmAmount">—</b></span>
+      </div>
+
+      <h4 style="margin:16px 0 8px;font-size:.96rem" data-i18n="pm_step_title">١. حوّل المبلغ على فودافون كاش</h4>
+      <div class="paynum" id="pmPayBlock" style="background:#1b2431;border-color:rgba(255,255,255,.3)">
+        <span class="num" id="pmVodafone" dir="ltr">01034117684</span>
+        <button class="copy-btn" id="pmCopy" data-i18n="copy">نسخ</button>
+      </div>
+      <ol class="paysteps" style="color:#33415a;margin-top:12px">
+        <li style="color:#33415a"><span class="stepn">1</span><span data-i18n-html="pm_s1"></span></li>
+        <li style="color:#33415a"><span class="stepn">2</span><span data-i18n-html="pm_s2"></span></li>
+        <li style="color:#33415a"><span class="stepn">3</span><span data-i18n-html="pm_s3"></span></li>
+      </ol>
+
+      <h4 style="margin:20px 0 8px;font-size:.96rem" data-i18n="pm_form_title">٢. اكتب بياناتك لتأكيد التحويل</h4>
+      <div class="form-grid">
+        <div class="field" id="fldName">
+          <label for="pmName" data-i18n="form_name">الاسم</label>
+          <input id="pmName" type="text" autocomplete="name">
+        </div>
+        <div class="field" id="fldPhone">
+          <label for="pmPhone" data-i18n="form_phone">رقم الموبايل / المحفظة</label>
+          <input id="pmPhone" type="tel" dir="ltr" inputmode="numeric" placeholder="01xxxxxxxxx">
+        </div>
+        <div class="field full" id="fldTxn">
+          <label for="pmTxn" data-i18n="form_txn">رقم عملية التحويل (اختياري)</label>
+          <input id="pmTxn" type="text" dir="ltr" placeholder="مثال: 4471xxxxxx">
+          <span class="hint" data-i18n="form_txn_hint">تجده في رسالة فودافون كاش بعد التحويل — يساعدنا نأكد بسرعة.</span>
+        </div>
+      </div>
+      <div class="notice" id="pmError" style="display:none"><span>⚠️</span><span id="pmErrorTxt"></span></div>
+      <div class="notice" style="margin-top:14px">
+        <span>ℹ️</span><span data-i18n="pm_note">بالضغط على «تأكيد وحمّل الكتاب» بيتم تسجيل عملية الشراء على جهازك وتحميل الملف. اكتب رقم العملية بدقة لو أمكن — ممكن نتحقق منه ونتواصل معك عند الحاجة.</span>
+      </div>
+    </div>
+
+    <div class="modal-body hidden" id="successView">
+      <div style="text-align:center;padding:8px 0 4px">
+        <div style="width:66px;height:66px;border-radius:50%;background:#e9f7ee;border:1px solid #c9ecd6;display:grid;place-items:center;margin:0 auto 12px;font-size:1.9rem">✅</div>
+        <h3 style="margin:0 0 6px" data-i18n="success_title">تم! اطلب تحميل كتابك</h3>
+        <p style="color:var(--muted);margin:0 0 18px;font-size:.9rem" data-i18n="success_sub">شكرًا لك — اضغط الزر التالي لتحميل ملف الكتاب، وهتلاقيه محفوظ في «تحميلاتي» على نفس الجهاز.</p>
+        <button class="btn btn-red btn-block" id="dlBookBtn" style="padding:15px"><span data-i18n="download_btn">حمّل الكتاب الآن (PDF)</span></button>
+        <div class="notice green" style="margin-top:16px;text-align:start">
+          <span>🔔</span><span data-i18n="success_wa_note">لو تحب تتأكد إن التحويل وصلنا بسرعة، ابعت لنا إشعار على واتساب بضغطة واحدة.</span>
+        </div>
+        <a class="btn btn-wa btn-block" id="waConfirm" target="_blank" rel="noopener" style="margin-top:10px" data-i18n="wa_confirm">إبلاغ المتجر على واتساب</a>
+        <button class="btn btn-ghost btn-block" data-close="payModal" style="margin-top:10px" data-i18n="done">انتهيت</button>
+      </div>
+    </div>
+
+    <div class="modal-foot" id="payFoot">
+      <button class="btn btn-ghost" data-close="payModal" data-i18n="cancel">إلغاء</button>
+      <button class="btn btn-red" id="pmSubmit"><span data-i18n="pm_submit">تأكيد وحمّل الكتاب</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== My downloads modal ===== -->
+<div class="modal" id="dlModal" role="dialog" aria-modal="true">
+  <div class="modal-card mid">
+    <div class="modal-head">
+      <h3 data-i18n="my_downloads">تحميلاتي</h3>
+      <button class="x" data-close="dlModal" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin:0 0 14px;color:var(--muted);font-size:.85rem" data-i18n="my_downloads_note">الكتب التي اشتريتها من هذا الجهاز — تقدر تنزّلها تاني في أي وقت.</p>
+      <div id="dlList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Admin modal ===== -->
+<div class="modal" id="adminModal" role="dialog" aria-modal="true">
+  <div class="modal-card wide">
+    <div class="modal-head">
+      <h3 data-i18n="admin_title">لوحة تحكم المتجر</h3>
+      <button class="x" data-close="adminModal" aria-label="إغلاق">✕</button>
+    </div>
+
+    <div class="modal-body" id="adminLogin">
+      <div style="max-width:400px;margin:10px auto 20px;text-align:center">
+        <div style="font-size:2rem">🔒</div>
+        <h3 style="margin:6px 0 4px" data-i18n="admin_login_title">الدخول للوحة التحكم</h3>
+        <p style="color:var(--muted);font-size:.85rem;margin:0 0 16px" data-i18n="admin_login_sub">اكتب كلمة السر لرفع الكتب (الغلاف الأمامي والخلفي + ملف PDF).</p>
+        <div class="field" style="text-align:start">
+          <label for="adminPw" data-i18n="admin_pw">كلمة السر</label>
+          <input id="adminPw" type="password" dir="ltr" autocomplete="current-password">
+        </div>
+        <div class="notice" id="pwErr" style="display:none"><span>⚠️</span><span data-i18n="admin_wrong_pw">كلمة السر غير صحيحة.</span></div>
+        <button class="btn btn-red btn-block" id="adminLoginBtn" style="margin-top:14px" data-i18n="admin_login_btn">دخول</button>
+        <p class="hint" data-i18n="manager_login_note" style="margin-top:14px;font-size:.8rem;color:#33415a"></p>
+        <p style="font-size:.76rem;color:var(--muted);margin-top:10px" data-i18n="admin_default_pw_note">كلمة السر الافتراضية: vodafone123 — غيّرها من تبويب «الإعدادات».</p>
+      </div>
+    </div>
+
+    <div class="hidden" id="adminPanel">
+      <div class="tabs">
+        <button class="tab on" data-tab="books" data-i18n="tab_books">الكتب</button>
+        <button class="tab" data-tab="settings" data-i18n="tab_settings">الإعدادات</button>
+        <button class="tab" data-tab="data" data-i18n="tab_data">تصدير ونشر</button>
+      </div>
+
+      <!-- books tab -->
+      <div class="tabpanel on" id="panel-books">
+        <div class="hintbox">
+          <div class="hb-ic">🛠️</div>
+          <div class="hb-txt">
+            <h4 data-i18n="admin_howto_title">أنت المدير: ارفع ملف الـ PDF وحدّد السعر بنفسك</h4>
+            <p data-i18n="admin_howto_text"></p>
+            <p class="hb-note" data-i18n="admin_howto_note"></p>
+          </div>
+          <button class="btn btn-dark btn-sm" id="goExportBtn" data-i18n="admin_howto_btn">تصدير نسخة المشترين</button>
+        </div>
+        <div class="sec-head" style="margin-bottom:14px">
+          <div><h3 style="margin:0;font-size:1.1rem" data-i18n="admin_books_title">كتبك</h3>
+          <p style="color:var(--muted);font-size:.83rem;margin:2px 0 0" data-i18n="admin_books_sub">أضف كتابًا وارفع غلافه الأمامي والخلفي وملف PDF.</p></div>
+          <div class="spacer"></div>
+          <button class="btn btn-red btn-sm" id="addBookBtn">+ <span data-i18n="admin_add_book">كتاب جديد</span></button>
+        </div>
+        <div class="bulkbar">
+          <span class="bk-t" data-i18n="bulk_title">رفع سريع لملفات PDF:</span>
+          <label class="btn btn-ghost btn-sm" for="bulkPdf">📚 <span data-i18n="bulk_btn">اختر ملفات PDF (متعددة)</span></label>
+          <span class="bk-t" data-i18n="bulk_price">السعر الافتراضي للكل</span>
+          <input class="bulk-price" id="bulkPrice" type="number" min="0" step="1" dir="ltr" placeholder="0">
+          <span class="hint" data-i18n="bulk_hint"></span>
+        </div>
+        <input type="file" id="bulkPdf" accept="application/pdf,.pdf" multiple class="hidden">
+        <div class="admin-list" id="adminBooksList"></div>
+        <div class="empty hidden" id="adminEmpty" data-i18n="admin_empty">لا توجد كتب بعد — اضغط «كتاب جديد» وابدأ.</div>
+
+        <form id="bookForm" class="hidden" style="margin-top:6px">
+          <h3 id="formTitle" style="margin:0 0 4px;font-size:1.05rem" data-i18n="form_add">إضافة كتاب</h3>
+          <p style="color:var(--muted);font-size:.82rem;margin:0 0 16px" data-i18n="form_sub">الحقول بالعربي والإنجليزي — املأ ما تحتاجه، والناقص يظهر بالعربي.</p>
+          <div class="form-grid">
+            <div class="field"><label data-i18n="f_title_ar">العنوان (عربي)</label><input id="fTitleAr"></div>
+            <div class="field"><label data-i18n="f_title_en">العنوان (إنجليزي)</label><input id="fTitleEn" dir="ltr"></div>
+            <div class="field"><label data-i18n="f_author_ar">المؤلف (عربي)</label><input id="fAuthorAr"></div>
+            <div class="field"><label data-i18n="f_author_en">المؤلف (إنجليزي)</label><input id="fAuthorEn" dir="ltr"></div>
+            <div class="field full"><label data-i18n="f_desc_ar">الوصف (عربي) — يظهر على الغلاف الخلفي</label><textarea id="fDescAr"></textarea></div>
+            <div class="field full"><label data-i18n="f_desc_en">الوصف (إنجليزي)</label><textarea id="fDescEn" dir="ltr"></textarea></div>
+            <div class="field"><label data-i18n="f_price">السعر (جنيه)</label><input id="fPrice" type="number" min="0" step="1" dir="ltr"><span class="hint" data-i18n="price_hint"></span></div>
+            <div class="field"><label data-i18n="f_old_price">السعر قبل الخصم (اختياري)</label><input id="fOldPrice" type="number" min="0" step="1" dir="ltr"></div>
+            <div class="field"><label data-i18n="f_category">التصنيف</label><input id="fCategory" list="catList" data-i18n-ph="f_category_ph" placeholder="تطوير الذات / روايات / مال وأعمال"><datalist id="catList"></datalist></div>
+            <div class="field"><label data-i18n="f_pages">عدد الصفحات (اختياري)</label><input id="fPages" type="number" min="0" dir="ltr"></div>
+            <div class="field"><label data-i18n="f_front">الغلاف الأمامي (صورة)</label><input id="fFront" type="file" accept="image/*"><div class="fileprev" id="prevFront"></div></div>
+            <div class="field"><label data-i18n="f_back">الغلاف الخلفي (صورة)</label><input id="fBack" type="file" accept="image/*"><div class="fileprev" id="prevBack"></div></div>
+            <div class="field full"><label data-i18n="f_pdf">ملف الكتاب (PDF)</label><input id="fPdf" type="file" accept="application/pdf"><div class="fileprev" id="prevPdf"></div></div>
+            <div class="field full"><label data-i18n="f_preview">ملف معاينة مجانية (PDF) — اختياري</label><input id="fPreview" type="file" accept="application/pdf"><div class="fileprev" id="prevPreview"></div><span class="hint" data-i18n="f_preview_hint">مثال: أول ١٠ صفحات — يظهر للزائر قبل الشراء.</span></div>
+            <div class="field full">
+              <label class="switch"><input type="checkbox" id="fPublished" checked> <span data-i18n="f_published">منشور في المتجر</span></label>
+            </div>
+          </div>
+          <div class="modal-foot" style="position:static;background:transparent;border:0;padding:16px 0 0">
+            <button type="button" class="btn btn-ghost" id="cancelFormBtn" data-i18n="cancel">إلغاء</button>
+            <button type="submit" class="btn btn-red" id="saveBookBtn" data-i18n="save_book">حفظ الكتاب</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- settings tab -->
+      <div class="tabpanel" id="panel-settings">
+        <h3 style="margin:0 0 4px;font-size:1.05rem" data-i18n="admin_settings_title">بيانات المتجر</h3>
+        <p style="color:var(--muted);font-size:.83rem;margin:0 0 16px" data-i18n="admin_settings_sub">اسم المتجر ورقم التحويل ورقم الواتساب.</p>
+        <div class="form-grid">
+          <div class="field"><label data-i18n="s_name_ar">اسم المتجر (عربي)</label><input id="sNameAr"></div>
+          <div class="field"><label data-i18n="s_name_en">اسم المتجر (إنجليزي)</label><input id="sNameEn" dir="ltr"></div>
+          <div class="field full"><label data-i18n="s_tag_ar">الوصف المختصر (عربي)</label><input id="sTagAr"></div>
+          <div class="field full"><label data-i18n="s_tag_en">الوصف المختصر (إنجليزي)</label><input id="sTagEn" dir="ltr"></div>
+          <div class="field"><label data-i18n="s_vodafone">رقم فودافون كاش للتحويل</label><input id="sVodafone" dir="ltr" placeholder="01xxxxxxxxx"><span class="hint" data-i18n="s_vodafone_hint">اكتبه بصيغة 01xxxxxxxxx كما يُطلب من العملاء.</span></div>
+          <div class="field"><label data-i18n="s_whatsapp">رقم الواتساب (بصيغة دولية)</label><input id="sWhatsapp" dir="ltr" placeholder="2010xxxxxxxx"><span class="hint" data-i18n="s_whatsapp_hint">مثال: 201034117684 — بدون + أو مسافات.</span></div>
+          <div class="field"><label data-i18n="s_pw">كلمة سر لوحة التحكم</label><input id="sPw" dir="ltr" type="text"></div>
+        </div>
+        <div class="modal-foot" style="position:static;background:transparent;border:0;padding:16px 0 0">
+          <button class="btn btn-red" id="saveSettingsBtn" data-i18n="save_settings">حفظ الإعدادات</button>
+        </div>
+      </div>
+
+      <!-- data tab -->
+      <div class="tabpanel" id="panel-data">
+        <h3 style="margin:0 0 4px;font-size:1.05rem" data-i18n="admin_data_title">نشر المتجر للمشترين</h3>
+        <p style="color:var(--muted);font-size:.83rem;margin:0 0 14px" data-i18n="admin_data_sub">صدّر ملف HTML واحد فيه كتبك وأغلفتها وملفاتها — ارفعه على أي استضافة أو أرسله كما هو، ويعمل بدون سيرفر.</p>
+        <div class="notice" style="margin-bottom:14px">
+          <span>💡</span><span data-i18n="admin_data_tip">ملاحظة مهمة: أي ملف PDF تُضمّنه داخل الملف المُصدَّر يمكن تقنيًا استخراجه من الملف. لو محتاج حماية حقيقية لملفاتك، اطلب مني تحويل المتجر لنسخة بسيرفر وقاعدة بيانات.</span>
+        </div>
+        <div class="checkline"><input type="checkbox" id="expHideAdmin" checked><label for="expHideAdmin" data-i18n="exp_hide_admin">إخفاء لوحة التحكم في النسخة المُصدَّرة (يُفضّل تشغيله).</label></div>
+        <div class="checkline"><input type="checkbox" id="expIncludePdf" checked><label for="expIncludePdf" data-i18n="exp_include_pdf">تضمين ملفات PDF كاملة (تحميل فوري للمشتري). لو ألغيت الاختيار يكبر الأمان والأصغر حجمًا، والمشتري يطلب الكتاب منك على واتساب.</label></div>
+        <div class="checkline"><input type="checkbox" id="expIncludePreview" checked><label for="expIncludePreview" data-i18n="exp_include_preview">تضمين ملفات المعاينة المجانية.</label></div>
+        <div class="field" style="max-width:320px"><label data-i18n="exp_filename">اسم الملف المُصدَّر</label><input id="expFilename" dir="ltr" value="my-bookshop.html"></div>
+        <div class="contact-actions" style="margin-top:16px">
+          <button class="btn btn-red" id="expHtmlBtn" data-i18n="exp_btn_html">تصدير ملف المتجر (HTML)</button>
+          <button class="btn btn-ghost" id="expJsonBtn" data-i18n="exp_btn_json">نسخة احتياطية (JSON)</button>
+          <button class="btn btn-ghost" id="impJsonBtn" data-i18n="exp_btn_import">استيراد نسخة احتياطية</button>
+          <input type="file" id="impJsonFile" accept="application/json" class="hidden">
+        </div>
+        <div class="field" style="margin-top:18px;max-width:420px">
+          <label data-i18n="storage_label">المساحة المستخدمة لتخزين ملفاتك</label>
+          <div class="sizebar"><i id="sizeBar" style="width:0%"></i></div>
+          <span class="hint" id="sizeTxt">—</span>
+        </div>
+        <div class="danger-zone">
+          <h4 data-i18n="danger_title">منطقة الخطر</h4>
+          <p data-i18n="danger_sub">حذف كل الكتب والإعدادات من هذا المتصفح. اعمل نسخة احتياطية JSON الأول.</p>
+          <button class="btn btn-ghost btn-sm" id="clearAllBtn" data-i18n="danger_btn">حذف الكل</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script id="SHOP_DATA" type="application/json">null</script>
+
+<script>
+(function(){
+'use strict';
+
+/* ============ pristine source snapshot (used by the exporter) ============ */
+var PRISTINE = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+/* ============================ constants ============================ */
+var DB_NAME = 'vfcash_books_v1';
+var LS = { settings:'vfcash_settings', lang:'vfcash_lang', seeded:'vfcash_seeded', unlock:'vfcash_unlocked' };
+
+var DEFAULT_SETTINGS = {
+  shopName_ar:'مكتبة النور الرقمية',
+  shopName_en:'Al-Nour Digital Books',
+  tagline_ar:'كتب PDF بتوصيل فوري • دفع بفودافون كاش',
+  tagline_en:'PDF books with instant download • pay with Vodafone Cash',
+  vodafone:'01034117684',
+  whatsapp:'201034117684',
+  password:'vodafone123',
+  currency_ar:'ج.م',
+  currency_en:'EGP'
+};
+
+/* ============================ i18n ============================ */
+var I18N = {
+ar:{
+  banner_storage:'وضع محلي: لا يمكن حفظ الملفات بشكل دائم في هذه المعاينة. نزّل الملف وافتحه في المتصفح (Chrome) لرفع الكتب وحفظها.',
+  nav_books:'الكتب', nav_how:'كيف أشتري', nav_faq:'أسئلة شائعة', nav_contact:'تواصل معنا',
+  hero_badge:'الدفع بفودافون كاش • تحميل فوري',
+  hero_title:'اشتري كتابك الرقمي <em>وحمّله في ثوانٍ</em>',
+  hero_sub:'كتب PDF مختارة بعناية: اختر الكتاب، حوّل المبلغ على رقم فودافون كاش، أكّد بياناتك — وهتلاقي الملف عندك فورًا بدون انتظار.',
+  hero_cta_books:'تصفح الكتب', hero_cta_whatsapp:'اسأل على واتساب',
+  pay_title:'الدفع عبر فودافون كاش',
+  pay_label:'حوّل مبلغ الكتاب على رقم المحفظة التالي',
+  copy:'نسخ', pay_s1:'اطلب <b>*9#</b> من خطك، أو افتح تطبيق <b>فودافون كاش</b>.',
+  pay_s2:'اختر <b>تحويل أموال</b> ← اكتب رقم المحفظة ← اكتب مبلغ الكتاب.',
+  pay_s3:'خُد <b>رقم العملية</b> من رسالة فودافون كاش واكتبه في نموذج الشراء.',
+  pay_foot:'هذا هو رقم التحويل الرسمي للمتجر — لو ظهر لك رقم مختلف توقف ولا تحوّل.',
+  stat_books:'كتاب متاح الآن', stat_instant_v:'تحميل فوري', stat_instant:'بعد تأكيد التحويل',
+  stat_local_v:'دفع محلي', stat_local:'من أي محفظة فودافون كاش',
+  books_title:'الكتب المتاحة', books_sub:'اضغط على الغلاف لتقلبه وتشوف الغلاف الخلفي والتفاصيل.',
+  search_ph:'ابحث باسم الكتاب أو المؤلف...', sort_new:'الأحدث', sort_price_asc:'الأرخص أولاً', sort_price_desc:'الأغلى أولاً',
+  chip_all:'كل التصنيفات', empty_books:'لا توجد كتب معروضة حاليًا.', empty_search:'مفيش نتائج مطابقة لبحثك — جرّب كلمة تانية.',
+  results_count:'عرض {n} كتاب', details:'التفاصيل', buy_now:'اشترِ الآن', back_cover_tag:'الغلاف الخلفي',
+  how_title:'كيف أشتري؟', how_sub:'٣ خطوات بسيطة — من غير بطاقة بنكية.',
+  how_1_t:'اختر الكتاب', how_1_d:'اضغط على الغلاف، قلّبه لتشوف الغلاف الخلفي، اقرأ الوصف والتفاصيل، وبعدها اضغط «اشترِ الآن».',
+  how_2_t:'حوّل المبلغ بفودافون كاش', how_2_d:'من تطبيق فودافون كاش أو بطلب <b>*9#</b> حوّل مبلغ الكتاب إلى رقم <span class="hl">{vf}</span> — والتحويل يوصلنا في نفس اللحظة.',
+  how_3_t:'أكّد وحمّل الكتاب', how_3_d:'اكتب اسمك ورقم محفظتك ورقم عملية التحويل، واضغط «تأكيد وحمّل الكتاب» — الملف ينزل على جهازك فورًا.',
+  faq_title:'أسئلة شائعة',
+  faq_1_q:'الملفات بصيغة إيه؟', faq_1_a:'كل الكتب بصيغة PDF وتفتح على الموبايل واللابتوب وأي قارئ كتب إلكترونية بدون برامج خاصة.',
+  faq_2_q:'مش عندي محفظة فودافون كاش، أعمل إيه؟', faq_2_a:'اطلب من أي قريب أو صديق عنده محفظة يحوّل المبلغ نيابة عنك، وبعدها اكتب بياناتك ورقم عملية التحويل في نموذج الشراء.',
+  faq_3_q:'هل التحويل آمن؟', faq_3_a:'بنطلب منك رقم فودافون كاش فقط — مش بنطلب أي بيانات بطاقة بنكية ولا كلمة سر المحفظة. راجع الرقم قبل التحويل.',
+  faq_4_q:'لو التحميل ما اشتغلش؟', faq_4_a:'من زر «تحميلاتي» فوق تقدر تنزّل الكتاب تاني على نفس الجهاز، ولو لسه فيه مشكلة كلّمنا على واتساب ونرسله لك مباشرة.',
+  contact_title:'عندك سؤال؟ كلّمنا', contact_sub:'ابعت لنا على واتساب في أي وقت — نرد عليك بسرعة، ونقدر نرسل الكتاب يدويًا لو احتجت.',
+  contact_whats:'محادثة واتساب', contact_browse:'تصفح الكتب',
+  c_vodafone:'رقم فودافون كاش', c_whatsapp:'رقم واتساب', c_hours:'مواعيد الرد', c_hours_v:'يوميًا ١٠ص – ١١م',
+  web_only:'يفتح في المتصفح', foot_pay:'الدفع بفودافون كاش:',
+  foot_note:'المتجر يبيع كتبًا رقمية بصيغة PDF. يُسلَّم الكتاب بعد تأكيد عملية التحويل. لا نطلب بيانات بطاقتك البنكية في أي وقت.',
+  flip:'قلّب الغلاف', cover_hint:'اضغط على الغلاف لتبديل الأمامي / الخلفي', by:'تأليف',
+  no_back:'لا يوجد غلاف خلفي',
+  no_pdf_notice:'هذا الكتاب يُسلَّم بالتواصل المباشر: كلّمنا على واتساب بعد التحويل ونرسله لك على طول.',
+  preview_title:'معاينة قبل الشراء', preview_unavailable:'المعاينة لا تظهر داخل المعاينة المدمجة — افتح الملف في المتصفح.',
+  buy_title:'إتمام الشراء', pm_amount_is:'المطلوب تحويله', pm_step_title:'١. حوّل المبلغ على فودافون كاش',
+  pm_s1:'اطلب <b>*9#</b> أو افتح تطبيق فودافون كاش.', pm_s2:'اختر «تحويل أموال» ← رقم المحفظة ← المبلغ.',
+  pm_s3:'اكتب رقم العملية من الرسالة في الخانة تحت.',
+  pm_form_title:'٢. بياناتك لتأكيد التحويل', form_name:'الاسم', form_phone:'رقم الموبايل / المحفظة',
+  form_txn:'رقم عملية التحويل (اختياري)', form_txn_hint:'تجده في رسالة فودافون كاش بعد التحويل — بيساعدنا نأكد التحويل بسرعة.',
+  pm_note:'بالضغط على «تأكيد وحمّل الكتاب» يتم تسجيل الشراء على جهازك وتحميل الملف. اكتب بيانات صحيحة — قد نتحقق من عملية التحويل ونتواصل معك.',
+  err_form:'اكتب اسمك ورقم موبايل صحيح (مثال: 01012345678).',
+  success_title:'تم! اطلب تحميل كتابك', success_sub:'شكرًا لثقتك — اضغط الزر التالي لتحميل ملف الكتاب، وهتلاقيه محفوظ في «تحميلاتي» على نفس الجهاز.',
+  download_btn:'حمّل الكتاب الآن (PDF)', success_wa_note:'لو تحب نأكد التحويل بسرعة، ابعت لنا إشعار على واتساب بضغطة واحدة.',
+  wa_confirm:'إبلاغ المتجر على واتساب', done:'انتهيت', cancel:'إلغاء', close:'إغلاق', pm_submit:'تأكيد وحمّل الكتاب',
+  wa_msg:'أهلًا، أنا {name}. حوّلت {amount} لكتاب «{book}» على فودافون كاش.\nرقم المحفظة: {phone}\nرقم العملية: {txn}\nمن متجر {shop}',
+  wa_hello:'أهلًا، عندي استفسار عن كتب متجر {shop}.',
+  my_downloads:'تحميلاتي', my_downloads_note:'الكتب التي اشتريتها من هذا الجهاز — تقدر تنزّلها تاني في أي وقت.',
+  dl_empty:'لسه مفيش تحميلات على هذا الجهاز.', dl_again:'تحميل تاني', dl_missing:'الكتاب غير متاح على هذا الجهاز',
+  admin_title:'لوحة تحكم المتجر', admin_login_title:'الدخول للوحة التحكم',
+  admin_login_sub:'اكتب كلمة السر لرفع الكتب (الغلاف الأمامي والخلفي + ملف PDF).',
+  admin_pw:'كلمة السر', admin_wrong_pw:'كلمة السر غير صحيحة.', admin_login_btn:'دخول',
+  admin_default_pw_note:'كلمة السر الافتراضية: vodafone123 — غيّرها من تبويب «الإعدادات».',
+  admin_locked:'لوحة التحكم مخفية في هذه النسخة المخصصة للمشترين.',
+  tab_books:'الكتب', tab_settings:'الإعدادات', tab_data:'تصدير ونشر',
+  admin_books_title:'كتبك', admin_books_sub:'أضف كتابًا وارفع غلافه الأمامي والخلفي وملف PDF، وحدّد السعر.',
+  admin_add_book:'كتاب جديد', admin_empty:'لا توجد كتب بعد — اضغط «كتاب جديد» وابدأ.',
+  form_add:'إضافة كتاب', form_edit:'تعديل كتاب', form_sub:'الحقول بالعربي والإنجليزي — املأ ما تحتاجه والناقص يظهر بالعربي.',
+  f_title_ar:'العنوان (عربي)', f_title_en:'العنوان (إنجليزي)', f_author_ar:'المؤلف (عربي)', f_author_en:'المؤلف (إنجليزي)',
+  f_desc_ar:'الوصف (عربي) — يظهر في صفحة الكتاب', f_desc_en:'الوصف (إنجليزي)',
+  f_price:'السعر (جنيه)', f_old_price:'السعر قبل الخصم (اختياري)', f_category:'التصنيف',
+  f_category_ph:'تطوير الذات / روايات / مال وأعمال', f_pages:'عدد الصفحات (اختياري)',
+  f_front:'الغلاف الأمامي (صورة)', f_back:'الغلاف الخلفي (صورة)', f_pdf:'ملف الكتاب (PDF)',
+  f_preview:'ملف معاينة مجانية (PDF) — اختياري', f_preview_hint:'مثال: أول ١٠ صفحات — تظهر للزائر قبل الشراء.',
+  f_published:'منشور في المتجر', save_book:'حفظ الكتاب',
+  err_title:'اكتب عنوان الكتاب.', err_price:'اكتب سعرًا صحيحًا.', err_pdf:'ارفع ملف PDF للكتاب أو فعّل خيار «تضمين ملفات PDF» لاحقًا — بدون ملف لن يستطيع المشتري التحميل.',
+  prev_front:'الغلاف الأمامي', prev_back:'الغلاف الخلفي', prev_pdf:'ملف PDF', prev_preview:'ملف المعاينة',
+  edit:'تعديل', del:'حذف', published:'منشور', draft:'مسودة',
+  manager_btn:'لوحة المدير', publish:'نشر', hide:'إخفاء', free:'مجاني',
+  manager_login_note:'لوحة المدير دي لك وحدك: أنت اللي ترفع ملفات PDF وتحدد السعر — المشتري مش بيشوفها.',
+  admin_howto_title:'أنت المدير: ارفع ملف الـ PDF وحدّد السعر بنفسك',
+  admin_howto_text:'من هنا بترفع لكل كتاب: الغلاف الأمامي والخلفي + ملف PDF + السعر اللي تحدده أنت. المشتري بيشوف السعر ويدفع بفودافون كاش، ومش يقدر يرفع أو يعدّل أي حاجة.',
+  admin_howto_note:'الخطوات: ١) «+ كتاب جديد» ٢) املأ البيانات وارفع الأغلفة وملف الـ PDF ٣) اكتب السعر ٤) «حفظ الكتاب». أو استخدم «رفع سريع» لعدة ملفات PDF مرة واحدة.',
+  admin_howto_btn:'تصدير نسخة المشترين',
+  bulk_title:'رفع سريع لملفات PDF:', bulk_btn:'اختر ملفات PDF (متعددة)', bulk_price:'السعر الافتراضي للكل',
+  bulk_hint:'كل ملف يتحول لكتاب بغلاف تلقائي وحالة «مسودة» — عدّل السعر بضغطة وانشره بعدها.',
+  bulk_done:'تمت إضافة {n} كتاب كمسودة — راجع السعر وانشرهم.', bulk_none:'اختر ملف PDF واحد على الأقل.',
+  price_hint:'السعر اللي تحدده هنا هو اللي المشتري هيدفعه. لو سيبت صفر يبقى الكتاب مجاني.',
+  empty_admin_cta:'ارفع أول كتاب من لوحة المدير',
+  footer_manager:'أنت صاحب المتجر؟ من هنا ترفع ملفات PDF وتحدد الأسعار:',
+  free_note:'هذا الكتاب مجاني — اضغط زر التحميل بالأسفل، وبعدها هتلاقيه في «تحميلاتي».',
+  price_changed:'تم تحديث السعر ✅',
+  confirm_del:'تأكيد حذف الكتاب؟ لا يمكن الرجوع.',
+  confirm_clear:'تأكيد حذف كل الكتب والإعدادات من هذا المتصفح؟',
+  admin_settings_title:'بيانات المتجر', admin_settings_sub:'اسم المتجر ورقم التحويل ورقم الواتساب وكلمة السر.',
+  s_name_ar:'اسم المتجر (عربي)', s_name_en:'اسم المتجر (إنجليزي)', s_tag_ar:'الوصف المختصر (عربي)', s_tag_en:'الوصف المختصر (إنجليزي)',
+  s_vodafone:'رقم فودافون كاش للتحويل', s_vodafone_hint:'اكتبه بالصيغة التي يطلبها العميل: 01xxxxxxxxx',
+  s_whatsapp:'رقم الواتساب (بصيغة دولية)', s_whatsapp_hint:'مثال: 201034117684 — بدون + أو مسافات.',
+  s_pw:'كلمة سر لوحة التحكم', save_settings:'حفظ الإعدادات',
+  admin_data_title:'نشر المتجر للمشترين', admin_data_sub:'صدّر ملف HTML واحد يحتوي كتبك وأغلفتها وملفاتها — ارفعه على أي استضافة مجانية (GitHub Pages / Netlify) أو أرسله كما هو، ويعمل بدون سيرفر.',
+  admin_data_tip:'ملاحظة مهمة: أي ملف PDF تضمّنه في الملف المُصدَّر يمكن تقنيًا استخراجه منه. لو محتاج حماية حقيقية لملفاتك، اطلب نسخة بسيرفر وقاعدة بيانات.',
+  exp_hide_admin:'إخفاء لوحة التحكم في النسخة المُصدَّرة (يُفضّل تشغيله).',
+  exp_include_pdf:'تضمين ملفات PDF كاملة (تحميل فوري للمشتري). لو ألغيت الاختيار: حجم أصغر وحماية أفضل، والمشتري يطلب الكتاب منك على واتساب.',
+  exp_include_preview:'تضمين ملفات المعاينة المجانية.', exp_filename:'اسم الملف المُصدَّر',
+  exp_btn_html:'تصدير ملف المتجر (HTML)', exp_btn_json:'نسخة احتياطية (JSON)', exp_btn_import:'استيراد نسخة احتياطية',
+  storage_label:'المساحة المستخدمة لتخزين ملفاتك', danger_title:'منطقة الخطر',
+  danger_sub:'حذف كل الكتب والإعدادات من هذا المتصفح. اعمل نسخة احتياطية JSON الأول.',
+  danger_btn:'حذف الكل',
+  toast_saved:'تم حفظ الكتاب ✅', toast_deleted:'تم حذف الكتاب', toast_settings:'تم حفظ الإعدادات ✅',
+  toast_copied:'تم نسخ الرقم ✅', toast_imported:'تم استيراد النسخة الاحتياطية ✅',
+  toast_import_err:'ملف النسخة الاحتياطية غير صالح.', toast_preparing:'جاري تجهيز الملف...', toast_exported:'تم تصدير الملف ✅',
+  toast_downloading:'جاري تحميل الملف...', toast_no_pdf:'لا يوجد ملف PDF لهذا الكتاب بعد — كلّمنا على واتساب.',
+  toast_cleared:'تم حذف كل البيانات', toast_nothing:'لا يوجد شيء للتصدير — أضف كتابًا أولاً.',
+  toast_seeded:'أضفت ٣ كتب تجريبية — عدّلها أو احذفها من لوحة التحكم.',
+  toast_big:'حجم الملف المُصدَّر كبير ({size}) — فكر في إلغاء تضمين ملفات PDF.', toast_wait:'استنى شوية...'
+},
+en:{
+  banner_storage:'Local mode: this preview cannot save files permanently. Download the file and open it in a browser (Chrome) to upload and store books.',
+  nav_books:'Books', nav_how:'How to buy', nav_faq:'FAQ', nav_contact:'Contact',
+  hero_badge:'Pay with Vodafone Cash • instant download',
+  hero_title:'Buy your ebook <em>and download it in seconds</em>',
+  hero_sub:'Hand-picked PDF books: pick a title, transfer the amount to our Vodafone Cash wallet, confirm your details — the file is yours right away.',
+  hero_cta_books:'Browse books', hero_cta_whatsapp:'Chat on WhatsApp',
+  pay_title:'Pay with Vodafone Cash',
+  pay_label:'Transfer the book price to this wallet number',
+  copy:'Copy', pay_s1:'Dial <b>*9#</b> from your line, or open the <b>Vodafone Cash</b> app.',
+  pay_s2:'Choose <b>Transfer money</b> → enter the wallet number → enter the amount.',
+  pay_s3:'Copy the <b>transaction ID</b> from the SMS and type it in the order form.',
+  pay_foot:'This is the shop\'s official transfer number — if you see a different number, stop and do not transfer.',
+  stat_books:'books available now', stat_instant_v:'Instant download', stat_instant:'right after confirming',
+  stat_local_v:'Local payment', stat_local:'from any Vodafone Cash wallet',
+  books_title:'Available books', books_sub:'Click a cover to flip it and see the back cover and details.',
+  search_ph:'Search by title or author...', sort_new:'Newest', sort_price_asc:'Cheapest first', sort_price_desc:'Most expensive first',
+  chip_all:'All categories', empty_books:'No books are listed yet.', empty_search:'No matches — try another keyword.',
+  results_count:'Showing {n} book(s)', details:'Details', buy_now:'Buy now', back_cover_tag:'Back cover',
+  how_title:'How to buy', how_sub:'Three simple steps — no bank card needed.',
+  how_1_t:'Pick a book', how_1_d:'Click the cover, flip it to read the back cover, check the details, then hit “Buy now”.',
+  how_2_t:'Transfer with Vodafone Cash', how_2_d:'From the Vodafone Cash app (or by dialing <b>*9#</b>) transfer the price to <span class="hl">{vf}</span> — the transfer reaches us instantly.',
+  how_3_t:'Confirm and download', how_3_d:'Enter your name, mobile number and transaction ID, then press “Confirm & download” — the file downloads immediately.',
+  faq_title:'FAQ',
+  faq_1_q:'What format are the books in?', faq_1_a:'Every book is a PDF file that opens on phones, laptops and any e-reader — no special software.',
+  faq_2_q:'I do not have a Vodafone Cash wallet. What now?', faq_2_a:'Ask a friend or relative with a wallet to send the amount on your behalf, then fill in your details and the transaction ID in the order form.',
+  faq_3_q:'Is the payment safe?', faq_3_a:'We only ask for the transfer to our wallet number — we never ask for card details or your wallet PIN. Always double-check the number.',
+  faq_4_q:'The download did not work?', faq_4_a:'Use the “My downloads” button to download again on the same device, or message us on WhatsApp and we will send the file directly.',
+  contact_title:'Questions? Talk to us', contact_sub:'Message us on WhatsApp any time. We can also send the book manually if needed.',
+  contact_whats:'WhatsApp chat', contact_browse:'Browse books',
+  c_vodafone:'Vodafone Cash number', c_whatsapp:'WhatsApp number', c_hours:'Reply hours', c_hours_v:'Daily 10am – 11pm',
+  web_only:'opens in browser', foot_pay:'Pay with Vodafone Cash:',
+  foot_note:'This shop sells digital PDF books. Files are delivered after the transfer is confirmed. We never ask for your bank card details.',
+  flip:'Flip cover', cover_hint:'Click the cover to switch front / back', by:'by',
+  no_back:'No back cover', no_pdf_notice:'This book is delivered by direct contact: message us on WhatsApp after the transfer and we will send it right away.',
+  preview_title:'Preview before buying', preview_unavailable:'Preview cannot render inside the embedded preview — open the file in a browser.',
+  buy_title:'Checkout', pm_amount_is:'Amount to transfer', pm_step_title:'1. Transfer the amount via Vodafone Cash',
+  pm_s1:'Dial <b>*9#</b> or open the Vodafone Cash app.', pm_s2:'Choose “Transfer money” → wallet number → amount.',
+  pm_s3:'Type the transaction ID from the SMS below.',
+  pm_form_title:'2. Your details for confirmation', form_name:'Name', form_phone:'Mobile / wallet number',
+  form_txn:'Transaction ID (optional)', form_txn_hint:'You will find it in the Vodafone Cash SMS — it helps us verify quickly.',
+  pm_note:'Pressing “Confirm & download” records the purchase on this device and downloads the file. Please enter real details — we may verify the transfer.',
+  err_form:'Please enter your name and a valid mobile number (e.g. 01012345678).',
+  success_title:'Done! Get your book', success_sub:'Thank you — press the button below to download your file. It will also be saved in “My downloads” on this device.',
+  download_btn:'Download the book now (PDF)', success_wa_note:'Want us to verify faster? Send us a one-tap WhatsApp notice.',
+  wa_confirm:'Notify the shop on WhatsApp', done:'Done', cancel:'Cancel', close:'Close', pm_submit:'Confirm & download',
+  wa_msg:'Hello, I am {name}. I transferred {amount} for “{book}” via Vodafone Cash.\nWallet number: {phone}\nTransaction ID: {txn}\nFrom {shop}',
+  wa_hello:'Hello, I have a question about the books at {shop}.',
+  my_downloads:'My downloads', my_downloads_note:'Books you bought on this device — download them again any time.',
+  dl_empty:'No downloads on this device yet.', dl_again:'Download again', dl_missing:'Not available on this device',
+  admin_title:'Shop dashboard', admin_login_title:'Dashboard login',
+  admin_login_sub:'Enter the password to upload books (front cover, back cover and the PDF file).',
+  admin_pw:'Password', admin_wrong_pw:'Wrong password.', admin_login_btn:'Log in',
+  admin_default_pw_note:'Default password: vodafone123 — change it from the Settings tab.',
+  admin_locked:'The dashboard is hidden in this buyer copy.',
+  tab_books:'Books', tab_settings:'Settings', tab_data:'Export & publish',
+  admin_books_title:'Your books', admin_books_sub:'Add a book, upload its front cover, back cover and PDF, then set a price.',
+  admin_add_book:'New book', admin_empty:'No books yet — press “New book” to start.',
+  form_add:'Add a book', form_edit:'Edit book', form_sub:'Arabic and English fields — fill what you need, the rest falls back to Arabic.',
+  f_title_ar:'Title (Arabic)', f_title_en:'Title (English)', f_author_ar:'Author (Arabic)', f_author_en:'Author (English)',
+  f_desc_ar:'Description (Arabic) — shown on the book page', f_desc_en:'Description (English)',
+  f_price:'Price (EGP)', f_old_price:'Price before discount (optional)', f_category:'Category',
+  f_category_ph:'Self-help / Novels / Business', f_pages:'Pages (optional)',
+  f_front:'Front cover (image)', f_back:'Back cover (image)', f_pdf:'Book file (PDF)',
+  f_preview:'Free preview file (PDF) — optional', f_preview_hint:'e.g. the first 10 pages — shown to visitors before buying.',
+  f_published:'Published in the shop', save_book:'Save book',
+  err_title:'Please enter the book title.', err_price:'Please enter a valid price.', err_pdf:'Upload a PDF file for this book — without it the buyer cannot download anything.',
+  prev_front:'Front cover', prev_back:'Back cover', prev_pdf:'PDF file', prev_preview:'Preview file',
+  edit:'Edit', del:'Delete', published:'Published', draft:'Draft',
+  manager_btn:'Manager', publish:'Publish', hide:'Hide', free:'Free',
+  manager_login_note:'This dashboard is yours only: you upload the PDF files and set the price — buyers never see it.',
+  admin_howto_title:'You are the manager: upload each PDF and set its price',
+  admin_howto_text:'From here you upload, for every book: front cover, back cover, the PDF file and the price you decide. Buyers only see the price and pay with Vodafone Cash — they cannot upload or edit anything.',
+  admin_howto_note:'Steps: 1) “New book” 2) fill the details, upload covers + PDF 3) type the price 4) “Save book”. Or use Quick upload for several PDFs at once.',
+  admin_howto_btn:'Export the buyer copy',
+  bulk_title:'Quick upload PDFs:', bulk_btn:'Choose PDF files (multiple)', bulk_price:'Default price for all',
+  bulk_hint:'Each file becomes a book with an auto cover, saved as a draft — tweak the price inline and publish.',
+  bulk_done:'{n} draft book(s) added — check the price and publish them.', bulk_none:'Pick at least one PDF file.',
+  price_hint:'The price you set here is what the buyer pays. Leave it zero to make the book free.',
+  empty_admin_cta:'Upload your first book from the manager dashboard',
+  footer_manager:'Shop owner? Upload your PDFs and set your prices here:',
+  free_note:'This book is free — press the download button below, then find it in “My downloads”.',
+  price_changed:'Price updated ✅',
+  confirm_del:'Delete this book? This cannot be undone.',
+  confirm_clear:'Delete all books and settings from this browser?',
+  admin_settings_title:'Shop details', admin_settings_sub:'Shop name, transfer number, WhatsApp number and password.',
+  s_name_ar:'Shop name (Arabic)', s_name_en:'Shop name (English)', s_tag_ar:'Short tagline (Arabic)', s_tag_en:'Short tagline (English)',
+  s_vodafone:'Vodafone Cash number for transfers', s_vodafone_hint:'Write it the way customers type it: 01xxxxxxxxx',
+  s_whatsapp:'WhatsApp number (international)', s_whatsapp_hint:'e.g. 201034117684 — no + or spaces.',
+  s_pw:'Dashboard password', save_settings:'Save settings',
+  admin_data_title:'Publish the shop to buyers', admin_data_sub:'Export one HTML file containing your books, covers and files — upload it to any free host (GitHub Pages / Netlify) or just share it. It works without a server.',
+  admin_data_tip:'Important: any PDF embedded in the exported file can technically be extracted from it. If you need real protection, ask me for a server + database version.',
+  exp_hide_admin:'Hide the dashboard in the exported copy (recommended).',
+  exp_include_pdf:'Embed full PDF files (instant download for the buyer). If unchecked: smaller file and safer, and buyers request the book from you on WhatsApp.',
+  exp_include_preview:'Embed free preview files.', exp_filename:'Exported file name',
+  exp_btn_html:'Export shop file (HTML)', exp_btn_json:'Backup (JSON)', exp_btn_import:'Import a backup',
+  storage_label:'Storage used by your files', danger_title:'Danger zone',
+  danger_sub:'Delete every book and setting from this browser. Make a JSON backup first.',
+  danger_btn:'Delete everything',
+  toast_saved:'Book saved ✅', toast_deleted:'Book deleted', toast_settings:'Settings saved ✅',
+  toast_copied:'Number copied ✅', toast_imported:'Backup imported ✅',
+  toast_import_err:'Invalid backup file.', toast_preparing:'Preparing the file...', toast_exported:'File exported ✅',
+  toast_downloading:'Downloading...', toast_no_pdf:'No PDF for this book yet — message us on WhatsApp.',
+  toast_cleared:'All data deleted', toast_nothing:'Nothing to export — add a book first.',
+  toast_seeded:'3 demo books added — edit or delete them from the dashboard.',
+  toast_big:'Exported file is heavy ({size}) — consider unchecking “embed full PDFs”.', toast_wait:'One moment...'
+}
+};
+
+/* ============================ tiny helpers ============================ */
+function $(s,c){ return (c||document).querySelector(s); }
+function $$(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+function t(k){ var d=I18N[state.lang]||I18N.ar; return (d[k]!=null? d[k] : (I18N.ar[k]!=null? I18N.ar[k] : k)); }
+function byId(id){ for(var i=0;i<state.books.length;i++){ if(state.books[i].id===id) return state.books[i]; } return null; }
+function fmt(v){
+  var n=Number(v||0);
+  if(!(n>0)) return t('free');                       /* price 0 = free book */
+  var s=n.toLocaleString('en-US');
+  return state.lang==='ar' ? (s+' '+(state.settings.currency_ar||'ج.م')) : ((state.settings.currency_en||'EGP')+' '+s);
+}
+function bookTitle(b){ return state.lang==='ar' ? (b.title_ar||b.title_en||'') : (b.title_en||b.title_ar||''); }
+function bookAuthor(b){ return state.lang==='ar' ? (b.author_ar||b.author_en||'') : (b.author_en||b.author_ar||''); }
+function bookDesc(b){ return state.lang==='ar' ? (b.desc_ar||b.desc_en||'') : (b.desc_en||b.desc_ar||''); }
+function bytes(n){ if(!n) return '0 KB';
+  if(n<1024*1024) return (n/1024).toFixed(0)+' KB'; return (n/1048576).toFixed(1)+' MB'; }
+function waLink(text){ var n=String(state.settings.whatsapp||'').replace(/\D/g,'');
+  return n ? ('https://wa.me/'+n+(text?('?text='+encodeURIComponent(text)):'')) : '#'; }
+function slug(s){ return String(s||'book').trim().replace(/[\\/:*?"<>|]+/g,'').replace(/\s+/g,'-').slice(0,60) || 'book'; }
+
+var toastTimer=null;
+function toast(msg, kind){
+  var box=$('#toast'); box.innerHTML='<div class="toast-msg '+(kind||'')+'">'+esc(msg)+'</div>';
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ box.innerHTML=''; }, 4200);
+}
+function busy(btn, on, label){
+  if(!btn) return;
+  if(on){ btn.dataset.old=btn.innerHTML; btn.disabled=true; btn.innerHTML='<span class="spin"></span> '+esc(label||t('toast_wait')); }
+  else { btn.disabled=false; if(btn.dataset.old) btn.innerHTML=btn.dataset.old; }
+}
+
+/* ============================ storage layer ============================ */
+var Store = {
+  db:null, memory:false, lsOK:true, mem:{books:[],downloads:[]},
+  init:function(){
+    try{ localStorage.setItem('__vfc','1'); localStorage.removeItem('__vfc'); }catch(e){ this.lsOK=false; }
+    var self=this;
+    return new Promise(function(resolve){
+      var done=false;
+      function fail(){ if(done) return; done=true; self.memory=true; self.db=null; resolve(false); }
+      var req;
+      try{ if(!window.indexedDB) return fail(); req=window.indexedDB.open(DB_NAME,1); }catch(e){ return fail(); }
+      var timer=setTimeout(fail,3000);
+      req.onupgradeneeded=function(){ var d=req.result;
+        ['books','downloads'].forEach(function(n){ if(!d.objectStoreNames.contains(n)) d.createObjectStore(n,{keyPath:'id'}); }); };
+      req.onsuccess=function(){ if(done) return; clearTimeout(timer); done=true; self.db=req.result; resolve(true); };
+      req.onerror=function(){ clearTimeout(timer); fail(); };
+      req.onblocked=function(){ clearTimeout(timer); fail(); };
+    });
+  },
+  _idb:function(name,mode,fn){
+    var self=this;
+    if(this.memory || !this.db) return Promise.resolve(null).then(function(){ return fn(null); });
+    try{
+      return new Promise(function(res,rej){
+        var tx=self.db.transaction(name,mode), st=tx.objectStore(name), out;
+        try{ out=fn(st); }catch(e){ return rej(e); }
+        tx.oncomplete=function(){ res(out&&out._val!==undefined? out._val : out); };
+        tx.onerror=function(){ rej(tx.error); }; tx.onabort=function(){ rej(tx.error); };
+      });
+    }catch(e){ this.memory=true; return Promise.resolve(null).then(function(){ return fn(null); }); }
+  },
+  all:function(name){
+    var self=this;
+    if(this.memory) return Promise.resolve(self.mem[name].slice());
+    return this._idb(name,'readonly',function(st){ if(!st) return self.mem[name].slice();
+      var r=st.getAll(); return { _val: new Promise(function(res,rej){ r.onsuccess=function(){res(r.result||[])}; r.onerror=function(){rej(r.error)}; }) }; })
+      .then(function(v){ return v||[]; }).catch(function(){ self.memory=true; return self.mem[name].slice(); });
+  },
+  put:function(name,rec){
+    var self=this;
+    if(this.memory){ self.mem[name]=self.mem[name].filter(function(x){return x.id!==rec.id}); self.mem[name].push(rec); return Promise.resolve(rec); }
+    return this._idb(name,'readwrite',function(st){ if(!st){ self.memory=true; self.mem[name]=self.mem[name].filter(function(x){return x.id!==rec.id}); self.mem[name].push(rec); return null; } st.put(rec); return null; })
+      .catch(function(){ self.mem[name]=self.mem[name].filter(function(x){return x.id!==rec.id}); self.mem[name].push(rec); });
+  },
+  del:function(name,id){
+    var self=this;
+    if(this.memory){ self.mem[name]=self.mem[name].filter(function(x){return x.id!==id}); return Promise.resolve(); }
+    return this._idb(name,'readwrite',function(st){ if(!st){ self.memory=true; self.mem[name]=self.mem[name].filter(function(x){return x.id!==id}); return null; } st.delete(id); return null; })
+      .catch(function(){ self.mem[name]=self.mem[name].filter(function(x){return x.id!==id}); });
+  },
+  clear:function(name){
+    var self=this;
+    self.mem[name]=[];
+    if(this.memory) return Promise.resolve();
+    return this._idb(name,'readwrite',function(st){ if(st) st.clear(); return null; }).catch(function(){});
+  }
+};
+
+/* ============================ state ============================ */
+var state = {
+  lang:'ar', books:[], downloads:[], settings:Object.assign({},DEFAULT_SETTINGS),
+  embedded:null, lockAdmin:false, cat:'all', query:'', sort:'new',
+  currentBook:null, payBook:null, payStage:'form', payForm:{}, unlocked:false, seedAvailable:true, pendingNew:false
+};
+
+/* ============================ object URLs for blobs ============================ */
+var urlCache={};
+function srcOf(book,key){
+  if(!book) return '';
+  var data=book[key+'Data']; if(data) return data;
+  var blob=book[key]; if(!blob) return '';
+  var ck=book.id+':'+key;
+  if(!urlCache[ck]){ try{ urlCache[ck]=URL.createObjectURL(blob); }catch(e){ return ''; } }
+  return urlCache[ck];
+}
+function dropUrls(book,keys){
+  keys.forEach(function(k){ var ck=book.id+':'+k; if(urlCache[ck]){ try{ URL.revokeObjectURL(urlCache[ck]); }catch(e){} delete urlCache[ck]; } });
+}
+function blobSize(book){
+  var n=0;
+  ['front','back','pdf','preview'].forEach(function(k){
+    var d=book[k+'Data']; if(d) n+=d.length*0.75; else if(book[k]&&book[k].size) n+=book[k].size; });
+  return n;
+}
+
+/* ============================ sample art (SVG placeholders) ============================ */
+function wrapLines(text,maxChars,maxLines){
+  var words=String(text||'').split(/\s+/), lines=[], cur='';
+  for(var i=0;i<words.length;i++){
+    var test=cur? cur+' '+words[i] : words[i];
+    if(test.length>maxChars && cur){ lines.push(cur); cur=words[i]; } else { cur=test; }
+    if(lines.length===maxLines){ break; }
+  }
+  if(cur && lines.length<maxLines) lines.push(cur);
+  return lines;
+}
+function svgCover(o){
+  var W=600,H=800, tLines=wrapLines(o.title,16,3), aLines=wrapLines(o.author,24,1);
+  var title=o.back? '' : tLines.map(function(l,i){ return '<tspan x="300" dy="'+(i?52:0)+'">'+esc(l)+'</tspan>'; }).join('');
+  var author=o.back? '' : aLines.map(function(l){ return '<tspan x="300">'+esc(l)+'</tspan>'; }).join('');
+  var seq=o.seed||1, r=function(n){ return (Math.sin(n*seq)*0.5+0.5); };
+  var deco='';
+  for(var i=0;i<7;i++){ deco+='<circle cx="'+Math.round(r(i+1)*600)+'" cy="'+Math.round(r(i+9)*800)+'" r="'+Math.round(28+r(i+3)*90)+'" fill="#ffffff" opacity="'+(0.04+0.05*r(i+5)).toFixed(3)+'"/>'; }
+  var blurbLines=wrapLines(o.blurb,34,7).map(function(l,i){ return '<tspan x="52" dy="'+(i?26:0)+'">'+esc(l)+'</tspan>'; }).join('');
+  var bars='';
+  if(o.back){ for(var b=0;b<28;b++){ var w=2+Math.round(r(b+40)*3); bars+='<rect x="'+(52+b*8)+'" y="690" width="'+w+'" height="52" fill="#1b2431" opacity=".8"/>'; } }
+  var inner = o.back
+    ? '<text x="52" y="150" font-family="Tahoma,Arial,sans-serif" font-size="30" font-weight="bold" fill="#1b2431">'+esc(o.label||'نبذة عن الكتاب')+'</text>'
+      + '<line x1="52" y1="172" x2="250" y2="172" stroke="#c8a24a" stroke-width="3"/>'
+      + '<text x="52" y="230" font-family="Tahoma,Arial,sans-serif" font-size="19" fill="#33415a">'+blurbLines+'</text>'
+      + bars + '<text x="52" y="772" font-family="Tahoma,Arial,sans-serif" font-size="16" fill="#6b7280">'+esc(o.footer||'')+'</text>'
+    : '<text x="300" y="330" text-anchor="middle" font-family="Tahoma,Arial,sans-serif" font-size="44" font-weight="bold" fill="#ffffff">'+title+'</text>'
+      + '<line x1="215" y1="'+(330+ (tLines.length-1)*52 + 50)+'" x2="385" y2="'+(330+(tLines.length-1)*52+50)+'" stroke="#c8a24a" stroke-width="3"/>'
+      + '<text x="300" y="'+(330+(tLines.length-1)*52+96)+'" text-anchor="middle" font-family="Tahoma,Arial,sans-serif" font-size="22" fill="#e9e2d3">'+author+'</text>'
+      + '<text x="300" y="742" text-anchor="middle" font-family="Tahoma,Arial,sans-serif" font-size="15" fill="#c9c0ac" opacity=".85">'+esc(o.brand||'')+'</text>';
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'
+    + '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">'
+    + '<stop offset="0" stop-color="'+o.c1+'"/><stop offset="1" stop-color="'+o.c2+'"/></linearGradient></defs>'
+    + (o.back? '<rect width="600" height="800" fill="#fffdf7"/>' : '<rect width="600" height="800" fill="url(#g)"/>'+deco)
+    + '<rect x="26" y="26" width="548" height="748" fill="none" stroke="'+(o.back?'#e7ddcb':'rgba(255,255,255,.35)')+'" stroke-width="2"/>'
+    + (o.back? '' : '<rect x="40" y="40" width="520" height="720" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1"/>')
+    + inner + '</svg>';
+  return new Blob([svg],{type:'image/svg+xml'});
+}
+
+/* minimal valid PDF (placeholder for the demo books) */
+function buildPdf(title,lines){
+  function pe(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)'); }
+  var stream='BT /F1 24 Tf 50 780 Td ('+pe(title)+') Tj ET\n';
+  var y=730;
+  for(var i=0;i<lines.length;i++){ stream+='BT /F1 12 Tf 50 '+y+' Td ('+pe(lines[i])+') Tj ET\n'; y-=22; }
+  var o={};
+  o[1]='<< /Type /Catalog /Pages 2 0 R >>';
+  o[2]='<< /Type /Pages /Kids [3 0 R] /Count 1 >>';
+  o[3]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>';
+  o[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>';
+  o[5]='<< /Length '+stream.length+' >>\nstream\n'+stream+'endstream';
+  var out='%PDF-1.4\n', off=[], i;
+  for(i=1;i<=5;i++){ off[i]=out.length; out+=i+' 0 obj\n'+o[i]+'\nendobj\n'; }
+  var xref=out.length;
+  out+='xref\n0 6\n0000000000 65535 f \n';
+  for(i=1;i<=5;i++){ out+=('0000000000'+off[i]).slice(-10)+' 00000 n \n'; }
+  out+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
+  return new Blob([out],{type:'application/pdf'});
+}
+
+function demoBooks(){
+  var defs=[
+    { id:'demo-1', title_ar:'رحلة إلى المعرفة', title_en:'A Journey to Knowledge', author_ar:'أحمد الشريف', author_en:'Ahmed El-Sherif',
+      price:120, oldPrice:180, category:'تطوير الذات', pages:96, c1:'#2b3a55', c2:'#0d1626', seed:1,
+      blurb_ar:'كتاب عملي يشرح كيف تبني عادة القراءة اليومية، وكيف تحوّل المعرفة التي تقرأها إلى خطوات حقيقية تغيّر يومك.',
+      desc_ar:'كتاب عملي عن القراءة الفعّالة: إزاي تختار الكتاب المناسب، إزاي تلخّص وتطبّق، وجدول ٣٠ يوم يخليك تقرأ كل يوم بدون ما تحس بالضغط.',
+      desc_en:'A practical guide to effective reading: choosing the right book, taking notes that stick, applying what you learn, and a 30-day reading plan.' },
+    { id:'demo-2', title_ar:'أسرار النجاح المالي', title_en:'Secrets of Financial Success', author_ar:'منى عبد الله', author_en:'Mona Abdullah',
+      price:150, oldPrice:0, category:'مال وأعمال', pages:132, c1:'#6b4a1f', c2:'#2a1a05', seed:2,
+      blurb_ar:'دليل مبسّط لإدارة مصروفك الشهري: قاعدة ٥٠/٣٠/٢٠، إزاي تبني صندوق طوارئ، وإزاي تبدأ تستثمر بأمان.',
+      desc_ar:'من أول ميزانية شهرية بسيطة لحد أول استثمار: خطوات واضحة بالأرقام لأي حد بيبدأ من الصفر، مع أمثلة بالجنيه المصري.',
+      desc_en:'From your first simple monthly budget to your first investment: clear step-by-step numbers for anyone starting from zero.' },
+    { id:'demo-3', title_ar:'أساسيات البرمجة بلغة بايثون', title_en:'Python Programming Basics', author_ar:'كريم حسن', author_en:'Karim Hassan',
+      price:200, oldPrice:250, category:'تقنية', pages:180, c1:'#1e4d4a', c2:'#062020', seed:3,
+      blurb_ar:'ابدأ البرمجة من الصفر: المتغيرات، الشروط، الحلقات، الدوال، وبناء ٣ مشاريع صغيرة خطوة بخطوة.',
+      desc_ar:'شرح عربي مبسّط لبايثون مع تمارين محلولة و٣ مشاريع عملية: حاسبة، مدير مهام، وسكربت لتنظيم الملفات.',
+      desc_en:'Friendly Python basics with solved exercises and three practical projects: a calculator, a task manager and a file organiser.' }
+  ];
+  var brand=state.settings.shopName_ar||'';
+  return defs.map(function(d){
+    var demoMark=' — غلاف تجريبي يمكن استبداله من لوحة التحكم';
+    return {
+      id:d.id, title_ar:d.title_ar, title_en:d.title_en, author_ar:d.author_ar, author_en:d.author_en,
+      desc_ar:d.desc_ar+'\n'+demoMark, desc_en:d.desc_en+'\n(Demo cover — replace it from the dashboard.)',
+      price:d.price, oldPrice:d.oldPrice, category:d.category, pages:d.pages, published:true,
+      createdAt: Date.now() - (defs.indexOf(d) * 60000),
+      demo:true,
+      front: svgCover({title:d.title_ar+' — '+d.title_en, author:d.author_ar, c1:d.c1, c2:d.c2, seed:d.seed, brand:brand}),
+      back: svgCover({back:true, blurb:d.blurb_ar+'  '+d.blurb_ar, label:'نبذة عن الكتاب', c1:d.c1, c2:d.c2, seed:d.seed,
+        footer:'غلاف تجريبي — استبدله من لوحة التحكم · '+brand}),
+      pdf: buildPdf(d.title_en||d.title_ar, ['This is a DEMO PDF file, not a real book.','',
+        'Replace it from the dashboard: open the book, upload your real PDF.',
+        'هذا ملف تجريبي وليس كتاباً حقيقياً — ارفع ملفك الحقيقي من لوحة التحكم.','',
+        state.settings.shopName_ar||'', state.settings.shopName_en||''])
+    };
+  });
+}
+
+/* ============================ small storage helpers (localStorage) ============================ */
+function getLS(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function getLSJson(k){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): null; }catch(e){ return null; } }
+function shopName(){ return state.lang==='ar' ? (state.settings.shopName_ar||DEFAULT_SETTINGS.shopName_ar)
+                                             : (state.settings.shopName_en||DEFAULT_SETTINGS.shopName_en); }
+function i18nText(k){ return t(k).replace(/\{vf\}/g, state.settings.vodafone||DEFAULT_SETTINGS.vodafone); }
+function published(){ return state.books.filter(function(b){ return b.published!==false; }); }
+
+/* ============================ render: static text + brand ============================ */
+function syncStatic(){
+  $$('[data-i18n]').forEach(function(el){ el.textContent=i18nText(el.getAttribute('data-i18n')); });
+  $$('[data-i18n-html]').forEach(function(el){ el.innerHTML=i18nText(el.getAttribute('data-i18n-html')); });
+  $$('[data-i18n-ph]').forEach(function(el){ el.setAttribute('placeholder', i18nText(el.getAttribute('data-i18n-ph'))); });
+}
+function applyBrand(){
+  var name=shopName();
+  var tag= state.lang==='ar' ? (state.settings.tagline_ar||'') : (state.settings.tagline_en||'');
+  $('#brandName').textContent=name; $('#brandSub').textContent=tag;
+  $('#footName').textContent=name; $('#footName2').textContent=name;
+  document.documentElement.setAttribute('lang', state.lang);
+  document.documentElement.setAttribute('dir', state.lang==='ar'?'rtl':'ltr');
+  document.title = name + (state.lang==='ar' ? ' — كتب PDF بفودافون كاش' : ' — PDF books with Vodafone Cash');
+  var vf=state.settings.vodafone||DEFAULT_SETTINGS.vodafone;
+  ['#heroPayNum','#pmVodafone','#contactPay','#footPay'].forEach(function(sel){ var el=$(sel); if(el) el.textContent=vf; });
+  $('#footPay').setAttribute('href', '#contact');
+  $('#contactWa').textContent='+'+String(state.settings.whatsapp||'').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})$/,'$1 $2 $3 $4');
+  var helloTxt=i18nText('wa_hello').replace('{shop}', name);
+  $('#heroWhats').setAttribute('href', waLink(helloTxt));
+  $('#contactWhats').setAttribute('href', waLink(helloTxt));
+  $('#langBtn').textContent = state.lang==='ar' ? 'EN' : 'ع';
+  $('#year').textContent=new Date().getFullYear();
+}
+
+/* ============================ render: shop ============================ */
+function renderChips(){
+  var cats=[], seen={};
+  published().forEach(function(b){ var c=String(b.category||'').trim(); if(c && !seen[c]){ seen[c]=1; cats.push(c);} });
+  var box=$('#chips');
+  if(cats.length<2){ box.innerHTML=''; return; }
+  var html='<button class="chip'+(state.cat==='all'?' on':'')+'" data-cat="all">'+esc(t('chip_all'))+'</button>';
+  cats.forEach(function(c){ html+='<button class="chip'+(state.cat===c?' on':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>'; });
+  box.innerHTML=html;
+}
+function faceImg(src,label){
+  return src ? '<img src="'+src+'" alt="" loading="lazy">' : '<div class="noart">'+esc(label)+'</div>';
+}
+function cardHTML(b){
+  var front=srcOf(b,'front'), back=srcOf(b,'back');
+  var old=(Number(b.oldPrice||0)>Number(b.price||0)) ? ' <s>'+esc(fmt(b.oldPrice))+'</s>' : '';
+  return '<article class="card" data-id="'+b.id+'">'
+   + '<div class="coverwrap" data-act="open" title="'+esc(t('cover_hint'))+'">'
+   +   '<div class="flipinner">'
+   +     '<div class="face front">'+faceImg(front,t('prev_front'))+'</div>'
+   +     '<div class="face back">'+faceImg(back,t('no_back'))+'</div>'
+   +   '</div>'
+   +   '<span class="spine"></span>'
+   +   '<span class="price-tag">'+esc(fmt(b.price))+old+'</span>'
+   +   '<span class="cover-tag">'+esc(t('back_cover_tag'))+'</span>'
+   + '</div>'
+   + '<div class="card-body">'
+   +   (b.category? '<span class="cat">'+esc(b.category)+'</span>' : '')
+   +   '<h3>'+esc(bookTitle(b))+'</h3>'
+   +   '<p class="by">'+esc(bookAuthor(b))+'</p>'
+   +   '<div class="card-actions">'
+   +     '<button class="btn btn-ghost" data-act="open">'+esc(t('details'))+'</button>'
+   +     '<button class="btn btn-red" data-act="buy">'+esc(t('buy_now'))+'</button>'
+   +   '</div>'
+   + '</div></article>';
+}
+function renderGrid(){
+  var q=state.query.trim().toLowerCase();
+  var list=published().filter(function(b){
+    if(state.cat!=='all' && String(b.category||'')!==state.cat) return false;
+    if(!q) return true;
+    var hay=[b.title_ar,b.title_en,b.author_ar,b.author_en,b.category].join(' ').toLowerCase();
+    return hay.indexOf(q)>=0;
+  });
+  if(state.sort==='price_asc') list.sort(function(a,b){return Number(a.price||0)-Number(b.price||0)});
+  else if(state.sort==='price_desc') list.sort(function(a,b){return Number(b.price||0)-Number(a.price||0)});
+  else list.sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0)});
+
+  var grid=$('#booksGrid');
+  grid.innerHTML = list.map(cardHTML).join('');
+  var empty=$('#emptyState');
+  var noBooks=published().length===0;
+  $('#emptyMsg').textContent = noBooks ? t('empty_books') : t('empty_search');
+  $('#emptyCta').classList.toggle('hidden', !(noBooks && !state.lockAdmin));
+  empty.classList.toggle('hidden', list.length>0);
+  $('#countLine').textContent = list.length ? t('results_count').replace('{n}', list.length) : '';
+}
+function renderStats(){ $('#statBooks').textContent = published().length; }
+
+/* ============================ render: book modal ============================ */
+function setFace(img, src, label){
+  var face=img.parentNode, ph=face.querySelector('.noart');
+  if(src){ img.src=src; img.style.display=''; if(ph) face.removeChild(ph); }
+  else { img.removeAttribute('src'); img.style.display='none';
+         if(!ph){ ph=document.createElement('div'); ph.className='noart'; face.appendChild(ph); } ph.textContent=label; }
+}
+function fillBook(b){
+  $('#bmTitleHead').textContent=bookTitle(b);
+  $('#bmTitle').textContent=bookTitle(b);
+  $('#bmAuthor').textContent=bookAuthor(b)||'—';
+  var meta=[];
+  if(b.category) meta.push(b.category);
+  if(b.pages) meta.push(b.pages+' '+(state.lang==='ar'?'صفحة':'pages'));
+  if(b.createdAt) meta.push(new Date(b.createdAt).toLocaleDateString(state.lang==='ar'?'ar-EG':'en-GB'));
+  $('#bmMeta').innerHTML=meta.map(function(m){ return '<span>'+esc(m)+'</span>'; }).join('');
+  $('#bmPrice').textContent=fmt(b.price);
+  var old=Number(b.oldPrice||0);
+  if(old>Number(b.price||0)){ $('#bmOld').textContent=fmt(old); $('#bmOld').classList.remove('hidden');
+    var off=Math.round((1-(Number(b.price)/old))*100);
+    $('#bmOff').textContent=(state.lang==='ar'?'خصم ':'-')+off+'%'; $('#bmOff').classList.remove('hidden'); }
+  else { $('#bmOld').classList.add('hidden'); $('#bmOff').classList.add('hidden'); }
+  $('#bmDesc').textContent=bookDesc(b)||'—';
+  setFace($('#bmFront'), srcOf(b,'front'), t('prev_front'));
+  setFace($('#bmBack'), srcOf(b,'back'), t('no_back'));
+  var hasPdf=!!(b.pdf||b.pdfData);
+  $('#bmNoPdfNotice').classList.toggle('hidden', hasPdf);
+  var pv=srcOf(b,'preview');
+  $('#bmPreviewBox').classList.toggle('hidden', !pv);
+  if(pv){ var fr=$('#bmPreviewFrame'); fr.setAttribute('src', pv);
+    if(self!==top && !$('#pvNote')){ var n=document.createElement('span'); n.id='pvNote';
+      n.className='hint'; n.textContent=t('preview_unavailable'); $('#bmPreviewBox').appendChild(n); } }
+  $('#bmBuy').innerHTML='<span>🛒</span> '+esc(t('buy_now'))+' — '+esc(fmt(b.price));
+  $('#bigCover').classList.remove('flipped');
+}
+function openBook(b){ state.currentBook=b; fillBook(b); openModal('bookModal'); }
+
+/* ============================ modals ============================ */
+function openModal(id){ var m=document.getElementById(id); if(!m) return; m.classList.add('open');
+  document.body.style.overflow='hidden'; }
+function closeModal(id){
+  var m=document.getElementById(id); if(!m) return; m.classList.remove('open');
+  if(!document.querySelector('.modal.open')) document.body.style.overflow='';
+  if(id==='bookModal'){ state.currentBook=null; var f=$('#bmPreviewFrame'); if(f) f.removeAttribute('src'); }
+  if(id==='payModal'){ if(state.payStage==='success') state.payBook=null; }
+}
+
+/* ============================ payment flow ============================ */
+function renderPay(){
+  var b=state.payBook; if(!b) return;
+  var isFree=!(Number(b.price||0)>0);
+  $('#pmBook').textContent=bookTitle(b);
+  $('#pmAmount').textContent = isFree ? t('free') : fmt(b.price);
+  $('#pmVodafone').textContent=state.settings.vodafone||DEFAULT_SETTINGS.vodafone;
+  var st=$('#payView .paysteps'), blk=$('#pmPayBlock'), stt=$('#payView h4[data-i18n="pm_step_title"]');
+  if(st) st.classList.toggle('hidden', isFree);
+  if(blk) blk.classList.toggle('hidden', isFree);
+  if(stt) stt.classList.toggle('hidden', isFree);
+  if(state.payStage==='success'){ showSuccessView(); return; }
+  $('#payView').classList.remove('hidden'); $('#payFoot').classList.remove('hidden'); $('#successView').classList.add('hidden');
+  $('#pmName').value=state.payForm.name||''; $('#pmPhone').value=state.payForm.phone||''; $('#pmTxn').value=state.payForm.txn||'';
+  $('#fldName').classList.remove('err'); $('#fldPhone').classList.remove('err'); $('#pmError').style.display='none';
+  $('#pmSubmit').innerHTML='<span>⬇</span> '+esc(isFree? t('download_btn') : t('pm_submit'));
+}
+function waConfirmMsg(){
+  var b=state.payBook, p=state.purchase||{};
+  return t('wa_msg')
+    .replace('{name}',p.name||t('form_name')).replace('{amount}',fmt(b?b.price:0))
+    .replace('{book}',b?bookTitle(b):'').replace('{phone}',p.phone||'')
+    .replace('{txn}',p.txn||'—').replace('{shop}',shopName());
+}
+function showSuccessView(){
+  $('#payView').classList.add('hidden'); $('#payFoot').classList.add('hidden'); $('#successView').classList.remove('hidden');
+  var b=state.payBook; if(!b) return;
+  var hasPdf=!!(b.pdf||b.pdfData);
+  $('#dlBookBtn').innerHTML='<span>⬇</span> '+esc(t('download_btn'))+' — '+esc(bookTitle(b));
+  $('#dlBookBtn').disabled=false;
+  $('#waConfirm').setAttribute('href', waLink(waConfirmMsg()));
+  var isFree=!(Number(b.price||0)>0);
+  var note=$('#successView .notice.green span:last-child');
+  if(note) note.textContent = isFree ? t('free_note') : (hasPdf ? t('success_wa_note') : t('no_pdf_notice'));
+  $('#waConfirm').classList.toggle('hidden', isFree);
+}
+function openPay(b){
+  state.payBook=b; state.payStage='form'; state.payForm={}; state.purchase=null;
+  renderPay(); openModal('payModal');
+  if(!(Number(b.price||0)>0)) setTimeout(freeClaim, 140);
+}
+function freeClaim(){
+  var b=state.payBook;
+  if(!b || state.payStage!=='form') return;
+  state.purchase={ name:'', phone:'', txn:'—', bookId:b.id, date:Date.now(), free:true };
+  var rec={ id:'dl-'+Date.now()+'-'+Math.random().toString(36).slice(2,6), bookId:b.id,
+    title_ar:b.title_ar, title_en:b.title_en, name:'', phone:'', txn:'', date:Date.now() };
+  state.downloads.unshift(rec); Store.put('downloads',rec); renderDlDot();
+  state.payStage='success'; renderPay();
+  if(!b.pdf && !b.pdfData) toast(t('toast_no_pdf'),'bad');
+}
+function submitPay(){
+  var name=$('#pmName').value.trim();
+  var phone=$('#pmPhone').value.replace(/[\s-]/g,'');
+  var txn=$('#pmTxn').value.trim();
+  var okName=!!name, okPhone=/^(01[0125]\d{8}|201[0125]\d{8})$/.test(phone);
+  $('#fldName').classList.toggle('err',!okName);
+  $('#fldPhone').classList.toggle('err',!okPhone);
+  if(!okName||!okPhone){ $('#pmErrorTxt').textContent=t('err_form'); $('#pmError').style.display='flex'; return; }
+  $('#pmError').style.display='none';
+  state.payForm={ name:name, phone:phone, txn:txn };
+  state.purchase={ name:name, phone:phone, txn:txn||'—', bookId:state.payBook.id, date:Date.now() };
+  var b=state.payBook;
+  var rec={ id:'dl-'+Date.now()+'-'+Math.random().toString(36).slice(2,6), bookId:b.id, title_ar:b.title_ar, title_en:b.title_en,
+    name:name, phone:phone, txn:txn, date:Date.now() };
+  state.downloads.unshift(rec); Store.put('downloads',rec); renderDlDot();
+  state.payStage='success'; renderPay();
+  if(!b.pdf && !b.pdfData) toast(t('toast_no_pdf'),'bad');
+}
+
+/* ============================ downloads ============================ */
+function saveBlob(blob,filename){
+  var u=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=u; a.download=filename; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); }, 60000);
+}
+function dataUrlToBlob(uri){
+  try{
+    var parts=String(uri).split(','), meta=parts[0]||'', data=parts.slice(1).join(',');
+    var mime=(meta.match(/data:([^;]+)/)||[])[1] || 'application/pdf';
+    if(/;base64/i.test(meta)){
+      var bin=atob(data), len=bin.length, u8=new Uint8Array(len);
+      for(var i=0;i<len;i++) u8[i]=bin.charCodeAt(i);
+      return new Blob([u8],{type:mime});
+    }
+    return new Blob([decodeURIComponent(data)],{type:mime});
+  }catch(e){ return null; }
+}
+function anchorTo(href,name){
+  var a=document.createElement('a');
+  a.href=href; a.download=name; a.rel='noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function downloadBook(b){
+  if(!b) return;
+  var src = b.pdfData ? b.pdfData : (b.pdf || null);
+  var name=slug(b.title_ar||b.title_en)+'.pdf';
+  if(!src){ toast(t('toast_no_pdf'),'bad'); return; }
+  toast(t('toast_downloading'));
+  if(src instanceof Blob){ saveBlob(src,name); return; }
+  src=String(src);
+  if(src.indexOf('data:')===0){
+    var bl=dataUrlToBlob(src);
+    if(bl){ saveBlob(bl,name); }
+    else { anchorTo(src,name); }
+  } else { anchorTo(src,name); }
+}
+function renderDlDot(){
+  var d=$('#dlDot'), n=state.downloads.length;
+  d.textContent=n; d.classList.toggle('hidden', n===0);
+}
+function renderDownloads(){
+  var box=$('#dlList');
+  if(!state.downloads.length){ box.innerHTML='<div class="empty">'+esc(t('dl_empty'))+'</div>'; return; }
+  box.innerHTML=state.downloads.map(function(d){
+    var b=byId(d.bookId), th=b? srcOf(b,'front') : '';
+    var title = state.lang==='ar' ? (d.title_ar||d.title_en||'') : (d.title_en||d.title_ar||'');
+    return '<div class="dl-row">'
+      + (th? '<img src="'+th+'" alt="">' : '<img alt="" style="background:#efe7d8;border-radius:8px">')
+      + '<div class="t"><h5>'+esc(title)+'</h5>'
+      + '<span class="s">'+esc(new Date(d.date).toLocaleString(state.lang==='ar'?'ar-EG':'en-GB'))+(d.txn? ' · '+esc(d.txn) : '')+'</span></div>'
+      + (b? '<button class="btn btn-red btn-sm" data-dl="'+b.id+'">'+esc(t('dl_again'))+'</button>'
+          : '<span class="s">'+esc(t('dl_missing'))+'</span>')
+      + '</div>';
+  }).join('');
+}
+
+/* ============================ admin ============================ */
+function adminOpen(){
+  if(state.lockAdmin){ toast(t('admin_locked'),'bad'); return; }
+  if(state.unlocked){ fillSettingsForm(); fillCatList(); renderAdminBooks(); openModal('adminModal'); return; }
+  $('#adminLogin').classList.remove('hidden'); $('#adminPanel').classList.add('hidden');
+  $('#adminPw').value=''; $('#pwErr').style.display='none';
+  openModal('adminModal');
+}
+function adminTryLogin(){
+  var pw=$('#adminPw').value;
+  if(pw === (state.settings.password||DEFAULT_SETTINGS.password)){
+    state.unlocked=true; try{ sessionStorage.setItem(LS.unlock,'1'); }catch(e){}
+    $('#adminLogin').classList.add('hidden'); $('#adminPanel').classList.remove('hidden');
+    fillSettingsForm(); fillCatList(); renderAdminBooks(); updateSizeBar();
+    if(state.pendingNew){ state.pendingNew=false; openForm(null); }
+  } else { $('#pwErr').style.display='flex'; }
+}
+function fillCatList(){
+  var cats=[], seen={};
+  state.books.forEach(function(b){ var c=String(b.category||'').trim(); if(c&&!seen[c]){seen[c]=1;cats.push(c);} });
+  $('#catList').innerHTML=cats.map(function(c){ return '<option value="'+esc(c)+'"></option>'; }).join('');
+}
+function renderAdminBooks(){
+  var box=$('#adminBooksList');
+  var list=state.books.slice().sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
+  $('#adminEmpty').classList.toggle('hidden', list.length>0);
+  box.innerHTML=list.map(function(b){
+    var th=srcOf(b,'front'), has=!!(b.pdf||b.pdfData), pub=(b.published!==false);
+    var sub=bytes(blobSize(b))+' · '+(b.category||'—')
+      + (has? ' · <b style="color:#0f8a4c">PDF ✓</b>' : ' · <b style="color:#b90000">PDF ✗</b>');
+    return '<div class="arow">'
+      + (th? '<img src="'+th+'" alt="">' : '<div class="noart">'+esc(t('prev_front'))+'</div>')
+      + '<div><h5>'+esc(b.title_ar||b.title_en||'—')
+      + ' <span class="pill '+(pub?'on':'off')+'">'+esc(pub? t('published'):t('draft'))+'</span></h5>'
+      + '<span class="sub">'+sub+'</span></div>'
+      + '<div class="acts">'
+      +   '<span class="pricedit" title="'+esc(t('f_price'))+'"><input type="number" min="0" step="1" dir="ltr" value="'+esc(Number(b.price||0))+'" data-price="'+b.id+'"><span>'+esc(state.lang==='ar'?'ج.م':'EGP')+'</span></span>'
+      +   '<button class="btn btn-ghost btn-sm" data-act="toggle" data-id="'+b.id+'">'+esc(pub? t('hide'):t('publish'))+'</button>'
+      +   '<button class="btn btn-ghost btn-sm" data-act="edit" data-id="'+b.id+'">'+esc(t('edit'))+'</button>'
+      +   '<button class="btn btn-ghost btn-sm" data-act="del" data-id="'+b.id+'">'+esc(t('del'))+'</button>'
+      + '</div></div>';
+  }).join('');
+}
+function bulkUpload(files){
+  var list=Array.prototype.slice.call(files||[]);
+  if(!list.length){ toast(t('bulk_none'),'bad'); return; }
+  var price=Number($('#bulkPrice').value||0)||0, base=Date.now(), chain=Promise.resolve(), added=0;
+  list.forEach(function(f,i){
+    var name=String(f.name||'').replace(/\.pdf$/i,'').replace(/[_\-.]+/g,' ').replace(/\s+/g,' ').trim() || ('Book '+(i+1));
+    var rec={ id:'b'+base.toString(36)+i, title_ar:name, title_en:name, author_ar:'', author_en:'',
+      desc_ar:'', desc_en:'', price:price, oldPrice:0, category:'', pages:0,
+      published:false, createdAt:base+(list.length-i), pdf:f, pdfName:f.name,
+      front: svgCover({ title:name, author:'', c1:'#243b53', c2:'#0b1622', seed:(i%6)+1, brand:shopName() }) };
+    chain=chain.then(function(){ return Store.put('books',rec); }).then(function(){ added++; });
+  });
+  chain.then(function(){ return loadBooks(); }).then(function(){
+    renderAll(); updateSizeBar();
+    toast(t('bulk_done').replace('{n}',added),'ok');
+  });
+}
+var formFiles={ front:null, back:null, pdf:null, preview:null };
+function filePrev(box, file, kind){
+  if(!file){ box.innerHTML=''; return; }
+  if(kind==='img'){
+    var u=URL.createObjectURL(file);
+    box.innerHTML='<img src="'+u+'" alt=""><span class="fp-name">'+esc(file.name)+' · '+bytes(file.size)+'</span>';
+  } else {
+    box.innerHTML='<div class="fp-doc">PDF</div><span class="fp-name">'+esc(file.name)+' · '+bytes(file.size)+'</span>';
+  }
+}
+function openForm(b){
+  state.editing=b||null; formFiles={ front:null, back:null, pdf:null, preview:null };
+  $('#formTitle').textContent = b? t('form_edit') : t('form_add');
+  $('#fTitleAr').value=b? (b.title_ar||'') : '';
+  $('#fTitleEn').value=b? (b.title_en||'') : '';
+  $('#fAuthorAr').value=b? (b.author_ar||'') : '';
+  $('#fAuthorEn').value=b? (b.author_en||'') : '';
+  $('#fDescAr').value=b? (b.desc_ar||'') : '';
+  $('#fDescEn').value=b? (b.desc_en||'') : '';
+  $('#fPrice').value=b? (b.price||'') : '';
+  $('#fOldPrice').value=b? (b.oldPrice||'') : '';
+  $('#fCategory').value=b? (b.category||'') : '';
+  $('#fPages').value=b? (b.pages||'') : '';
+  $('#fPublished').checked = b? (b.published!==false) : true;
+  ['fFront','fBack','fPdf','fPreview'].forEach(function(id){ $('#'+id).value=''; });
+  var srcs={ prevFront:srcOf(b||{},'front'), prevBack:srcOf(b||{},'back') };
+  $('#prevFront').innerHTML=srcs.prevFront? '<img src="'+srcs.prevFront+'" alt="">' : '';
+  $('#prevBack').innerHTML=srcs.prevBack? '<img src="'+srcs.prevBack+'" alt="">' : '';
+  $('#prevPdf').innerHTML=(b&&(b.pdf||b.pdfData))? '<div class="fp-doc">PDF</div><span class="fp-name">'+(b.pdfName||t('prev_pdf'))+'</span>' : '';
+  $('#prevPreview').innerHTML=(b&&(b.preview||b.previewData))? '<div class="fp-doc">PDF</div><span class="fp-name">'+(b.previewName||t('prev_preview'))+'</span>' : '';
+  $('#bookForm').classList.remove('hidden');
+  $('#bookForm').scrollIntoView({ block:'nearest', behavior:'smooth' });
+}
+function closeForm(){ $('#bookForm').classList.add('hidden'); state.editing=null; }
+function saveBook(e){
+  if(e) e.preventDefault();
+  var title_ar=$('#fTitleAr').value.trim(), title_en=$('#fTitleEn').value.trim();
+  if(!title_ar && !title_en){ toast(t('err_title'),'bad'); return; }
+  var price=Number($('#fPrice').value||0);
+  if(isNaN(price)||price<0){ toast(t('err_price'),'bad'); return; }
+  var ex=state.editing;
+  var rec={
+    id: ex? ex.id : ('b'+Date.now().toString(36)),
+    title_ar:title_ar, title_en:title_en,
+    author_ar:$('#fAuthorAr').value.trim(), author_en:$('#fAuthorEn').value.trim(),
+    desc_ar:$('#fDescAr').value.trim(), desc_en:$('#fDescEn').value.trim(),
+    price:price, oldPrice:Number($('#fOldPrice').value||0)||0,
+    category:$('#fCategory').value.trim(), pages:Number($('#fPages').value||0)||0,
+    published:$('#fPublished').checked,
+    createdAt: ex? (ex.createdAt||Date.now()) : Date.now()
+  };
+  var missingPdf=false;
+  ['front','back','pdf','preview'].forEach(function(k){
+    if(formFiles[k]){ rec[k]=formFiles[k]; rec[k+'Name']=formFiles[k].name; }
+    else if(ex && ex[k]){ rec[k]=ex[k]; if(ex[k+'Name']) rec[k+'Name']=ex[k+'Name']; }
+    else if(ex && ex[k+'Data']){ rec[k+'Data']=ex[k+'Data']; if(ex[k+'Name']) rec[k+'Name']=ex[k+'Name']; }
+  });
+  if(!rec.pdf && !rec.pdfData) missingPdf=true;
+  var btn=$('#saveBookBtn'); busy(btn,true);
+  Store.put('books',rec).then(function(){
+    if(ex) dropUrls(ex,['front','back','pdf','preview']);
+    return loadBooks();
+  }).then(function(){
+    busy(btn,false); renderAll(); closeForm();
+    toast(t('toast_saved'),'ok');
+    if(missingPdf) setTimeout(function(){ toast(t('err_pdf'),'bad'); }, 1400);
+  });
+}
+function delBook(id){
+  if(!confirm(t('confirm_del'))) return;
+  var b=byId(id);
+  Store.del('books',id).then(function(){ if(b) dropUrls(b,['front','back','pdf','preview']); return loadBooks(); })
+    .then(function(){ renderAll(); toast(t('toast_deleted')); });
+}
+function fillSettingsForm(){
+  $('#sNameAr').value=state.settings.shopName_ar||'';
+  $('#sNameEn').value=state.settings.shopName_en||'';
+  $('#sTagAr').value=state.settings.tagline_ar||'';
+  $('#sTagEn').value=state.settings.tagline_en||'';
+  $('#sVodafone').value=state.settings.vodafone||'';
+  $('#sWhatsapp').value=state.settings.whatsapp||'';
+  $('#sPw').value=state.settings.password||'';
+}
+function saveSettings(){
+  state.settings.shopName_ar=$('#sNameAr').value.trim()||DEFAULT_SETTINGS.shopName_ar;
+  state.settings.shopName_en=$('#sNameEn').value.trim()||DEFAULT_SETTINGS.shopName_en;
+  state.settings.tagline_ar=$('#sTagAr').value.trim();
+  state.settings.tagline_en=$('#sTagEn').value.trim();
+  state.settings.vodafone=$('#sVodafone').value.trim()||DEFAULT_SETTINGS.vodafone;
+  state.settings.whatsapp=$('#sWhatsapp').value.replace(/\D/g,'')||DEFAULT_SETTINGS.whatsapp;
+  state.settings.password=$('#sPw').value||DEFAULT_SETTINGS.password;
+  try{ if(Store.lsOK) localStorage.setItem(LS.settings, JSON.stringify(state.settings)); }catch(e){}
+  renderAll(); updateSizeBar(); toast(t('toast_settings'),'ok');
+}
+function loadBooks(){
+  return Store.all('books').then(function(rows){
+    state.books=(rows||[]).map(function(b){ return b; });
+    return state.books;
+  });
+}
+function updateSizeBar(){
+  var sum=state.books.reduce(function(a,b){ return a+blobSize(b); },0);
+  var bar=$('#sizeBar'), txt=$('#sizeTxt');
+  var note = Store.memory ? (state.lang==='ar'?' — تخزين مؤقت (memory only)':' — memory only') : '';
+  if(navigator.storage && navigator.storage.estimate){
+    navigator.storage.estimate().then(function(est){
+      var used=est.usage||sum, quota=est.quota||0;
+      var pct= quota? Math.min(100, Math.round(used/quota*1000)/10) : 0;
+      bar.style.width=Math.max(pct,1.5)+'%';
+      txt.textContent=bytes(used)+' / '+bytes(quota)+' ('+pct+'%)'+note;
+    }).catch(function(){ bar.style.width=Math.min(100,sum/(50*1048576)*100)+'%'; txt.textContent=bytes(sum)+note; });
+  } else { bar.style.width=Math.min(100,sum/(50*1048576)*100)+'%'; txt.textContent=bytes(sum)+note; }
+}
+
+/* ============================ export / import ============================ */
+function toData(b,key){
+  var d=b[key+'Data']; if(d) return Promise.resolve(d);
+  var blob=b[key]; if(!blob) return Promise.resolve('');
+  if(typeof blob==='string') return Promise.resolve(blob);
+  return new Promise(function(res){
+    try{ var fr=new FileReader(); fr.onload=function(){ res(fr.result); }; fr.onerror=function(){ res(''); }; fr.readAsDataURL(blob); }
+    catch(e){ res(''); }
+  });
+}
+function exportBook(b, incPdf, incPrev){
+  var o={ id:b.id, title_ar:b.title_ar, title_en:b.title_en, author_ar:b.author_ar, author_en:b.author_en,
+    desc_ar:b.desc_ar, desc_en:b.desc_en, price:b.price, oldPrice:b.oldPrice, category:b.category,
+    pages:b.pages, published:true, createdAt:b.createdAt, pdfOmitted:false };
+  var tasks=[];
+  ['front','back'].forEach(function(k){ tasks.push(toData(b,k).then(function(d){ o[k+'Data']=d; })); });
+  if(incPrev) tasks.push(toData(b,'preview').then(function(d){ if(d) o.previewData=d; }));
+  if(incPdf) tasks.push(toData(b,'pdf').then(function(d){ if(d) o.pdfData=d; else o.pdfOmitted=true; }));
+  else o.pdfOmitted = !!(b.pdf||b.pdfData);
+  return Promise.all(tasks).then(function(){ return o; });
+}
+function exportSettings(){
+  return { shopName_ar:state.settings.shopName_ar, shopName_en:state.settings.shopName_en,
+    tagline_ar:state.settings.tagline_ar, tagline_en:state.settings.tagline_en,
+    vodafone:state.settings.vodafone, whatsapp:state.settings.whatsapp,
+    password:state.settings.password, currency_ar:state.settings.currency_ar, currency_en:state.settings.currency_en };
+}
+function exportHtml(){
+  var btn=$('#expHtmlBtn');
+  var hideAdmin=$('#expHideAdmin').checked, incPdf=$('#expIncludePdf').checked, incPrev=$('#expIncludePreview').checked;
+  var list=published();
+  if(!list.length){ toast(t('toast_nothing'),'bad'); return; }
+  busy(btn,true,t('toast_preparing'));
+  Promise.all(list.map(function(b){ return exportBook(b, incPdf, incPrev); })).then(function(books){
+    var payload={ v:1, exportedAt:Date.now(), lockAdmin:hideAdmin, settings:exportSettings(), books:books };
+    var json=JSON.stringify(payload).replace(/<\/(script)/gi,'<\\/$1');
+    var out=PRISTINE.replace(/(<script id="SHOP_DATA" type="application\/json">)[\s\S]*?(<\/script>)/,
+      function(m,a,c){ return a+json+c; });
+    var name=($('#expFilename').value.trim()||'my-bookshop.html');
+    if(!/\.html?$/i.test(name)) name+='.html';
+    busy(btn,false);
+    saveBlob(new Blob([out],{type:'text/html;charset=utf-8'}), name);
+    toast(t('toast_exported'),'ok');
+    if(out.length > 45*1048576) setTimeout(function(){ toast(t('toast_big').replace('{size}',bytes(out.length)),'bad'); }, 1600);
+  }).catch(function(e){
+    busy(btn,false); toast(String(e&&e.message||e),'bad');
+  });
+}
+function exportJson(){
+  var list=state.books;
+  if(!list.length){ toast(t('toast_nothing'),'bad'); return; }
+  var btn=$('#expJsonBtn'); busy(btn,true,'...');
+  Promise.all(list.map(function(b){ return exportBook(b,true,true); })).then(function(books){
+    var payload={ v:1, exportedAt:Date.now(), settings:exportSettings(), books:books };
+    busy(btn,false);
+    saveBlob(new Blob([JSON.stringify(payload)],{type:'application/json'}), 'bookshop-backup.json');
+    toast(t('toast_exported'),'ok');
+  });
+}
+function importJsonFile(file){
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{
+      var data=JSON.parse(fr.result);
+      var arr=data.books||data;
+      if(!Array.isArray(arr)||!arr.length) throw new Error('bad');
+      var chain=Promise.resolve();
+      arr.forEach(function(b){ chain=chain.then(function(){ return Store.put('books',b); }); });
+      if(data.settings){ state.settings=Object.assign({},state.settings,data.settings);
+        try{ if(Store.lsOK) localStorage.setItem(LS.settings, JSON.stringify(state.settings)); }catch(e){} }
+      chain.then(function(){ return loadBooks(); }).then(function(){ renderAll(); fillSettingsForm(); updateSizeBar(); toast(t('toast_imported'),'ok'); });
+    }catch(e){ toast(t('toast_import_err'),'bad'); }
+  };
+  fr.readAsText(file);
+}
+function clearAll(){
+  if(!confirm(t('confirm_clear'))) return;
+  Store.clear('books').then(function(){ return Store.clear('downloads'); }).then(function(){
+    state.books=[]; state.downloads=[]; urlCache={}; renderDlDot(); renderAll(); updateSizeBar();
+    try{ localStorage.removeItem(LS.seeded); localStorage.removeItem(LS.settings); }catch(e){}
+    toast(t('toast_cleared'));
+  });
+}
+function copyText(txt, cb){
+  function fallback(){
+    try{ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); cb(); }catch(e){ cb(); }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(cb).catch(fallback);
+  } else fallback();
+}
+
+/* ============================ render all / language switch ============================ */
+function renderAll(){
+  syncStatic(); applyBrand(); renderChips(); renderGrid(); renderStats();
+  if(state.unlocked) renderAdminBooks();
+}
+function applyLang(lang, first){
+  state.lang = (lang==='en')? 'en':'ar';
+  try{ localStorage.setItem(LS.lang, state.lang); }catch(e){}
+  if(first){ renderAll(); return; }
+  renderAll();
+  if(state.currentBook && $('#bookModal').classList.contains('open')) fillBook(state.currentBook);
+  if(state.payBook && $('#payModal').classList.contains('open')) renderPay();
+  if($('#dlModal').classList.contains('open')) renderDownloads();
+  if($('#adminModal').classList.contains('open') && state.unlocked){ fillSettingsForm(); fillCatList(); }
+}
+
+/* ============================ events ============================ */
+var wired=false;
+function wire(){
+  if(wired) return; wired=true;
+  $('#langBtn').addEventListener('click', function(){ applyLang(state.lang==='ar'?'en':'ar'); });
+
+  $('#copyBtn').addEventListener('click', function(){ copyText(state.settings.vodafone||DEFAULT_SETTINGS.vodafone, function(){ toast(t('toast_copied'),'ok'); }); });
+  $('#pmCopy').addEventListener('click', function(){ copyText(state.settings.vodafone||DEFAULT_SETTINGS.vodafone, function(){ toast(t('toast_copied'),'ok'); }); });
+
+  $('#searchInput').addEventListener('input', function(e){ state.query=e.target.value; renderGrid(); });
+  $('#sortSelect').addEventListener('change', function(e){ state.sort=e.target.value; renderGrid(); });
+  $('#chips').addEventListener('click', function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    state.cat=c.getAttribute('data-cat'); renderChips(); renderGrid();
+  });
+  $('#booksGrid').addEventListener('click', function(e){
+    var card=e.target.closest('.card'); if(!card) return;
+    var b=byId(card.getAttribute('data-id')); if(!b) return;
+    var act=(e.target.closest('[data-act]')||{}).getAttribute? e.target.closest('[data-act]').getAttribute('data-act') : 'open';
+    if(act==='buy') openPay(b); else openBook(b);
+  });
+  $('#bigCover').addEventListener('click', function(){ this.classList.toggle('flipped'); });
+  $('#bmFlip').addEventListener('click', function(){ $('#bigCover').classList.toggle('flipped'); });
+  $('#bmBuy').addEventListener('click', function(){ if(state.currentBook){ var b=state.currentBook; closeModal('bookModal'); openPay(b); } });
+
+  $$('[data-close]').forEach(function(el){ el.addEventListener('click', function(){ closeModal(el.getAttribute('data-close')); }); });
+  $$('.modal').forEach(function(m){ m.addEventListener('mousedown', function(e){ if(e.target===m) closeModal(m.id); }); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ var open=$('.modal.open'); if(open) closeModal(open.id); } });
+
+  ['#pmName','#pmPhone','#pmTxn'].forEach(function(sel){
+    $(sel).addEventListener('input', function(){ state.payForm={ name:$('#pmName').value, phone:$('#pmPhone').value, txn:$('#pmTxn').value };
+      $('#fldName').classList.remove('err'); $('#fldPhone').classList.remove('err'); });
+  });
+  $('#pmSubmit').addEventListener('click', submitPay);
+  $('#dlBookBtn').addEventListener('click', function(){ downloadBook(state.payBook); });
+
+  $('#downloadsBtn').addEventListener('click', function(){ renderDownloads(); openModal('dlModal'); });
+  $('#dlList').addEventListener('click', function(e){
+    var btn=e.target.closest('[data-dl]'); if(!btn) return;
+    downloadBook(byId(btn.getAttribute('data-dl')));
+  });
+
+  /* admin */
+  $('#adminBtn').addEventListener('click', adminOpen);
+  $('#adminLoginBtn').addEventListener('click', adminTryLogin);
+  $('#adminPw').addEventListener('keydown', function(e){ if(e.key==='Enter') adminTryLogin(); });
+  $$('.tab').forEach(function(tb){
+    tb.addEventListener('click', function(){
+      $$('.tab').forEach(function(x){ x.classList.remove('on'); });
+      tb.classList.add('on');
+      $$('.tabpanel').forEach(function(p){ p.classList.remove('on'); });
+      var id='panel-'+tb.getAttribute('data-tab'); if(document.getElementById(id)) document.getElementById(id).classList.add('on');
+      if(tb.getAttribute('data-tab')==='data') updateSizeBar();
+    });
+  });
+  $('#addBookBtn').addEventListener('click', function(){ openForm(null); });
+  $('#cancelFormBtn').addEventListener('click', closeForm);
+  $('#bookForm').addEventListener('submit', saveBook);
+  $('#adminBooksList').addEventListener('click', function(e){
+    var btn=e.target.closest('[data-act]'); if(!btn) return;
+    var id=btn.getAttribute('data-id'), b=byId(id), act=btn.getAttribute('data-act');
+    if(act==='edit') openForm(b);
+    else if(act==='toggle'){
+      if(!b) return;
+      b.published = (b.published===false);
+      Store.put('books',b).then(function(){ return loadBooks(); }).then(function(){ renderAll(); });
+    }
+    else delBook(id);
+  });
+  $('#adminBooksList').addEventListener('change', function(e){
+    var inp=e.target.closest('[data-price]'); if(!inp) return;
+    var b=byId(inp.getAttribute('data-price')); if(!b) return;
+    var v=Math.max(0, Number(inp.value||0)||0);
+    if(v===Number(b.price||0)) return;
+    b.price=v;
+    Store.put('books',b).then(function(){ return loadBooks(); }).then(function(){ renderAll(); toast(t('price_changed'),'ok'); });
+  });
+  $('#bulkPdf').addEventListener('change', function(){ bulkUpload(this.files); this.value=''; });
+  $('#footAdminBtn').addEventListener('click', adminOpen);
+  $('#emptyCta').addEventListener('click', function(){
+    if(state.lockAdmin) return;
+    if(state.unlocked){ openForm(null); return; }
+    state.pendingNew=true; adminOpen();
+  });
+  $('#goExportBtn').addEventListener('click', function(){
+    var tb=$('.tab[data-tab="data"]'); if(tb) tb.click();
+  });
+  $('#fFront').addEventListener('change', function(){ formFiles.front=this.files[0]||null; filePrev($('#prevFront'), formFiles.front, 'img'); });
+  $('#fBack').addEventListener('change', function(){ formFiles.back=this.files[0]||null; filePrev($('#prevBack'), formFiles.back, 'img'); });
+  $('#fPdf').addEventListener('change', function(){ formFiles.pdf=this.files[0]||null; filePrev($('#prevPdf'), formFiles.pdf, 'doc'); });
+  $('#fPreview').addEventListener('change', function(){ formFiles.preview=this.files[0]||null; filePrev($('#prevPreview'), formFiles.preview, 'doc'); });
+  $('#saveSettingsBtn').addEventListener('click', saveSettings);
+  $('#expHtmlBtn').addEventListener('click', exportHtml);
+  $('#expJsonBtn').addEventListener('click', exportJson);
+  $('#impJsonBtn').addEventListener('click', function(){ $('#impJsonFile').click(); });
+  $('#impJsonFile').addEventListener('change', function(){ if(this.files[0]) importJsonFile(this.files[0]); this.value=''; });
+  $('#clearAllBtn').addEventListener('click', clearAll);
+}
+
+/* ============================ boot ============================ */
+function boot(){
+  state.lang = (getLS(LS.lang)==='en')? 'en':'ar';
+
+  var emb=null, raw='';
+  try{ raw=($('#SHOP_DATA').textContent||'').trim(); }catch(e){}
+  if(raw && raw!=='null'){ try{ emb=JSON.parse(raw); }catch(e){ emb=null; } }
+  state.embedded=emb;
+
+  if(emb && emb.settings) state.settings=Object.assign({},DEFAULT_SETTINGS,emb.settings);
+  else state.settings=Object.assign({},DEFAULT_SETTINGS,getLSJson(LS.settings)||{});
+  state.lockAdmin=!!(emb && emb.lockAdmin);
+  if(state.lockAdmin) $('#adminBtn').classList.add('hidden');
+  if(emb && Array.isArray(emb.books)) $('#downloadsBtn').classList.remove('hidden');
+  $('#emptyState').removeAttribute('data-i18n');
+
+  Store.init().then(function(){
+    if(!Store.lsOK || Store.memory){ $('#banner').classList.add('on'); syncStatic(); }
+    if(emb && Array.isArray(emb.books)){ state.books=emb.books; return null; }
+    return Store.all('books').then(function(rows){
+      if(rows && rows.length){ state.books=rows; return null; }
+      var seededBefore = Store.lsOK && getLS(LS.seeded)==='1';
+      if(seededBefore){ state.books=[]; return null; }
+      var demos=demoBooks(), chain=Promise.resolve();
+      demos.forEach(function(d){ chain=chain.then(function(){ return Store.put('books',d); }); });
+      return chain.then(function(){
+        try{ localStorage.setItem(LS.seeded,'1'); }catch(e){}
+        state.books=demos;
+        setTimeout(function(){ toast(t('toast_seeded')); }, 1200);
+      });
+    });
+  }).then(function(){ return Store.all('downloads'); }).then(function(dl){
+    state.downloads=(dl||[]).sort(function(a,b){ return (b.date||0)-(a.date||0); });
+    wire();
+    renderAll(); renderDlDot();
+    try{ state.unlocked = !state.lockAdmin && sessionStorage.getItem(LS.unlock)==='1'; }catch(e){ state.unlocked=false; }
+  }).catch(function(e){
+    wire(); renderAll();
+    if(window.console) console.error(e);
+  });
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a38a760d3b30e224',t:'MTc4OTAwMTY2Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
