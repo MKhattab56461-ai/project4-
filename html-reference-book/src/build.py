@@ -18,6 +18,7 @@ from data_refs import (LINK_TYPES, META_NAMES, AUTOCOMPLETE_TOKENS, MIME_TYPES, 
                        COLOR_NAMES, ENTITIES, GUIDES, GLOSSARY)
 from data_course import COURSE
 from data_projects import all_projects, THEMES, TYPES
+from data_js import JS_INTRO, JS_REFERENCE, JS_COURSE
 import elements_a_d, elements_e_h, elements_i_o, elements_p_s, elements_t_z
 
 ELEMENTS = (elements_a_d.ELEMENTS + elements_e_h.ELEMENTS + elements_i_o.ELEMENTS
@@ -26,7 +27,7 @@ ELEMENTS.sort(key=lambda e: e["name"])
 
 OUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 TITLE = "The Complete HTML Reference Book"
-SUBTITLE = "Every element and attribute from HTML 1 (1991) to the HTML Living Standard, with CSS"
+SUBTITLE = "Every element and attribute from HTML 1 (1991) to the HTML Living Standard, with CSS and JavaScript"
 
 # ----------------------------------------------------------------------------
 # Validation of the data
@@ -353,6 +354,113 @@ CSS_EXPLAIN = [
 ]
 
 
+JS_EXPLAIN = [
+    (r"document.querySelector(", "Finds the first element matching a CSS selector."),
+    (r"document.querySelectorAll(", "Finds every matching element (a NodeList; spread into an array with [...])."),
+    (r"document.getElementById(", "Finds one element by its id."),
+    (r"addEventListener('click'", "Runs the function when the element is clicked."),
+    (r"addEventListener('input'", "Runs on every keystroke or change in a field."),
+    (r"addEventListener('submit'", "Runs when the form is submitted (Enter or button)."),
+    (r"addEventListener('keydown'", "Runs when a key is pressed; e.key tells which."),
+    (r"addEventListener('change'", "Runs when a checkbox, radio or select value changes."),
+    (r"addEventListener('blur'", "Runs when the field loses focus."),
+    (r"e.preventDefault()", "Stops the browser's default action (here: reloading on submit)."),
+    (r"e.target.closest(", "Event delegation: finds the clicked button even if a child was clicked."),
+    (r"const ", "Declares a variable that will not be reassigned."),
+    (r"let ", "Declares a variable that can change."),
+    (r"function ", "Defines a reusable block of code."),
+    (r"=> ", "Arrow function: a short way to write a function."),
+    (r"textContent", "Reads or sets the text inside an element (safe: never interprets HTML)."),
+    (r".innerHTML = ''", "Empties an element before re-rendering."),
+    (r"createElement(", "Creates a new element in memory."),
+    (r".append(", "Adds nodes at the end of an element."),
+    (r"replaceChildren(", "Replaces all children with the given nodes in one step."),
+    (r"createDocumentFragment", "A lightweight container for building many nodes before inserting them once."),
+    (r"cloneNode(true)", "Copies a template's content, including its children."),
+    (r".dataset.", "Reads a data-* attribute (data-title becomes dataset.title)."),
+    (r"setAttribute(", "Sets an attribute value as a string."),
+    (r"getAttribute(", "Reads an attribute value."),
+    (r".hidden = ", "Shows or hides the element through the hidden attribute."),
+    (r".disabled = ", "Enables or disables a control."),
+    (r".focus()", "Moves keyboard focus to the element."),
+    (r".contains(", "True if the node is inside the element (used to detect clicks outside)."),
+    (r"classList", "Adds, removes or toggles CSS classes."),
+    (r"style.translate", "Sets an inline CSS property from JavaScript."),
+    (r"localStorage.getItem(", "Reads a saved string from the browser's storage."),
+    (r"localStorage.setItem(", "Saves a string that survives page reloads."),
+    (r"JSON.parse(", "Turns a JSON string back into arrays and objects."),
+    (r"JSON.stringify(", "Turns arrays and objects into a JSON string for storage or sending."),
+    (r"?? []", "Nullish coalescing: use the right side when the left is null or undefined."),
+    (r"async function", "A function that can await promises."),
+    (r"await fetch(", "Requests a URL and waits for the response."),
+    (r"res.ok", "True for HTTP status 200-299."),
+    (r"await res.json()", "Parses the response body as JSON."),
+    (r"try {", "Runs code that may fail; errors jump to catch."),
+    (r"catch (err)", "Handles the error instead of crashing."),
+    (r"throw new Error(", "Creates an error on purpose (for example a bad HTTP status)."),
+    (r"setInterval(", "Runs a function repeatedly every n milliseconds."),
+    (r"clearInterval(", "Stops a running interval."),
+    (r"new Date(", "Creates a date/time value."),
+    (r"Math.floor(", "Rounds down to a whole number."),
+    (r"Math.max(", "The larger of two numbers (here: never below zero)."),
+    (r"padStart(2, '0')", "Pads to two characters with a leading zero."),
+    (r"toLocaleString(", "Formats a number with thousands separators for a locale."),
+    (r"toLocaleTimeString(", "Formats a time for a locale."),
+    (r"parseInt(", "Reads a whole number from the start of a string."),
+    (r"Number(", "Converts a string to a number."),
+    (r"String(", "Converts a value to a string."),
+    (r".trim()", "Removes spaces at both ends of a string."),
+    (r".toLowerCase()", "Lower-cases a string for case-insensitive comparison."),
+    (r".includes(", "True if the string or array contains the value."),
+    (r".forEach(", "Runs a function for each item of an array."),
+    (r".map(", "Builds a new array by transforming each item."),
+    (r".filter(", "Builds a new array with the items that pass a test."),
+    (r".reduce(", "Folds an array into one value (here: a total)."),
+    (r".every(", "True if every item passes the test."),
+    (r".find(", "The first item that passes the test."),
+    (r".push(", "Adds an item to the end of an array."),
+    (r".splice(", "Removes (or inserts) items at an index."),
+    (r"for (const ", "Loops over the items of an array or NodeList."),
+    (r"if (", "Runs code only when the condition is true."),
+    (r"validity.", "The Constraint Validation API flags (valueMissing, typeMismatch, tooShort...)."),
+    (r"form.elements.", "Accesses a form control by its name."),
+    (r"matchMedia(", "Checks a media query from JavaScript (here: reduced motion)."),
+    (r"aria-", "Updates an ARIA attribute so assistive technology knows the new state."),
+    (r"`${", "Template literal: builds a string with embedded values."),
+    (r"% ", "Remainder operator: wraps an index around (last -> first)."),
+    (r"//", "A comment: ignored by the browser."),
+]
+
+# Two related projects are shown right after every lesson (type keys) ...
+LESSON_PROJECTS = {
+    1: ["landing", "404"], 2: ["card", "numbers"], 3: ["about", "alerts"], 4: ["footer", "breadcrumb"], 5: ["blog", "howto"],
+    6: ["pricing", "invoice"], 7: ["nav", "sidebar"], 8: ["gallery", "video"], 9: ["contact", "signup"], 10: ["features", "team"],
+    11: ["hero", "split"], 12: ["menu", "glossary"], 13: ["dark", "testimonials"], 14: ["cv", "event"], 15: ["hero", "dark"],
+    16: ["card", "cardgrid"], 17: ["split", "timeline"], 18: ["modal", "burger"], 19: ["nav", "schedule"], 20: ["dashboard", "calendar"],
+    21: ["onepage", "map"], 22: ["cardgrid", "plans"], 23: ["sidebar", "tabs"], 24: ["dark", "plans"], 25: ["progress", "numbers"],
+    26: ["faq", "menu"], 27: ["gallery", "hero"], 28: ["progress", "alerts"], 29: ["testimonials", "modal"], 30: ["login", "booking"],
+    31: ["features", "plans"], 32: ["video", "print"], 33: ["search", "faq"], 34: ["print", "onepage"], 35: ["landing", "onepage"],
+    36: ["404", "glossary"], 37: ["js-counter", "js-countdown"], 38: ["js-counter", "js-countdown"], 39: ["js-filter", "js-countdown"],
+    40: ["js-tabs", "js-menu"], 41: ["js-cart", "js-todo"], 42: ["js-filter", "js-slider"], 43: ["js-menu", "js-tabs"],
+    44: ["js-validate", "js-todo"], 45: ["js-fetch", "js-cart"], 46: ["js-tabs", "js-slider"], 47: ["js-fetch", "js-cart"],
+}
+# ... and two at the end of every chapter (part).
+PART_PROJECTS = {
+    1: ["landing", "about"], 2: ["card", "footer"], 3: ["404", "numbers"], 4: ["alerts", "breadcrumb"], 5: ["js-counter", "js-menu"],
+    6: ["blog", "event"], 7: ["signup", "booking"], 8: ["print", "glossary"], 9: ["contact", "search"], 10: ["features", "map"],
+    11: ["cardgrid", "dark"], 12: ["js-todo", "js-fetch"], 13: ["landing", "js-validate"], 14: ["login", "invoice"], 15: ["cv", "js-slider"],
+}
+
+
+def pick_projects(projects, keys, seed):
+    """Return the projects of the given type keys, rotating the theme with the seed so neighbouring lessons differ."""
+    out = []
+    for j, key in enumerate(keys):
+        cands = [p for p in projects if p["key"] == key]
+        out.append(cands[(seed * 7 + j * 11) % len(cands)])
+    return out
+
+
 def explain_lines(code, table, css=False):
     """Return [(fragment, explanation)] for lines (HTML) or declarations (CSS) matching a pattern; each pattern once."""
     out = []
@@ -512,27 +620,117 @@ def build_pdf(path):
             c.addOutlineEntry(self.title, self.key, level=self.level, closed=(self.level == 0))
 
     class Doc(BaseDocTemplate):
+        def build(self, *a, **kw):
+            if hasattr(self, "body_start"):
+                del self.body_start  # recomputed on every multiBuild pass (the contents may grow)
+            return BaseDocTemplate.build(self, *a, **kw)
+
         def afterFlowable(self, fl):
             if isinstance(fl, Bookmark):
-                self.notify("TOCEntry", (fl.level, htmlmod.escape(fl.title, quote=False), self.page, fl.key))
+                self.notify("TOCEntry", (fl.level, htmlmod.escape(fl.title, quote=False), self.page - getattr(self, "body_start", 1) + 1, fl.key))
 
     def heading(text, level, key):
         return [Bookmark(key, text, level), P(text, "h1" if level == 0 else "h2")]
+
+    class BodyStart(Flowable):
+        """Marks the first body page: page numbering restarts at 1 here (front matter is numbered i, ii, iii)."""
+        def __init__(self):
+            Flowable.__init__(self)
+            self.width = self.height = 0
+
+        def draw(self):
+            doc = self.canv._doctemplate
+            doc.body_start = self.canv.getPageNumber()
+            self.canv.addPageLabel(0, style="ROMAN_LOWER")
+            self.canv.addPageLabel(doc.body_start - 1, style="ARABIC", start=1)
+
+    def project_flowables(pr, key, level, files_note=True):
+        th = pr["theme"]
+        files = "index.html, styles.css" + (", app.js" if pr.get("js") else "")
+        out = [Bookmark(key, "Project %d: %s" % (pr["number"], pr["title"]), level)]
+        out.append(P("Project %d: %s" % (pr["number"], pr["title"]), "h1"))
+        out.append(P("Theme: %s (%s)   |   Level %d   |   Files: %s" % (th["name"], th["city"], pr["level"], files), "meta"))
+        out.append(P("Brief", "h3"))
+        out.append(P(pr["brief"]))
+        out.append(P("Learning goals", "h3"))
+        for g in pr["goals"]:
+            out.append(Paragraph(esc(g), S["li"], bulletText="\u2022"))
+        out.append(P("Elements and CSS used", "h3"))
+        out.extend(rl_table([["HTML elements", "CSS features"], [", ".join(pr["elements"]), ", ".join(pr["css"])]], col_widths=[AVAIL * 0.5, AVAIL * 0.5]))
+        out.append(P("Build guide", "h3"))
+        for i, st in enumerate(pr["steps"]):
+            out.append(Paragraph(esc(st), S["li"], bulletText="%d." % (i + 1)))
+        out.append(PageBreak())
+        out.append(P("Project %d: index.html" % pr["number"], "h2"))
+        out.append(code_block(pr["html"]))
+        out.append(P("Project %d: styles.css" % pr["number"], "h2"))
+        out.append(code_block(pr["css_code"]))
+        if pr.get("js"):
+            out.append(P("Project %d: app.js" % pr["number"], "h2"))
+            out.append(code_block(pr["js"]))
+        hx = explain_lines(pr["html"], HTML_EXPLAIN)
+        cx = explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)
+        out.append(PageBreak())
+        out.append(P("Project %d explained line by line" % pr["number"], "h2"))
+        out.append(P("The important lines of index.html", "h3"))
+        out.extend(rl_table([["Line", "What it does"]] + [[a, b] for a, b in hx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
+        out.append(P("The important declarations of styles.css", "h3"))
+        out.extend(rl_table([["Declaration", "What it does"]] + [[a, b] for a, b in cx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
+        if pr.get("js"):
+            jx = explain_lines(pr["js"], JS_EXPLAIN)
+            out.append(P("The important lines of app.js", "h3"))
+            out.extend(rl_table([["Line", "What it does"]] + [[a, b] for a, b in jx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
+        out.append(P("Check your work", "h3"))
+        for c in pr["checklist"]:
+            out.append(Paragraph(esc(c), S["li"], bulletText="\u2610"))
+        out.append(P("Exercises", "h3"))
+        for i, ex in enumerate(pr["exercises"]):
+            out.append(Paragraph(esc(ex), S["li"], bulletText="%d." % (i + 1)))
+        out.append(P("Theme data for this project", "h3"))
+        out.extend(rl_table([["Field", "Value"], ["Business", th["name"]], ["Tagline", th["tagline"]], ["City", th["city"]], ["Owner", th["person"]],
+                             ["Brand colour", th["primary"]], ["Accent colour", th["accent"]], ["Offers", "; ".join("%s (%s)" % (a, c) for a, b, c in th["items"])]],
+                            col_widths=[AVAIL * 0.25, AVAIL * 0.75]))
+        out.append(PageBreak())
+        return out
+
+    PROJECTS = all_projects()
+
+    def chapter_projects(num):
+        """Two practice projects that close a chapter (part)."""
+        keys = PART_PROJECTS.get(num)
+        if not keys:
+            return []
+        prs = pick_projects(PROJECTS, keys, num)
+        out = heading("Chapter %d projects" % num, 1, "cproj%d" % num)
+        out.append(P("Before moving on, build these two projects. They use what this chapter covered; every project is also listed, "
+                     "with all the others, in the Practice Projects part at the end of the book."))
+        out.append(PageBreak())
+        for k, pr in enumerate(prs):
+            out += project_flowables(pr, "cproj%d-%d" % (num, k), 2)
+        return out
+
+    def lesson_projects(n):
+        prs = pick_projects(PROJECTS, LESSON_PROJECTS[n], n)
+        out = [Bookmark("lproj%d" % n, "Lesson %d projects" % n, 2), P("Lesson %d projects" % n, "h2"),
+               P("Two short projects to practise this lesson. Type them, run them, then do the exercises."), PageBreak()]
+        for k, pr in enumerate(prs):
+            out += project_flowables(pr, "lproj%d-%d" % (n, k), 2)
+        return out
 
     story = []
     # ----- Cover
     story += [Spacer(1, 90), P(TITLE, "title"), P(SUBTITLE, "subtitle"), Spacer(1, 20),
               P("HTML 1 \u2022 HTML 2.0 \u2022 HTML 3.2 \u2022 HTML 4.01 \u2022 XHTML \u2022 HTML5 \u2022 Living Standard", "center"),
-              Spacer(1, 10), P("Elements \u2022 Attributes \u2022 Global attributes \u2022 Events \u2022 Input types \u2022 CSS \u2022 Entities \u2022 Guides", "center"),
+              Spacer(1, 10), P("Elements \u2022 Attributes \u2022 Global attributes \u2022 Events \u2022 Input types \u2022 CSS \u2022 JavaScript \u2022 Course \u2022 Projects", "center"),
               Spacer(1, 120), P("Compiled from the HTML Living Standard, MDN Web Docs, htmlreference.io, codeshack.io and the W3Schools HTML and CSS tutorial.", "center"),
               P("Edition of September 2026", "center"), PageBreak()]
     # ----- TOC
     toc = TableOfContents()
     toc.levelStyles = [S["toc0"], S["toc1"], S["toc2"]]
-    story += [P("Contents", "h1"), toc, NextPageTemplate("body"), PageBreak()]
+    story += [P("Contents", "h1"), toc, NextPageTemplate("body"), PageBreak(), BodyStart()]
 
     def part(num, title, sub):
-        return [Bookmark("part%d" % num, "Part %d: %s" % (num, title), 0), P("Part %d" % num, "partsub"), P(title, "part"), P(sub, "partsub"), PageBreak()]
+        return chapter_projects(num - 1) + [Bookmark("part%d" % num, "Part %d: %s" % (num, title), 0), P("Part %d" % num, "partsub"), P(title, "part"), P(sub, "partsub"), PageBreak()]
 
     # ----- Front matter
     story += heading("How to use this book", 0, "howto") + blocks(HOW_TO_USE) + [PageBreak()]
@@ -856,24 +1054,50 @@ def build_pdf(path):
     story += heading("Styling HTML elements: cookbook", 0, "csscook") + blocks(CSS_HTML_STYLING_GUIDE) + [PageBreak()]
     story += heading("Lists and tables with CSS", 0, "csslt") + blocks(CSS_LISTS_TABLES) + [PageBreak()]
 
+    # ----- JavaScript
+    story += part(12, "JavaScript Reference", "The third language of the web: syntax, the DOM, events, forms, storage and fetch, with a reference of %d entries." % len(JS_REFERENCE))
+    story += heading("JavaScript from zero", 0, "jsintro") + blocks(JS_INTRO) + [PageBreak()]
+    story += heading("JavaScript quick reference", 0, "jsref")
+    story.append(P("Every entry again in table form, grouped by topic, then one page per entry with a worked example."))
+    jgroups = []
+    for r in JS_REFERENCE:
+        if r[0] not in jgroups:
+            jgroups.append(r[0])
+    for g in jgroups:
+        story.append(P(g, "h3"))
+        story.extend(rl_table([["Name", "Syntax", "What it does"]] + [[r[1], r[2], r[3]] for r in JS_REFERENCE if r[0] == g],
+                              col_widths=[AVAIL * 0.24, AVAIL * 0.3, AVAIL * 0.46]))
+    story.append(PageBreak())
+    for g in jgroups:
+        story += heading("JavaScript: " + g, 1, "jsg-" + re.sub(r"\W", "", g))
+        for r in JS_REFERENCE:
+            if r[0] != g:
+                continue
+            story.append(KeepTogether([Bookmark("js-" + re.sub(r"\W", "", r[1]), r[1], 2), P(r[1], "h2"), P("Syntax", "h3"), code_block(r[2]),
+                                       P("Description", "h3"), P(r[3]), P("Example", "h3"), code_block(r[4])]))
+        story.append(PageBreak())
+
     # ----- Course
-    story += part(12, "HTML and CSS Course", "Thirty-six lessons from first page to finished project, following the W3Schools HTML and CSS tutorial.")
+    ALL_LESSONS = list(COURSE) + list(JS_COURSE)
+    story += part(13, "HTML, CSS and JavaScript Course", "Forty-seven lessons from first page to interactive project, each followed by two practice projects.")
     story += heading("About this course", 0, "course")
     story.append(P("This part is a guided course rather than a reference: read the lessons in order, type the examples, and change them. "
-                   "Its structure follows the W3Schools HTML and CSS tutorial (foundations, styling core, layout, enhancements, quality, project). "
-                   "Whenever a lesson mentions an element or property, the full details are in Parts 6 and 11."))
-    story.extend(rl_table([["Lesson", "Topic"]] + [[str(i + 1), t.split(":", 1)[1].strip() if ":" in t else t] for i, (t, _) in enumerate(COURSE)]))
+                   "Lessons 1 to 36 follow the W3Schools HTML and CSS tutorial (foundations, styling core, layout, enhancements, quality, project); "
+                   "lessons 37 to 47 add JavaScript. After every lesson come two complete practice projects that use what the lesson taught. "
+                   "Whenever a lesson mentions an element, property or function, the full details are in Parts 6, 11 and 12."))
+    story.extend(rl_table([["Lesson", "Topic", "Projects"]] + [[str(i + 1), t.split(":", 1)[1].strip() if ":" in t else t, ", ".join(LESSON_PROJECTS[i + 1])] for i, (t, _) in enumerate(ALL_LESSONS)],
+                          col_widths=[AVAIL * 0.12, AVAIL * 0.55, AVAIL * 0.33]))
     story.append(PageBreak())
-    for i, (ct, cb) in enumerate(COURSE):
-        story += heading(ct, 1, "lesson%d" % i) + blocks(cb) + [PageBreak()]
+    for i, (ct, cb) in enumerate(ALL_LESSONS):
+        story += heading(ct, 1, "lesson%d" % i) + blocks(cb) + [PageBreak()] + lesson_projects(i + 1)
 
     # ----- Guides
-    story += part(13, "Practical Guides", "Step-by-step guidance for pages, lists, tables, forms, media, accessibility, SEO and migration.")
+    story += part(14, "Practical Guides", "Step-by-step guidance for pages, lists, tables, forms, media, accessibility, SEO and migration.")
     for i, (gt, gb) in enumerate(GUIDES):
         story += heading(gt, 0, "guide%d" % i) + blocks(gb) + [PageBreak()]
 
     # ----- Glossary and index
-    story += part(14, "Glossary and Index", "Definitions of terms and an alphabetical index of everything in the book.")
+    story += part(15, "Glossary and Index", "Definitions of terms and an alphabetical index of everything in the book.")
     story += heading("Glossary", 0, "glossary")
     story.extend(rl_table([["Term", "Definition"]] + [list(g) for g in GLOSSARY]))
     story.append(PageBreak())
@@ -909,23 +1133,24 @@ def build_pdf(path):
         entries.append(("type=%s" % t[0], "Part 7: input type"))
     for p in CSS_PROPERTIES:
         entries.append((p[1] + " (CSS)", "Part 11: " + p[0]))
+    for r in JS_REFERENCE:
+        entries.append((r[1] + " (JS)", "Part 12: " + r[0]))
     for g in GLOSSARY:
-        entries.append((g[0], "Part 14: glossary"))
+        entries.append((g[0], "Part 15: glossary"))
     entries.sort(key=lambda x: re.sub(r"[<>]", "", x[0]).lower())
     rows = [["Term", "Where to find it"]] + [list(x) for x in entries]
     story.extend(rl_table(rows, col_widths=[AVAIL * 0.32, AVAIL * 0.68]))
 
     # ----- Projects
-    PROJECTS = all_projects()
-    story += part(15, "Practice Projects", "%d complete, ready-to-type projects: %d page types for %d different businesses, each with full HTML and CSS, a build guide, checklist and exercises." % (len(PROJECTS), len(TYPES), len(THEMES)))
+    story += part(16, "Practice Projects", "%d complete, ready-to-type projects: %d page types for %d different businesses, each with full HTML, CSS (and JavaScript where needed), a build guide, checklist and exercises." % (len(PROJECTS), len(TYPES), len(THEMES)))
     story += heading("How to use the projects", 0, "projects")
     story.append(P("Every project is a small but complete website page. Each one gives you: a brief, learning goals, the elements and CSS "
-                   "features it teaches, a step-by-step build guide, the complete index.html and styles.css to type or copy, an explanation "
+                   "features it teaches, a step-by-step build guide, the complete index.html and styles.css (plus app.js for JavaScript projects) to type or copy, an explanation "
                    "table for the important lines, a checklist to verify your result, and three exercises that extend it."))
     story.append(P("Projects are organised by type (%d types) and each type is repeated for %d businesses, so you can pick the theme closest "
                    "to your own idea, or build the same page for several themes to see how the same HTML skeleton changes with different content. "
                    "Level 1 projects need only Parts 2 and 6 of this book; level 2 add Flexbox and Grid; level 3 add pseudo-classes such as :checked "
-                   "and :target, dialog, counters and a little JavaScript." % (len(TYPES), len(THEMES))))
+                   "and :target, dialog, counters and JavaScript (Part 12). Two of these projects also appear after every lesson and every chapter." % (len(TYPES), len(THEMES))))
     story.append(P("Project types", "h2"))
     story.extend(rl_table([["#", "Type", "Level", "Teaches"]] + [[str(i + 1), tp["title"].replace(" for {name}", "").replace(" for {person}", ""), str(tp["level"]), ", ".join(tp["css"][:4])] for i, tp in enumerate(TYPES)],
                           col_widths=[AVAIL * 0.06, AVAIL * 0.4, AVAIL * 0.1, AVAIL * 0.44]))
@@ -940,52 +1165,17 @@ def build_pdf(path):
                       P("Project type: " + tp["title"].replace(" for {name}", "").replace(" for {person}", ""), "h1"),
                       P("Level %d   |   %d projects, one per theme" % (tp["level"], len(THEMES)), "meta"), P(tp["brief"]), PageBreak()]
             lastkey = pr["key"]
-        th = pr["theme"]
-        story += [Bookmark("proj-%d" % pr["number"], "Project %d: %s" % (pr["number"], pr["title"]), 2)]
-        story.append(P("Project %d: %s" % (pr["number"], pr["title"]), "h1"))
-        story.append(P("Theme: %s (%s)   |   Level %d   |   Files: index.html, styles.css" % (th["name"], th["city"], pr["level"]), "meta"))
-        story.append(P("Brief", "h3"))
-        story.append(P(pr["brief"]))
-        story.append(P("Learning goals", "h3"))
-        for g in pr["goals"]:
-            story.append(Paragraph(esc(g), S["li"], bulletText="\u2022"))
-        story.append(P("Elements and CSS used", "h3"))
-        story.extend(rl_table([["HTML elements", "CSS features"], [", ".join(pr["elements"]), ", ".join(pr["css"])]], col_widths=[AVAIL * 0.5, AVAIL * 0.5]))
-        story.append(P("Build guide", "h3"))
-        for i, st in enumerate(pr["steps"]):
-            story.append(Paragraph(esc(st), S["li"], bulletText="%d." % (i + 1)))
-        story.append(PageBreak())
-        story.append(P("Project %d: index.html" % pr["number"], "h2"))
-        story.append(code_block(pr["html"]))
-        story.append(P("Project %d: styles.css" % pr["number"], "h2"))
-        story.append(code_block(pr["css_code"]))
-        hx = explain_lines(pr["html"], HTML_EXPLAIN)
-        cx = explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)
-        story.append(PageBreak())
-        story.append(P("Project %d explained line by line" % pr["number"], "h2"))
-        story.append(P("The important lines of index.html", "h3"))
-        story.extend(rl_table([["Line", "What it does"]] + [[a, b] for a, b in hx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
-        story.append(P("The important declarations of styles.css", "h3"))
-        story.extend(rl_table([["Declaration", "What it does"]] + [[a, b] for a, b in cx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
-        story.append(P("Check your work", "h3"))
-        for c in pr["checklist"]:
-            story.append(Paragraph(esc(c), S["li"], bulletText="\u2610"))
-        story.append(P("Exercises", "h3"))
-        for i, ex in enumerate(pr["exercises"]):
-            story.append(Paragraph(esc(ex), S["li"], bulletText="%d." % (i + 1)))
-        story.append(P("Theme data for this project", "h3"))
-        story.extend(rl_table([["Field", "Value"], ["Business", th["name"]], ["Tagline", th["tagline"]], ["City", th["city"]], ["Owner", th["person"]],
-                               ["Brand colour", th["primary"]], ["Accent colour", th["accent"]], ["Offers", "; ".join("%s (%s)" % (a, c) for a, b, c in th["items"])]],
-                              col_widths=[AVAIL * 0.25, AVAIL * 0.75]))
-        story.append(PageBreak())
+        story += project_flowables(pr, "proj-%d" % pr["number"], 2)
 
     # ----- Page templates
     def on_page(canvas, doc):
+        if not hasattr(doc, "body_start"):
+            doc.body_start = doc.page  # first page drawn with the body template
         canvas.saveState()
         canvas.setFont("Sans", 8)
         canvas.setFillColor(MUTED)
         canvas.drawString(LM, 9 * mm, TITLE)
-        canvas.drawRightString(PAGE[0] - RM, 9 * mm, "Page %d" % doc.page)
+        canvas.drawRightString(PAGE[0] - RM, 9 * mm, "Page %d" % (doc.page - getattr(doc, "body_start", 1) + 1))
         canvas.setStrokeColor(LINE)
         canvas.line(LM, 12.5 * mm, PAGE[0] - RM, 12.5 * mm)
         canvas.restoreState()
@@ -1133,33 +1323,68 @@ def build_html(path):
     secs.append(section("css-lists-tables", "Lists and tables with CSS", blocks(CSS_LISTS_TABLES), kind="CSS", keywords="css list ul ol dl table td th border collapse zebra list-style marker bullets responsive table"))
     add_part("part-css", "Part 11: CSS Reference", secs)
 
-    secs = [section("lesson-%d" % i, ct, blocks(cb), kind="Lesson", keywords="course lesson tutorial w3schools") for i, (ct, cb) in enumerate(COURSE)]
-    add_part("part-course", "Part 12: HTML and CSS Course", secs)
+    PROJECTS = all_projects()
+
+    def project_body(pr):
+        th = pr["theme"]
+        jsblock = ""
+        if pr.get("js"):
+            jsblock = "<h3>app.js</h3><pre><code>%s</code></pre>" % E(pr["js"])
+        jsx = ""
+        if pr.get("js"):
+            jsx = table([["JavaScript line", "What it does"]] + [[a, b] for a, b in explain_lines(pr["js"], JS_EXPLAIN)])
+        return ("<p class=\"meta\">Theme: %s (%s) &middot; Level %d &middot; Files: %s</p><h3>Brief</h3><p>%s</p><h3>Learning goals</h3><ul>%s</ul>"
+                "<h3>Elements and CSS</h3><p><b>HTML:</b> %s<br><b>CSS:</b> %s</p><h3>Build guide</h3><ol>%s</ol>"
+                "<h3>index.html</h3><pre><code>%s</code></pre><h3>styles.css</h3><pre><code>%s</code></pre>%s"
+                "<h3>Explained line by line</h3>%s%s%s"
+                "<h3>Check your work</h3><ul>%s</ul><h3>Exercises</h3><ol>%s</ol>") % (
+            E(th["name"]), E(th["city"]), pr["level"], "index.html, styles.css" + (", app.js" if pr.get("js") else ""),
+            E(pr["brief"]), "".join("<li>%s</li>" % E(g) for g in pr["goals"]),
+            E(", ".join(pr["elements"])), E(", ".join(pr["css"])), "".join("<li>%s</li>" % E(x) for x in pr["steps"]),
+            E(pr["html"]), E(pr["css_code"]), jsblock,
+            table([["HTML line", "What it does"]] + [[a, b] for a, b in explain_lines(pr["html"], HTML_EXPLAIN)]),
+            table([["CSS declaration", "What it does"]] + [[a, b] for a, b in explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)]), jsx,
+            "".join("<li>%s</li>" % E(x) for x in pr["checklist"]), "".join("<li>%s</li>" % E(x) for x in pr["exercises"]))
+
+    def project_links(prs, intro):
+        return "<div class=\"note\">%s %s</div>" % (E(intro), " &middot; ".join(
+            "<a href=\"#project-%d\">Project %d: %s</a>" % (pr["number"], pr["number"], E(pr["title"])) for pr in prs))
+
+    # JavaScript part
+    secs = [section("js-intro", "JavaScript from zero", blocks(JS_INTRO), kind="JavaScript", keywords="javascript js script dom event function variable array object fetch storage")]
+    for r in JS_REFERENCE:
+        b = "<p class=\"meta\">Group: %s</p><h3>Syntax</h3><pre><code>%s</code></pre><h3>Description</h3><p>%s</p><h3>Example</h3><pre><code>%s</code></pre>" % (E(r[0]), E(r[2]), E(r[3]), E(r[4]))
+        secs.append(section("js-" + re.sub(r"\W", "", r[1]), r[1], b, kind="JavaScript", keywords="javascript js " + r[0].lower()))
+    add_part("part-js", "Part 12: JavaScript Reference", secs)
+
+    ALL_LESSONS = list(COURSE) + list(JS_COURSE)
+    secs = []
+    for i, (ct, cb) in enumerate(ALL_LESSONS):
+        prs = pick_projects(PROJECTS, LESSON_PROJECTS[i + 1], i + 1)
+        secs.append(section("lesson-%d" % i, ct, blocks(cb) + project_links(prs, "Practice projects for this lesson:"), kind="Lesson", keywords="course lesson tutorial w3schools javascript"))
+    add_part("part-course", "Part 13: HTML, CSS and JavaScript Course", secs)
 
     secs = [section("guide-%d" % i, gt, blocks(gb), kind="Guide") for i, (gt, gb) in enumerate(GUIDES)]
-    add_part("part-guides", "Part 13: Practical Guides", secs)
+    add_part("part-guides", "Part 14: Practical Guides", secs)
 
     secs = [section("glossary", "Glossary", table([["Term", "Definition"]] + [list(g) for g in GLOSSARY]), kind="Glossary", keywords=" ".join(g[0] for g in GLOSSARY))]
-    add_part("part-glossary", "Part 14: Glossary", secs)
+    add_part("part-glossary", "Part 15: Glossary", secs)
 
-    PROJECTS = all_projects()
     secs = []
     for pr in PROJECTS:
         th = pr["theme"]
-        b = ("<p class=\"meta\">Theme: %s (%s) &middot; Level %d</p><h3>Brief</h3><p>%s</p><h3>Learning goals</h3><ul>%s</ul>"
-             "<h3>Elements and CSS</h3><p><b>HTML:</b> %s<br><b>CSS:</b> %s</p><h3>Build guide</h3><ol>%s</ol>"
-             "<h3>index.html</h3><pre><code>%s</code></pre><h3>styles.css</h3><pre><code>%s</code></pre>"
-             "<h3>Explained line by line</h3>%s%s"
-             "<h3>Check your work</h3><ul>%s</ul><h3>Exercises</h3><ol>%s</ol>") % (
-            E(th["name"]), E(th["city"]), pr["level"], E(pr["brief"]), "".join("<li>%s</li>" % E(g) for g in pr["goals"]),
-            E(", ".join(pr["elements"])), E(", ".join(pr["css"])), "".join("<li>%s</li>" % E(x) for x in pr["steps"]),
-            E(pr["html"]), E(pr["css_code"]),
-            table([["HTML line", "What it does"]] + [[a, b] for a, b in explain_lines(pr["html"], HTML_EXPLAIN)]),
-            table([["CSS declaration", "What it does"]] + [[a, b] for a, b in explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)]),
-            "".join("<li>%s</li>" % E(x) for x in pr["checklist"]), "".join("<li>%s</li>" % E(x) for x in pr["exercises"]))
-        secs.append(section("project-%d" % pr["number"], "Project %d: %s" % (pr["number"], pr["title"]), b, kind="Project",
-                            keywords="project %s %s %s level %d" % (pr["key"], th["slug"], " ".join(pr["css"]), pr["level"])))
-    add_part("part-projects", "Part 15: Practice Projects (%d)" % len(PROJECTS), secs)
+        secs.append(section("project-%d" % pr["number"], "Project %d: %s" % (pr["number"], pr["title"]), project_body(pr), kind="Project",
+                            keywords="project %s %s %s level %d%s" % (pr["key"], th["slug"], " ".join(pr["css"]), pr["level"], " javascript js" if pr.get("js") else "")))
+    add_part("part-projects", "Part 16: Practice Projects (%d)" % len(PROJECTS), secs)
+
+    # chapter projects: appended to the end of each part's article
+    for num, keys in PART_PROJECTS.items():
+        pid_index = next((k for k, (pid, t) in enumerate(nav) if t.startswith("Part %d:" % num)), None)
+        if pid_index is None:
+            continue
+        prs = pick_projects(PROJECTS, keys, num)
+        parts[pid_index] = parts[pid_index][:-len("</article>")] + section("chapter-projects-%d" % num, "Chapter %d projects" % num,
+            project_links(prs, "Before moving on, build these two projects:"), kind="Projects", keywords="chapter projects practice") + "</article>"
 
     el_links = "".join("<a href=\"#el-%s\">&lt;%s&gt;</a>" % (e["name"], e["name"]) for e in ELEMENTS)
     nav_html = "".join("<li><a href=\"#%s\">%s</a></li>" % (pid, E(t)) for pid, t in nav)

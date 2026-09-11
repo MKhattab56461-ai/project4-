@@ -1945,9 +1945,6 @@ ptype(key="onepage", title="Complete one-page website for {name}", level=3,
       exercises=["Add smooth scrolling with scroll-behavior: smooth (respecting reduced motion).", "Add an Arabic RTL version.", "Split into multiple pages with a shared stylesheet."])
 
 
-assert len(TYPES) == 45, len(TYPES)
-
-
 def all_projects():
     """Yield 1000 project dicts: for each type, one per theme."""
     out = []
@@ -1955,10 +1952,612 @@ def all_projects():
     for tp in TYPES:
         for th in THEMES:
             n += 1
-            html, css = tp["build"](th)
+            built = tp["build"](th)
+            html, css = built[0], built[1]
+            js = built[2] if len(built) > 2 else None
             out.append(dict(
-                number=n, key=tp["key"], theme=th, level=tp["level"],
+                number=n, key=tp["key"], theme=th, level=tp["level"], js=js,
                 title=tp["title"].format(**th), brief=tp["brief"], goals=tp["goals"], elements=tp["elements"],
                 css=tp["css"], steps=tp["steps"], html=html, css_code=css, checklist=tp["checklist"], exercises=tp["exercises"],
             ))
     return out
+
+
+# --------------------------------------------------------------------------- JavaScript project types
+JS_BASE = HEAD.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css">\n  <script src="app.js" defer></script>')
+
+
+def b_js_counter(t):
+    html = JS_BASE.format(title=t["name"] + " - Order counter") + f'''  <main>
+    <h1>{t["items"][0][0]}</h1>
+    <p>{t["items"][0][1]}. Price: <span id="unit">{t["items"][0][2]}</span></p>
+    <div class="qty">
+      <button type="button" id="minus" aria-label="Decrease quantity">&minus;</button>
+      <output id="count" aria-live="polite">1</output>
+      <button type="button" id="plus" aria-label="Increase quantity">+</button>
+    </div>
+    <p class="total">Total: <strong id="total"></strong></p>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 30rem; margin: 3rem auto; padding: 0 1rem; text-align: center; }
+.qty { display: inline-flex; align-items: center; gap: 1rem; border: 1px solid var(--line); border-radius: 999px; padding: .3rem; }
+.qty button { width: 2.5rem; height: 2.5rem; border: 0; border-radius: 50%; background: var(--brand); color: #fff; font-size: 1.3rem; cursor: pointer; }
+.qty button:disabled { opacity: .4; cursor: not-allowed; }
+output { min-width: 2rem; font-size: 1.3rem; font-weight: 700; }
+.total { font-size: 1.3rem; }
+'''
+    js = '''const price = parseInt(document.querySelector('#unit').textContent, 10) || 0;
+const count = document.querySelector('#count');
+const total = document.querySelector('#total');
+const minus = document.querySelector('#minus');
+const plus = document.querySelector('#plus');
+let qty = 1;
+
+function render() {
+  count.textContent = qty;
+  total.textContent = (price * qty).toLocaleString('en-EG') + ' EGP';
+  minus.disabled = qty <= 1;
+  plus.disabled = qty >= 10;
+}
+minus.addEventListener('click', () => { qty--; render(); });
+plus.addEventListener('click', () => { qty++; render(); });
+render();
+'''
+    return html, css, js
+
+
+ptype(key="js-counter", title="Quantity counter with live total for {name}", level=2, js=True,
+      brief="Two buttons change a quantity between 1 and 10; the total price updates instantly and the buttons disable at the limits.",
+      goals=["Select elements and attach click listeners", "Keep state in a variable and re-render", "Use output with aria-live for announced changes"],
+      elements=["button", "output", "span", "strong"], css=["inline-flex", ":disabled", "border-radius: 50%"],
+      steps=["Write the HTML with ids on the buttons, output and total.", "Link app.js with defer.", "Read the unit price from the page with parseInt.",
+             "Write a render() function that updates text and disabled states.", "Add click listeners that change qty then call render().", "Call render() once at start."],
+      build=b_js_counter, checklist=["Buttons disable at 1 and 10", "Total formatted with thousands separator", "Buttons have aria-labels", "Works with keyboard (Tab, Enter)"],
+      exercises=["Add an input so the user can type a quantity.", "Save the quantity in localStorage.", "Add a 10% discount above 5 items."])
+
+
+def b_js_filter(t):
+    lis = "\n".join(f'      <li data-name="{a.lower()}"><strong>{a}</strong> <span>{c}</span><p>{b}.</p></li>' for a, b, c in t["items"])
+    html = JS_BASE.format(title=t["name"] + " - Filter") + f'''  <main>
+    <h1>Find a {t["noun"]}</h1>
+    <label for="q">Filter by name</label>
+    <input id="q" type="search" placeholder="Type to filter" autocomplete="off">
+    <p id="status" aria-live="polite"></p>
+    <ul id="list">
+{lis}
+    </ul>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 36rem; margin: 2rem auto; padding: 0 1rem; }
+label { display: block; font-weight: 600; }
+input { width: 100%; padding: .7rem 1rem; border: 1px solid #bbb; border-radius: 999px; font: inherit; margin: .3rem 0 1rem; }
+#status { color: var(--muted); font-size: .9rem; }
+ul { list-style: none; padding: 0; }
+li { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+li span { float: right; color: var(--brand); font-weight: 700; }
+li p { margin: .2rem 0 0; color: var(--muted); }
+li[hidden] { display: none; }
+'''
+    js = '''const input = document.querySelector('#q');
+const items = [...document.querySelectorAll('#list li')];
+const status = document.querySelector('#status');
+
+function filter() {
+  const q = input.value.trim().toLowerCase();
+  let shown = 0;
+  for (const li of items) {
+    const match = li.dataset.name.includes(q);
+    li.hidden = !match;
+    if (match) shown++;
+  }
+  status.textContent = q ? `${shown} of ${items.length} shown` : '';
+}
+input.addEventListener('input', filter);
+'''
+    return html, css, js
+
+
+ptype(key="js-filter", title="Live search filter for {name}", level=2, js=True,
+      brief="A search box that hides list items as you type, comparing against a data attribute, and announces how many remain.",
+      goals=["Handle the input event", "Use dataset and the hidden property", "Announce results with aria-live"],
+      elements=["label", "input type=search", "ul", "li", "p"], css=["li[hidden]", "float: right", "border-radius: 999px"],
+      steps=["Give each li a data-name in lower case.", "Add the search input with a label and a status paragraph.", "Collect the items once into an array.",
+             "On input, lower-case the query and set li.hidden for non-matches.", "Count matches and update the status.", "Test with an empty query."],
+      build=b_js_filter, checklist=["Case-insensitive", "Empty query shows everything", "Status updates", "No layout jump"],
+      exercises=["Highlight the matched text with <mark>.", "Add a 'no results' message.", "Filter also by description."])
+
+
+def b_js_tabs(t):
+    labels = t["items"][:3]
+    btns = "".join(f'<button role="tab" id="tab-{i}" aria-controls="panel-{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{a}</button>' for i, (a, b, c) in enumerate(labels))
+    panels = "\n".join(f'    <section role="tabpanel" id="panel-{i}" aria-labelledby="tab-{i}"{"" if i == 0 else " hidden"}><h2>{a}</h2><p>{b}. Price: {c}.</p></section>' for i, (a, b, c) in enumerate(labels))
+    html = JS_BASE.format(title=t["name"] + " - Tabs") + f'''  <main>
+    <h1>Compare {t["nouns"]}</h1>
+    <div role="tablist" aria-label="{t["nouns"].capitalize()}">{btns}</div>
+{panels}
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 40rem; margin: 2rem auto; padding: 0 1rem; }
+[role="tablist"] { display: flex; border-bottom: 2px solid var(--line); }
+[role="tab"] { padding: .7rem 1rem; border: 0; background: none; font: inherit; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; }
+[role="tab"][aria-selected="true"] { color: var(--brand); border-color: var(--brand); font-weight: 600; }
+[role="tab"]:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+[role="tabpanel"] { padding: 1.25rem 0; }
+'''
+    js = '''const tabs = [...document.querySelectorAll('[role="tab"]')];
+const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+function activate(index, focus = true) {
+  tabs.forEach((tab, i) => {
+    const selected = i === index;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    panels[i].hidden = !selected;
+  });
+  if (focus) tabs[index].focus();
+}
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => activate(i, false));
+  tab.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') activate((i + 1) % tabs.length);
+    if (e.key === 'ArrowLeft') activate((i - 1 + tabs.length) % tabs.length);
+    if (e.key === 'Home') activate(0);
+    if (e.key === 'End') activate(tabs.length - 1);
+  });
+});
+'''
+    return html, css, js
+
+
+ptype(key="js-tabs", title="Accessible tabs with JavaScript for {name}", level=3, js=True,
+      brief="Real tabs with the ARIA tab pattern: role attributes, aria-selected, roving tabindex and arrow-key navigation.",
+      goals=["Implement the WAI-ARIA tabs pattern", "Handle keydown for arrow keys", "Keep state in attributes and let CSS style them"],
+      elements=["div role=tablist", "button role=tab", "section role=tabpanel"], css=["[aria-selected]", "attribute selectors", ":focus-visible"],
+      steps=["Write buttons with role=tab inside a role=tablist; link each to a panel with aria-controls and aria-labelledby.", "Only the active tab has tabindex=0.",
+             "Write activate(index) that updates aria-selected, tabIndex and hidden.", "Click calls activate.", "Arrow keys, Home and End move between tabs.", "Style the selected tab through the attribute."],
+      build=b_js_tabs, checklist=["Tab key enters the tablist once, arrows move inside", "Only one panel visible", "Selected tab styled", "Screen reader announces 'tab 1 of 3'"],
+      exercises=["Remember the active tab in the URL hash.", "Add automatic activation on focus versus manual (Enter).", "Animate panel changes."])
+
+
+def b_js_form_validate(t):
+    html = JS_BASE.format(title=t["name"] + " - Register") + f'''  <main>
+    <h1>Create your {t["name"]} account</h1>
+    <form id="reg" novalidate>
+      <div class="row"><label for="name">Name</label><input id="name" name="name" required minlength="2" autocomplete="name"><p class="err" id="name-err" aria-live="polite"></p></div>
+      <div class="row"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"><p class="err" id="email-err" aria-live="polite"></p></div>
+      <div class="row"><label for="pw">Password (8+ characters)</label><input id="pw" name="password" type="password" required minlength="8" autocomplete="new-password"><p class="err" id="pw-err" aria-live="polite"></p></div>
+      <div class="row"><label for="pw2">Repeat password</label><input id="pw2" name="password2" type="password" required autocomplete="new-password"><p class="err" id="pw2-err" aria-live="polite"></p></div>
+      <button>Create account</button>
+      <p id="done" hidden>Welcome! Your account is ready.</p>
+    </form>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 28rem; margin: 2rem auto; padding: 0 1rem; }
+.row { margin-bottom: 1rem; }
+label { display: block; font-weight: 600; margin-bottom: .2rem; }
+input { width: 100%; padding: .6rem .8rem; border: 1px solid #bbb; border-radius: 8px; font: inherit; }
+input[aria-invalid="true"] { border-color: #c00; background: #fff5f5; }
+.err { color: #c00; font-size: .85rem; margin: .25rem 0 0; min-height: 1.2em; }
+button { padding: .7rem 1.4rem; border: 0; border-radius: 999px; background: var(--brand); color: #fff; font: inherit; }
+#done { color: #166534; font-weight: 600; }
+'''
+    js = '''const form = document.querySelector('#reg');
+const messages = {
+  valueMissing: 'This field is required.',
+  typeMismatch: 'Please enter a valid email address.',
+  tooShort: 'Too short.',
+};
+
+function check(input) {
+  const err = document.getElementById(input.id + '-err');
+  let message = '';
+  if (input.id === 'pw2' && input.value !== form.elements.password.value) {
+    message = 'Passwords do not match.';
+  } else if (!input.validity.valid) {
+    for (const key in messages) if (input.validity[key]) message = messages[key];
+    if (input.validity.tooShort) message = `Please use at least ${input.minLength} characters.`;
+  }
+  err.textContent = message;
+  input.setAttribute('aria-invalid', String(Boolean(message)));
+  return !message;
+}
+
+form.querySelectorAll('input').forEach(input => {
+  input.addEventListener('blur', () => check(input));
+  input.addEventListener('input', () => { if (input.getAttribute('aria-invalid') === 'true') check(input); });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const inputs = [...form.querySelectorAll('input')];
+  const ok = inputs.map(check).every(Boolean);
+  if (!ok) { inputs.find(i => i.getAttribute('aria-invalid') === 'true').focus(); return; }
+  form.querySelector('#done').hidden = false;
+  form.querySelector('button').disabled = true;
+});
+'''
+    return html, css, js
+
+
+ptype(key="js-validate", title="Custom form validation for {name}", level=3, js=True,
+      brief="Turn off browser messages with novalidate and write friendly inline errors using the Constraint Validation API, aria-invalid and aria-live, including a password match check.",
+      goals=["Use input.validity and minLength", "Show errors on blur, clear while typing", "Move focus to the first invalid field on submit"],
+      elements=["form novalidate", "label", "input", "p aria-live", "button"], css=["[aria-invalid]", "min-height", "border-color"],
+      steps=["Write the form with novalidate and an error paragraph per field.", "Write check(input) that computes a message from validity flags.", "Add the custom password match rule.",
+             "Validate on blur; re-validate on input only once a field is marked invalid.", "On submit validate all, focus the first error.", "Show the success message."],
+      build=b_js_form_validate, checklist=["Errors are text, not only colour", "Screen reader announces errors", "Password mismatch detected", "Submitting valid data shows success"],
+      exercises=["Add a password strength meter with <meter>.", "Add a show-password toggle.", "Send the data with fetch."])
+
+
+def b_js_theme_cart(t):
+    lis = "\n".join(f'      <li><span>{a}</span> <b>{c}</b> <button type="button" class="add" data-title="{a}" data-price="{"".join(ch for ch in c if ch.isdigit()) or 0}">Add</button></li>' for a, b, c in t["items"])
+    html = JS_BASE.format(title=t["name"] + " - Cart") + f'''  <main>
+    <h1>{t["name"]}</h1>
+    <ul id="products">
+{lis}
+    </ul>
+    <section class="cart" aria-labelledby="ch">
+      <h2 id="ch">Your cart (<span id="n">0</span>)</h2>
+      <ul id="cart"></ul>
+      <p>Total: <strong id="total">0 EGP</strong></p>
+      <button type="button" id="clear">Empty cart</button>
+    </section>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 40rem; margin: 2rem auto; padding: 0 1rem; }
+ul { list-style: none; padding: 0; }
+#products li, #cart li { display: flex; align-items: center; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--line); }
+#products li span, #cart li span { flex: 1; }
+.add, #clear, .remove { border: 0; border-radius: 999px; padding: .4rem .9rem; background: var(--brand); color: #fff; font: inherit; cursor: pointer; }
+.remove { background: #888; }
+.cart { margin-top: 2rem; background: var(--accent); padding: 1rem 1.25rem; border-radius: 12px; }
+'''
+    js = '''const cartList = document.querySelector('#cart');
+const totalEl = document.querySelector('#total');
+const nEl = document.querySelector('#n');
+let cart = JSON.parse(localStorage.getItem('cart')) ?? [];
+
+function save() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+function render() {
+  cartList.innerHTML = '';
+  cart.forEach((item, i) => {
+    const li = document.createElement('li');
+    const name = document.createElement('span'); name.textContent = item.title;
+    const price = document.createElement('b'); price.textContent = item.price + ' EGP';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'remove'; btn.textContent = 'Remove';
+    btn.addEventListener('click', () => { cart.splice(i, 1); save(); render(); });
+    li.append(name, price, btn);
+    cartList.append(li);
+  });
+  nEl.textContent = cart.length;
+  totalEl.textContent = cart.reduce((s, i) => s + i.price, 0).toLocaleString('en-EG') + ' EGP';
+}
+
+document.querySelector('#products').addEventListener('click', e => {
+  const btn = e.target.closest('.add');
+  if (!btn) return;
+  cart.push({ title: btn.dataset.title, price: Number(btn.dataset.price) });
+  save(); render();
+});
+document.querySelector('#clear').addEventListener('click', () => { cart = []; save(); render(); });
+render();
+'''
+    return html, css, js
+
+
+ptype(key="js-cart", title="Shopping cart saved in localStorage for {name}", level=3, js=True,
+      brief="Add products to a cart, remove them, see the total, and keep the cart after reloading the page using localStorage and JSON.",
+      goals=["Keep an array as the single source of truth", "Persist with localStorage and JSON", "Build DOM safely with createElement"],
+      elements=["ul", "li", "button data-*", "section", "strong"], css=["display: flex", "flex: 1", "border-radius: 999px"],
+      steps=["Give each Add button data-title and data-price.", "Load the cart from localStorage or start empty.", "Write save() and render().",
+             "Delegate clicks on the product list to push items.", "Remove buttons splice the array.", "Reload the page: the cart is still there."],
+      build=b_js_theme_cart, checklist=["Cart survives reload", "Total correct", "Remove works for the right item", "No innerHTML with data"],
+      exercises=["Group identical items with a quantity.", "Add a checkout form that posts the cart JSON.", "Show a toast message when adding."])
+
+
+def b_js_slider(t):
+    slides = "\n".join(f'      <li class="slide"><img src="images/{t["slug"]}-{i+1}.jpg" alt="{a}" width="800" height="500"><p>{a}</p></li>' for i, (a, b, c) in enumerate(t["items"]))
+    html = JS_BASE.format(title=t["name"] + " - Slideshow") + f'''  <main>
+    <h1>{t["name"]} highlights</h1>
+    <section class="carousel" aria-roledescription="carousel" aria-label="Highlights">
+      <ul class="track" id="track">
+{slides}
+      </ul>
+      <div class="controls">
+        <button type="button" id="prev" aria-label="Previous slide">&#8249;</button>
+        <p id="pos" aria-live="polite">1 / {len(t["items"])}</p>
+        <button type="button" id="next" aria-label="Next slide">&#8250;</button>
+        <button type="button" id="play" aria-pressed="true">Pause</button>
+      </div>
+    </section>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 50rem; margin: 2rem auto; padding: 0 1rem; }
+.carousel { overflow: hidden; border-radius: 14px; background: var(--accent); }
+.track { list-style: none; margin: 0; padding: 0; display: flex; transition: translate .4s ease; }
+.slide { flex: 0 0 100%; text-align: center; }
+.slide img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+.slide p { margin: .5rem 0 1rem; font-weight: 600; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .5rem 0 1rem; }
+.controls button { border: 0; border-radius: 999px; background: var(--brand); color: #fff; font: inherit; padding: .4rem .9rem; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .track { transition: none; } }
+'''
+    js = '''const track = document.querySelector('#track');
+const slides = track.children;
+const pos = document.querySelector('#pos');
+const play = document.querySelector('#play');
+let index = 0;
+let timer = null;
+
+function go(n) {
+  index = (n + slides.length) % slides.length;
+  track.style.translate = `-${index * 100}% 0`;
+  pos.textContent = `${index + 1} / ${slides.length}`;
+}
+function start() { stop(); timer = setInterval(() => go(index + 1), 4000); play.textContent = 'Pause'; play.setAttribute('aria-pressed', 'true'); }
+function stop() { clearInterval(timer); timer = null; play.textContent = 'Play'; play.setAttribute('aria-pressed', 'false'); }
+
+document.querySelector('#prev').addEventListener('click', () => { go(index - 1); stop(); });
+document.querySelector('#next').addEventListener('click', () => { go(index + 1); stop(); });
+play.addEventListener('click', () => (timer ? stop() : start()));
+track.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(index - 1); if (e.key === 'ArrowRight') go(index + 1); });
+
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+'''
+    return html, css, js
+
+
+ptype(key="js-slider", title="Image slideshow for {name}", level=3, js=True,
+      brief="A carousel that slides between images using translate, with previous/next buttons, a live position indicator, auto-play that pauses on demand and respects reduced motion.",
+      goals=["Use setInterval and clearInterval", "Animate with the translate property and a transition", "Respect prefers-reduced-motion from JavaScript with matchMedia"],
+      elements=["section", "ul", "li", "img", "button", "p aria-live"], css=["overflow: hidden", "flex: 0 0 100%", "transition: translate", "@media (prefers-reduced-motion)"],
+      steps=["Lay the slides in a flex row, each 100% wide, inside an overflow-hidden box.", "Write go(n) that wraps the index and sets translate.", "Add previous/next buttons.",
+             "Add start()/stop() for auto-play with a Pause/Play button.", "Stop auto-play on manual navigation.", "Skip auto-play when reduced motion is preferred."],
+      build=b_js_slider, checklist=["Wraps from last to first", "Position text updates", "Pause button reflects state (aria-pressed)", "No animation with reduced motion"],
+      exercises=["Add dot indicators.", "Add swipe support with pointer events.", "Pause when the tab is hidden (visibilitychange)."])
+
+
+def b_js_fetch(t):
+    html = JS_BASE.format(title=t["name"] + " - Catalogue") + f'''  <main>
+    <h1>{t["name"]} catalogue</h1>
+    <p id="status" aria-live="polite">Loading...</p>
+    <div id="grid" class="grid"></div>
+    <template id="card">
+      <article class="card"><h2></h2><p class="desc"></p><p class="price"></p></article>
+    </template>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 60rem; margin: 2rem auto; padding: 0 1rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.card { background: var(--accent); padding: 1.25rem; border-radius: 12px; }
+.card h2 { margin: 0 0 .3rem; font-size: 1.1rem; }
+.price { color: var(--brand); font-weight: 700; }
+#status:empty { display: none; }
+'''
+    items = ",\n".join('  { "title": "%s", "desc": "%s", "price": "%s" }' % (a, b, c) for a, b, c in t["items"])
+    js = f'''// data.json (put next to index.html; run a local server, e.g. python -m http.server):
+// [
+{items}
+// ]
+
+const grid = document.querySelector('#grid');
+const status = document.querySelector('#status');
+const tpl = document.querySelector('#card');
+
+async function load() {{
+  try {{
+    const res = await fetch('data.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const items = await res.json();
+    render(items);
+    status.textContent = '';
+  }} catch (err) {{
+    status.textContent = 'Could not load the catalogue. ' + err.message;
+  }}
+}}
+
+function render(items) {{
+  const frag = document.createDocumentFragment();
+  for (const item of items) {{
+    const node = tpl.content.cloneNode(true);
+    node.querySelector('h2').textContent = item.title;
+    node.querySelector('.desc').textContent = item.desc;
+    node.querySelector('.price').textContent = item.price;
+    frag.append(node);
+  }}
+  grid.replaceChildren(frag);
+}}
+load();
+'''
+    return html, css, js
+
+
+ptype(key="js-fetch", title="Catalogue loaded from JSON for {name}", level=3, js=True,
+      brief="Fetch a JSON file, handle loading and error states, and render cards by cloning a template element.",
+      goals=["Use fetch with async/await and try/catch", "Clone <template> content", "Use a DocumentFragment and replaceChildren"],
+      elements=["p aria-live", "div", "template", "article"], css=[":empty", "grid auto-fit"],
+      steps=["Create data.json with an array of objects.", "Write the template card in the HTML.", "Write load(): fetch, check res.ok, parse JSON.",
+             "Write render(): clone the template per item and fill textContent.", "Show a status message while loading and on error.", "Serve the folder with a local server and open http://localhost:8000."],
+      build=b_js_fetch, checklist=["Loading message appears then disappears", "Error shown if the file is missing", "No innerHTML", "Works from a local server"],
+      exercises=["Add a sort select.", "Add a search filter.", "Load from a public API instead of a file."])
+
+
+def b_js_modal_menu(t):
+    html = JS_BASE.format(title=t["name"] + " - Menu") + f'''  <header class="top">
+    <a class="logo" href="index.html">{t["name"]}</a>
+    <button type="button" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav id="menu" hidden aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+{items_li(t, 3, '<li><a href="#">{0}</a></li>')}
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main><h1>{t["tagline"]}</h1><p>Open the menu with the button, close it with Escape or by clicking outside.</p></main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''.top { position: relative; display: flex; justify-content: space-between; align-items: center; padding: .75rem 1rem; background: var(--brand); color: #fff; }
+.logo { color: #fff; font-weight: 700; text-decoration: none; }
+#menu-btn { border: 2px solid #fff; background: none; color: #fff; padding: .4rem .9rem; border-radius: 8px; font: inherit; cursor: pointer; }
+#menu-btn[aria-expanded="true"] { background: #fff; color: var(--brand); }
+#menu { position: absolute; right: 1rem; top: 100%; background: #fff; color: var(--ink); border-radius: 10px; box-shadow: 0 10px 30px rgb(0 0 0 / 20%); min-width: 12rem; }
+#menu ul { list-style: none; margin: 0; padding: .5rem 0; }
+#menu a { display: block; padding: .6rem 1rem; text-decoration: none; color: inherit; }
+#menu a:hover, #menu a:focus-visible { background: var(--accent); }
+main { padding: 2rem 1rem; }
+'''
+    js = '''const btn = document.querySelector('#menu-btn');
+const menu = document.querySelector('#menu');
+
+function setOpen(open) {
+  btn.setAttribute('aria-expanded', String(open));
+  menu.hidden = !open;
+  if (open) menu.querySelector('a').focus();
+}
+btn.addEventListener('click', () => setOpen(menu.hidden));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); }
+});
+document.addEventListener('click', e => {
+  if (!menu.hidden && !menu.contains(e.target) && e.target !== btn) setOpen(false);
+});
+'''
+    return html, css, js
+
+
+ptype(key="js-menu", title="Accessible dropdown menu for {name}", level=2, js=True,
+      brief="A menu button that toggles a dropdown, reflects its state with aria-expanded, moves focus into the menu, and closes on Escape or outside click.",
+      goals=["Toggle hidden and aria-expanded together", "Manage focus on open and close", "Detect clicks outside with contains()"],
+      elements=["button aria-expanded aria-controls", "nav hidden", "ul", "li", "a"], css=["[aria-expanded=true]", "position: absolute", "box-shadow"],
+      steps=["Write the button with aria-expanded=false and aria-controls pointing at the nav id.", "Hide the nav with the hidden attribute.", "Write setOpen(open).",
+             "Click toggles.", "Escape closes and returns focus to the button.", "Clicking outside closes."],
+      build=b_js_modal_menu, checklist=["Button state visible and announced", "Focus goes to the first link", "Escape returns focus", "Outside click closes"],
+      exercises=["Add arrow-key navigation inside the menu.", "Animate the dropdown with @starting-style.", "Close when focus leaves the menu (focusout)."])
+
+
+def b_js_todo(t):
+    html = JS_BASE.format(title=t["name"] + " - Tasks") + f'''  <main>
+    <h1>{t["name"]} task list</h1>
+    <form id="new">
+      <label for="task" class="sr-only">New task</label>
+      <input id="task" placeholder="e.g. Order more {t["nouns"]}" required autocomplete="off">
+      <button>Add</button>
+    </form>
+    <ul id="tasks"></ul>
+    <p><span id="left">0</span> left &middot; <button type="button" id="clear">Clear done</button></p>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 32rem; margin: 2rem auto; padding: 0 1rem; }
+#new { display: flex; gap: .5rem; }
+#task { flex: 1; padding: .6rem .8rem; border: 1px solid #bbb; border-radius: 8px; font: inherit; }
+button { border: 0; border-radius: 8px; background: var(--brand); color: #fff; font: inherit; padding: .5rem 1rem; cursor: pointer; }
+#clear { background: #888; }
+ul { list-style: none; padding: 0; }
+li { display: flex; align-items: center; gap: .6rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+li label { flex: 1; }
+li.done label { text-decoration: line-through; color: var(--muted); }
+li .del { background: none; color: #c00; font-size: 1.2rem; padding: 0 .4rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+'''
+    js = '''const form = document.querySelector('#new');
+const input = document.querySelector('#task');
+const list = document.querySelector('#tasks');
+const left = document.querySelector('#left');
+let tasks = JSON.parse(localStorage.getItem('tasks')) ?? [];
+
+function save() { localStorage.setItem('tasks', JSON.stringify(tasks)); }
+
+function render() {
+  list.innerHTML = '';
+  tasks.forEach((t, i) => {
+    const li = document.createElement('li');
+    li.className = t.done ? 'done' : '';
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = 't' + i; cb.checked = t.done;
+    cb.addEventListener('change', () => { t.done = cb.checked; save(); render(); });
+    const label = document.createElement('label'); label.htmlFor = cb.id; label.textContent = t.text;
+    const del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = '\\u00d7'; del.setAttribute('aria-label', 'Delete ' + t.text);
+    del.addEventListener('click', () => { tasks.splice(i, 1); save(); render(); });
+    li.append(cb, label, del);
+    list.append(li);
+  });
+  left.textContent = tasks.filter(t => !t.done).length;
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  tasks.push({ text: input.value.trim(), done: false });
+  input.value = '';
+  save(); render();
+});
+document.querySelector('#clear').addEventListener('click', () => { tasks = tasks.filter(t => !t.done); save(); render(); });
+render();
+'''
+    return html, css, js
+
+
+ptype(key="js-todo", title="Task list app for {name}", level=3, js=True,
+      brief="The classic to-do app: add, complete, delete and clear tasks, count what is left, and persist everything in localStorage.",
+      goals=["Model data as an array of objects", "Render from data every time something changes", "Create labelled checkboxes and delete buttons dynamically"],
+      elements=["form", "input", "button", "ul", "li", "input type=checkbox", "label"], css=["text-decoration: line-through", "display: flex", ".sr-only"],
+      steps=["Load tasks from storage.", "Write render(): one li per task with a checkbox, label and delete button.", "Submit adds a task.",
+             "Checkbox change toggles done.", "Delete removes by index; Clear filters out done tasks.", "Save after every change."],
+      build=b_js_todo, checklist=["Tasks persist", "Counter correct", "Each checkbox has a label", "Delete buttons have aria-labels"],
+      exercises=["Add editing by double-clicking a task.", "Add filters All / Active / Done.", "Add drag-and-drop ordering."])
+
+
+def b_js_countdown(t):
+    html = JS_BASE.format(title=t["name"] + " - Opening soon") + f'''  <main>
+    <h1>{t["name"]} opens in</h1>
+    <div class="clock" role="timer" aria-live="off" id="clock">
+      <div><b id="d">00</b><span>days</span></div>
+      <div><b id="h">00</b><span>hours</span></div>
+      <div><b id="m">00</b><span>minutes</span></div>
+      <div><b id="s">00</b><span>seconds</span></div>
+    </div>
+    <p id="msg" aria-live="polite"></p>
+    <p>Local time: <time id="now"></time></p>
+  </main>
+''' + FOOT
+    css = BASE_CSS.format(**t) + '''main { max-width: 40rem; margin: 3rem auto; padding: 0 1rem; text-align: center; }
+.clock { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.clock div { background: var(--brand); color: #fff; border-radius: 12px; padding: 1rem; min-width: 5.5rem; }
+.clock b { display: block; font-size: 2.5rem; font-variant-numeric: tabular-nums; line-height: 1; }
+.clock span { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+'''
+    js = '''const target = new Date('2026-12-01T10:00:00');
+const el = { d: document.querySelector('#d'), h: document.querySelector('#h'), m: document.querySelector('#m'), s: document.querySelector('#s') };
+const msg = document.querySelector('#msg');
+const now = document.querySelector('#now');
+const pad = n => String(n).padStart(2, '0');
+
+function tick() {
+  const current = new Date();
+  now.textContent = current.toLocaleTimeString('en-GB');
+  now.dateTime = current.toISOString();
+  let diff = Math.max(0, target - current);
+  const days = Math.floor(diff / 86400000); diff -= days * 86400000;
+  const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
+  const minutes = Math.floor(diff / 60000); diff -= minutes * 60000;
+  const seconds = Math.floor(diff / 1000);
+  el.d.textContent = pad(days); el.h.textContent = pad(hours); el.m.textContent = pad(minutes); el.s.textContent = pad(seconds);
+  if (target - current <= 0) { msg.textContent = 'We are open!'; clearInterval(timer); }
+}
+const timer = setInterval(tick, 1000);
+tick();
+'''
+    return html, css, js
+
+
+ptype(key="js-countdown", title="Countdown timer for {name}", level=2, js=True,
+      brief="Count down to an opening date in days, hours, minutes and seconds with a one-second interval, padded numbers and a message when the time arrives.",
+      goals=["Do date arithmetic in milliseconds", "Use setInterval and stop it", "Pad numbers with padStart and use tabular figures"],
+      elements=["div role=timer", "b", "span", "time", "p aria-live"], css=["font-variant-numeric: tabular-nums", "flex-wrap", "text-transform"],
+      steps=["Write four boxes with ids for the numbers.", "Create the target Date.", "Write tick(): subtract dates, split into units with Math.floor.",
+             "Pad each number to two digits.", "Run tick every second and once immediately.", "Stop and show a message at zero."],
+      build=b_js_countdown, checklist=["Numbers do not jump width (tabular)", "Stops at zero", "Live region not spammed (aria-live off on the clock)", "Time element has datetime"],
+      exercises=["Let the user pick the date with an input type=datetime-local.", "Show the countdown in Arabic numerals with toLocaleString('ar-EG').", "Add a progress bar of the days passed."])
+
+
+assert len(TYPES) == 55, len(TYPES)
+JS_TYPES = [tp for tp in TYPES if tp.get("js")]

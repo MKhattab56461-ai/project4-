@@ -21,21 +21,28 @@ HOW_TO_USE = [
         "Part 1 - History: what changed in HTML 1, 2, 3.2, 4.01, XHTML and HTML5.",
         "Part 2 - Fundamentals: syntax, document structure, nesting rules, content categories, "
         "comments, entities and the rules that apply to every tag.",
-        "Part 3 - Global attributes: attributes such as id, class, style, title, hidden, lang and "
+        "Part 3 - HTML version by version: what HTML 1, 2.0, 3.2, 4.01, XHTML and HTML5 each introduced.",
+        "Part 4 - Global attributes: attributes such as id, class, style, title, hidden, lang and "
         "data-* that can be placed on any element.",
-        "Part 4 - Event handler attributes: onclick, onload, onchange and every other on* attribute.",
-        "Part 5 - Element reference: one full entry for every HTML element, alphabetically ordered. "
+        "Part 5 - Event handler attributes: onclick, onload, onchange and every other on* attribute.",
+        "Part 6 - Element reference: one full entry for every HTML element, alphabetically ordered. "
         "Each entry contains a description, syntax, content model, a table of every attribute, "
         "one or more complete examples, accessibility notes, version history and common mistakes.",
-        "Part 6 - The input element in depth: every value of the type attribute with its own entry.",
-        "Part 7 - Obsolete and deprecated features: elements and attributes from HTML 2, 3.2 and 4 "
+        "Part 7 - The input element in depth: every value of the type attribute with its own entry.",
+        "Part 8 - Obsolete and deprecated features: elements and attributes from HTML 2, 3.2 and 4 "
         "that you may meet in old pages, with the modern replacement for each.",
-        "Part 8 - Attribute reference: every attribute in the language listed alphabetically with the "
+        "Part 9 - Attribute reference: every attribute in the language listed alphabetically with the "
         "elements that accept it.",
-        "Part 9 - Value references: link relationship types, MIME types, meta names, autocomplete tokens, "
+        "Part 10 - Value references: link relationship types, MIME types, meta names, autocomplete tokens, "
         "colour names, URL schemes and the character entity table.",
-        "Part 10 - Practical guides: forms, tables, lists, media, semantic layout, accessibility, SEO.",
-        "Part 11 - Glossary and alphabetical index.",
+        "Part 11 - CSS reference: selectors, every common property, and a cookbook for styling HTML.",
+        "Part 12 - JavaScript reference: the language from zero, the DOM, events, forms, storage and fetch.",
+        "Part 13 - Course: 47 lessons (HTML, CSS, then JavaScript), each followed by two practice projects.",
+        "Part 14 - Practical guides: forms, tables, lists, media, semantic layout, accessibility, SEO.",
+        "Part 15 - Glossary and alphabetical index.",
+        "Part 16 - Practice projects: every project type for every business theme, with full code.",
+        "Every chapter (part) ends with two practice projects that use what it taught. Page numbers "
+        "start at 1 on the first chapter page; the cover and contents use roman numerals.",
     ]),
     ("h3", "How to find something quickly"),
     ("ul", [
