@@ -1,0 +1,475 @@
+# -*- coding: utf-8 -*-
+"""Part: HTML & CSS course. Lesson-by-lesson chapters following the structure of the W3Schools
+"HTML and CSS Tutorial" (https://www.w3schools.com/htmlcss/default.asp): foundations, styling core,
+layout, enhancements and quality. Each lesson is a list of block tuples (same format as data_intro)."""
+
+COURSE = [
+
+("Lesson 1: Introduction and environment setup", [
+    ("p", "HTML gives a page its structure and meaning; CSS gives it appearance and layout. Together they are the two languages every "
+          "web page is made of. HTML says 'this is a heading, this is a list of three items, this is a table of prices'; CSS says "
+          "'headings are dark red and 28 pixels, the list has no bullets and sits in a row, the table has thin grey lines'."),
+    ("h3", "What you need"),
+    ("ul", ["A text editor. Any editor that saves plain text works: UltraEdit, Notepad++, Sublime Text or VS Code. Turn on syntax highlighting for HTML and CSS.",
+            "A browser: Chrome, Edge or Firefox. Its developer tools (press F12) show you the HTML tree, the CSS applied to each element and the box model.",
+            "A folder for your project, for example C:\\Users\\you\\Documents\\bookshop. Keep index.html, styles.css and an images folder inside it.",
+            "Nothing else. No server, no installation, no account. Open the .html file in the browser by double-clicking it or dragging it into a tab."]),
+    ("h3", "Workflow"),
+    ("ul", ["Write or change a file in the editor and save it (Ctrl+S).",
+            "Switch to the browser and reload (F5). The page shows the change immediately.",
+            "If something looks wrong, right-click it and choose Inspect. The Elements panel shows the exact HTML and the Styles panel shows which CSS rules apply and which are crossed out (overridden).",
+            "Validate occasionally with https://validator.w3.org/ (HTML) and https://jigsaw.w3.org/css-validator/ (CSS) to catch typos such as unclosed tags or misspelled properties."]),
+    ("h3", "File naming rules"),
+    ("ul", ["Use lower-case names with no spaces: about-us.html, not About Us.html. Web servers are case-sensitive and spaces become %20 in URLs.",
+            "The home page is index.html: servers show it automatically when someone visits the folder.",
+            "Save with UTF-8 encoding (in UltraEdit: File > Save As > Encoding: UTF-8, no BOM). Declare it with <meta charset=\"utf-8\"> so that Arabic, accents and symbols display correctly."]),
+]),
+
+("Lesson 2: Your first web page", [
+    ("p", "Every page has the same skeleton. Type it once, save it as index.html and open it in the browser."),
+    ("code", "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>My first page</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <header>\n    <h1>Hello, world</h1>\n    <nav>\n      <a href=\"index.html\">Home</a>\n      <a href=\"about.html\">About</a>\n    </nav>\n  </header>\n  <main>\n    <p>This is my first web page. It has a heading, a paragraph and a link to\n       <a href=\"https://developer.mozilla.org\">MDN</a>.</p>\n  </main>\n  <footer>\n    <p>&copy; 2026 My Name</p>\n  </footer>\n</body>\n</html>"),
+    ("table", [["Line", "What it does"],
+               ["<!DOCTYPE html>", "Tells the browser this is modern HTML (standards mode). Always the first line."],
+               ["<html lang=\"en\">", "Root element. lang tells screen readers and translators the language (ar for Arabic, with dir=\"rtl\")."],
+               ["<head>", "Information about the page that is not displayed: encoding, title, links to CSS."],
+               ["<meta charset=\"utf-8\">", "Character encoding; prevents garbled text."],
+               ["<meta name=\"viewport\" ...>", "Makes the page scale correctly on phones. Without it, mobile browsers pretend to be 980px wide."],
+               ["<title>", "Text in the browser tab, bookmarks and search results."],
+               ["<link rel=\"stylesheet\">", "Loads the CSS file."],
+               ["<body>", "Everything visible."],
+               ["<header>, <nav>, <main>, <footer>", "Semantic landmarks: which part of the page is which."]]),
+    ("h3", "Add the style sheet"),
+    ("p", "Create styles.css in the same folder:"),
+    ("code", "body {\n  font-family: system-ui, Arial, sans-serif;\n  line-height: 1.6;\n  max-width: 60rem;\n  margin: 0 auto;\n  padding: 1rem;\n  color: #1b2431;\n}\nh1 { color: #b90000; }\nnav a { margin-right: 1rem; }\nfooter { margin-top: 3rem; font-size: .9rem; color: #666; }"),
+    ("note", "Reload the browser. If nothing changes, check that the file is really called styles.css (not styles.css.txt), that it is in the same folder as index.html, and that the href in <link> matches exactly."),
+]),
+
+("Lesson 3: Essentials - elements, attributes and nesting", [
+    ("p", "An element is a start tag, content and an end tag: <p>text</p>. Attributes go inside the start tag as name=\"value\" pairs. "
+          "Some elements are void: they have no content and no end tag (<br>, <img>, <input>, <meta>, <link>, <hr>)."),
+    ("code", "<a href=\"books.html\" class=\"button\" id=\"catalogue-link\" title=\"See all books\">Catalogue</a>\n<img src=\"cover.jpg\" alt=\"Cover of Learn HTML\" width=\"300\" height=\"400\">"),
+    ("h3", "Nesting"),
+    ("p", "Elements nest like boxes: close the inner one before the outer one. <p><em>right</em></p> is correct; <p><em>wrong</p></em> is not. "
+          "Indent nested elements two spaces so the structure is visible in your editor."),
+    ("h3", "Block and inline"),
+    ("p", "Block-level elements (p, div, h1, ul, table, section...) start on a new line and stretch across the container. Inline elements "
+          "(a, em, strong, span, img, code...) flow within the text. A block may contain inline elements; an inline element may not contain a block "
+          "(except that <a> may wrap blocks in HTML5). CSS display can change this behaviour."),
+    ("h3", "Comments and whitespace"),
+    ("code", "<!-- This is a comment. Browsers ignore it. -->\n<p>Multiple     spaces\n   and line breaks collapse to a single space.</p>"),
+    ("h3", "Entities"),
+    ("p", "Characters that have a meaning in HTML must be written as entities: &lt; for <, &gt; for >, &amp; for &. &nbsp; is a non-breaking space; &copy; is the copyright sign. See the entity table in the Value References part."),
+]),
+
+("Lesson 4: Document structure", [
+    ("p", "Use semantic elements to describe the parts of the page. They mean nothing visually (all look like a <div>) but give screen readers, "
+          "search engines and other developers a map of the page."),
+    ("table", [["Element", "Use for", "How many per page"],
+               ["<header>", "Introductory content of the page or of a section: logo, title, navigation", "One per page plus one per article/section if needed"],
+               ["<nav>", "Major navigation blocks", "Usually one or two"],
+               ["<main>", "The unique content of this page", "Exactly one"],
+               ["<article>", "Self-contained composition: blog post, product, comment", "Any number"],
+               ["<section>", "Thematic grouping with a heading", "Any number"],
+               ["<aside>", "Tangential content: sidebar, pull quote, related links", "Any number"],
+               ["<footer>", "Footer of the page or a section: copyright, contact, links", "One per page plus per section"],
+               ["<div>", "Generic container when no semantic element fits (mostly for styling)", "Any number"]]),
+    ("code", "<body>\n  <header>\n    <h1>Cairo Book Shop</h1>\n    <nav aria-label=\"Main\">\n      <ul>\n        <li><a href=\"/\">Home</a></li>\n        <li><a href=\"/books/\">Books</a></li>\n        <li><a href=\"/contact/\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n  <main>\n    <article>\n      <h2>New arrivals</h2>\n      <p>...</p>\n    </article>\n    <aside>\n      <h2>Opening hours</h2>\n      <p>Saturday to Thursday, 10:00 to 22:00</p>\n    </aside>\n  </main>\n  <footer>\n    <p>&copy; 2026 Cairo Book Shop &middot; <a href=\"/privacy/\">Privacy</a></p>\n  </footer>\n</body>"),
+    ("h3", "Headings"),
+    ("p", "Use one <h1> for the page title, then <h2> for main sections, <h3> inside them, and so on. Never skip levels for looks (h2 then h4); "
+          "change the size with CSS instead. Screen reader users navigate by headings, so the outline must make sense on its own."),
+]),
+
+("Lesson 5: Text content", [
+    ("p", "Text elements carry meaning. Choose by what the text IS, not by how you want it to look; then style with CSS."),
+    ("table", [["Element", "Meaning", "Default look"],
+               ["<p>", "Paragraph", "Block with space above and below"],
+               ["<h1>-<h6>", "Headings", "Bold, decreasing sizes"],
+               ["<strong>", "Strong importance", "Bold"], ["<em>", "Stress emphasis", "Italic"],
+               ["<b>", "Keywords, product names, no extra importance", "Bold"], ["<i>", "Different voice: technical term, foreign phrase, thought", "Italic"],
+               ["<mark>", "Highlighted for reference", "Yellow background"], ["<small>", "Side comment, legal text", "Smaller"],
+               ["<s>", "No longer accurate", "Strikethrough"], ["<del> / <ins>", "Removed / added text", "Strikethrough / underline"],
+               ["<sub> / <sup>", "Subscript / superscript", "H2O, x2"], ["<code>", "Code fragment", "Monospace"],
+               ["<kbd>", "Keyboard input", "Monospace"], ["<samp>", "Program output", "Monospace"], ["<var>", "Variable", "Italic"],
+               ["<abbr title=\"...\">", "Abbreviation", "Dotted underline"], ["<time datetime=\"...\">", "Date/time", "Plain"],
+               ["<q>", "Short inline quotation", "Quotation marks"], ["<blockquote>", "Long quotation", "Indented block"],
+               ["<cite>", "Title of a work", "Italic"], ["<pre>", "Preformatted text (keeps spaces and line breaks)", "Monospace block"],
+               ["<br>", "Line break (addresses, poems only)", "-"], ["<hr>", "Thematic break", "Horizontal rule"]]),
+    ("code", "<article>\n  <h2>Learn HTML, <small>2nd edition</small></h2>\n  <p>Published <time datetime=\"2026-03-01\">1 March 2026</time>.\n     <strong>Only 5 copies left.</strong> Price: <s>150 EGP</s> <mark>120 EGP</mark>.</p>\n  <p>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> to save. The <abbr title=\"HyperText Markup Language\">HTML</abbr> file is <code>index.html</code>.</p>\n  <blockquote cite=\"https://example.com/review\">\n    <p>The clearest introduction I have read.</p>\n    <footer>&mdash; <cite>Web Weekly</cite></footer>\n  </blockquote>\n</article>"),
+    ("h3", "Typography basics in CSS"),
+    ("code", "body { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; line-height: 1.6; }\nh1, h2, h3 { font-family: system-ui, sans-serif; line-height: 1.2; }\np { margin: 0 0 1em; max-width: 65ch; }   /* 65 characters per line is comfortable */"),
+]),
+
+("Lesson 6: Lists and tables", [
+    ("p", "Lists group related items; tables display structured data. This lesson is a summary; the chapter 'Lists and tables with CSS' in the CSS part covers every styling option in detail."),
+    ("code", "<ul class=\"features\">\n  <li>Responsive layout</li>\n  <li>Semantic HTML</li>\n  <li>Accessible components</li>\n</ul>\n<ol class=\"steps\">\n  <li>Plan content</li>\n  <li>Structure markup</li>\n  <li>Apply typography and layout</li>\n</ol>\n<dl class=\"glossary\">\n  <dt>HTML</dt><dd>Structure of a web page.</dd>\n  <dt>CSS</dt><dd>Presentation and layout.</dd>\n</dl>"),
+    ("code", "/* card-style list with custom check marks */\n.features { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }\n.features li { padding: 16px 20px; background: #fff; border-radius: 12px;\n               box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); }\n.features li::before { content: '\\2714'; color: #04AA6D; margin-right: 12px; }"),
+    ("code", "<table class=\"pricing\">\n  <thead>\n    <tr><th scope=\"col\">Plan</th><th scope=\"col\">Price</th><th scope=\"col\">Features</th></tr>\n  </thead>\n  <tbody>\n    <tr><th scope=\"row\">Starter</th><td>$0</td><td>Basic components</td></tr>\n    <tr><th scope=\"row\">Pro</th><td>$19</td><td>Advanced layouts</td></tr>\n  </tbody>\n</table>"),
+    ("code", ".pricing { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; }\n.pricing th, .pricing td { padding: 16px 20px; text-align: left; }\n.pricing thead { background: #04AA6D; color: #fff; }\n.pricing tbody tr:nth-child(even) { background: #f9fafb; }\n.table-wrapper { overflow-x: auto; }   /* wrap the table in this div for small screens */"),
+    ("ul", ["Always use <th> for headers and add scope=\"col\" or scope=\"row\".", "Provide a <caption> when the table's purpose is not obvious.", "Keep tables for data, not layout."]),
+]),
+
+("Lesson 7: Links and navigation", [
+    ("p", "The <a> element with an href attribute creates a hyperlink. The href can be absolute, relative to the current file, a fragment (#id) on the same page, or a special scheme such as mailto: or tel:."),
+    ("code", "<a href=\"https://example.com/\">Absolute URL</a>\n<a href=\"books/learn-html.html\">Relative: file in the books folder</a>\n<a href=\"../index.html\">Relative: parent folder</a>\n<a href=\"/contact/\">Site-root relative</a>\n<a href=\"#prices\">Jump to the element with id=\"prices\"</a>\n<a href=\"mailto:info@example.com\">Email us</a>\n<a href=\"tel:+201001234567\">Call us</a>\n<a href=\"catalogue.pdf\" download>Download the catalogue (PDF)</a>\n<a href=\"https://partner.example\" target=\"_blank\" rel=\"noopener\">Opens in a new tab</a>"),
+    ("h3", "Navigation bar"),
+    ("code", "<nav aria-label=\"Main\">\n  <ul class=\"nav\">\n    <li><a href=\"/\" aria-current=\"page\">Home</a></li>\n    <li><a href=\"/books/\">Books</a></li>\n    <li><a href=\"/about/\">About</a></li>\n  </ul>\n</nav>\n\n<style>\n.nav { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; background: #1b2431; }\n.nav a { display: block; padding: 12px 18px; color: #fff; text-decoration: none; }\n.nav a:hover, .nav a:focus-visible { background: #b90000; }\n.nav a[aria-current=\"page\"] { background: #444; }\n</style>"),
+    ("h3", "Link states"),
+    ("p", "Style the five states in this order (LVHFA) or later rules will override earlier ones: :link, :visited, :hover, :focus, :active."),
+    ("code", "a:link { color: #0645ad; }\na:visited { color: #551a8b; }\na:hover { text-decoration-thickness: 2px; }\na:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }\na:active { color: #b90000; }"),
+    ("ul", ["Link text must make sense alone: 'Read the shipping policy', not 'click here'.", "Keep the underline or another non-colour cue so links are recognisable.",
+            "Never remove the focus outline without providing a visible replacement.", "Use a <button> for actions (open menu, submit) and <a> for navigation."]),
+]),
+
+("Lesson 8: Images and media", [
+    ("code", "<img src=\"images/cover.jpg\" alt=\"Cover of Learn HTML: a red book with white letters\" width=\"600\" height=\"800\" loading=\"lazy\">\n\n<figure>\n  <img src=\"chart.png\" alt=\"Sales grew from 120 in January to 340 in June\">\n  <figcaption>Figure 1. Monthly sales, first half of 2026.</figcaption>\n</figure>\n\n<picture>\n  <source srcset=\"hero.avif\" type=\"image/avif\">\n  <source srcset=\"hero.webp\" type=\"image/webp\">\n  <img src=\"hero.jpg\" alt=\"The shop front at night\">\n</picture>\n\n<img src=\"small.jpg\" srcset=\"small.jpg 480w, medium.jpg 960w, large.jpg 1600w\"\n     sizes=\"(max-width: 600px) 100vw, 50vw\" alt=\"...\">\n\n<video controls width=\"640\" poster=\"poster.jpg\">\n  <source src=\"tour.mp4\" type=\"video/mp4\">\n  <track kind=\"captions\" src=\"tour.en.vtt\" srclang=\"en\" label=\"English\">\n  Your browser does not support video.\n</video>\n\n<audio controls src=\"podcast.mp3\"></audio>"),
+    ("h3", "Responsive images in CSS"),
+    ("code", "img, video { max-width: 100%; height: auto; }          /* never overflow the container */\n.thumb { width: 200px; aspect-ratio: 3 / 4; object-fit: cover; }   /* crop to a fixed shape */\n.avatar { border-radius: 50%; }"),
+    ("ul", ["alt is required. Describe the content and function; use alt=\"\" for purely decorative images.",
+            "Always give width and height (or aspect-ratio) so the page does not jump while images load.",
+            "Use loading=\"lazy\" for images below the fold, never for the main hero image.",
+            "Prefer AVIF/WebP with a JPEG fallback in <picture>; use SVG for logos and icons.",
+            "Provide captions for video and a transcript for audio."]),
+]),
+
+("Lesson 9: Forms and validation", [
+    ("code", "<form action=\"/order\" method=\"post\">\n  <fieldset>\n    <legend>Your details</legend>\n    <p>\n      <label for=\"name\">Full name</label>\n      <input id=\"name\" name=\"name\" type=\"text\" required autocomplete=\"name\">\n    </p>\n    <p>\n      <label for=\"email\">Email</label>\n      <input id=\"email\" name=\"email\" type=\"email\" required autocomplete=\"email\">\n    </p>\n    <p>\n      <label for=\"qty\">Quantity</label>\n      <input id=\"qty\" name=\"qty\" type=\"number\" min=\"1\" max=\"10\" value=\"1\">\n    </p>\n    <p>\n      <label for=\"format\">Format</label>\n      <select id=\"format\" name=\"format\">\n        <option value=\"pdf\">PDF</option>\n        <option value=\"print\">Printed</option>\n      </select>\n    </p>\n    <p>\n      <label for=\"notes\">Notes</label>\n      <textarea id=\"notes\" name=\"notes\" rows=\"3\"></textarea>\n    </p>\n    <p>\n      <input id=\"terms\" name=\"terms\" type=\"checkbox\" required>\n      <label for=\"terms\">I accept the terms</label>\n    </p>\n  </fieldset>\n  <button type=\"submit\">Order</button>\n</form>"),
+    ("h3", "Built-in validation"),
+    ("table", [["Attribute", "Checks"], ["required", "Field is not empty"], ["type=\"email\" / url / number / date", "Value has the right format"],
+               ["min / max / step", "Numeric or date range"], ["minlength / maxlength", "Text length"], ["pattern=\"[0-9]{5}\"", "Regular expression"],
+               ["novalidate (on form)", "Turns built-in validation off"]]),
+    ("h3", "Styling forms and validation states"),
+    ("code", "label { display: block; font-weight: 600; margin-bottom: .25rem; }\ninput, select, textarea, button { font: inherit; }\ninput, select, textarea {\n  width: 100%; padding: .6rem .8rem; border: 1px solid #bbb; border-radius: 6px;\n}\ninput:focus-visible, select:focus-visible, textarea:focus-visible {\n  outline: 3px solid #ffbf47; outline-offset: 1px; border-color: #b90000;\n}\ninput:user-invalid { border-color: #c00; background: #fff5f5; }\ninput:user-valid { border-color: #2a7; }\nbutton[type=\"submit\"] {\n  background: #b90000; color: #fff; border: 0; padding: .7rem 1.4rem; border-radius: 999px; cursor: pointer;\n}\nbutton:disabled { opacity: .5; cursor: not-allowed; }"),
+    ("ul", ["Every control needs a <label> connected by for/id (or wrapping it).", "Group radio buttons and checkboxes in a <fieldset> with a <legend>.",
+            "Use the right type: it changes the mobile keyboard and adds validation for free.", "Show error messages in text next to the field, not only by colour."]),
+]),
+
+("Lesson 10: Reusable components", [
+    ("p", "A component is a block of HTML plus the CSS that styles it, designed so you can copy it anywhere. Give it one class name on the outer element "
+          "and prefix inner classes with it (card, card__title, card--featured) so styles do not leak."),
+    ("code", "<article class=\"card card--featured\">\n  <img class=\"card__image\" src=\"cover.jpg\" alt=\"\">\n  <div class=\"card__body\">\n    <h3 class=\"card__title\">Learn HTML</h3>\n    <p class=\"card__text\">From zero to a complete website.</p>\n    <a class=\"btn\" href=\"learn-html.html\">Details</a>\n  </div>\n</article>"),
+    ("code", ".card {\n  display: flex; flex-direction: column;\n  border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; background: #fff;\n}\n.card__image { aspect-ratio: 3 / 4; object-fit: cover; }\n.card__body { padding: 1rem 1.25rem; display: grid; gap: .5rem; }\n.card__title { margin: 0; font-size: 1.1rem; }\n.card--featured { border-color: #b90000; box-shadow: 0 10px 30px rgba(185, 0, 0, .15); }\n.btn {\n  display: inline-block; padding: .5rem 1rem; border-radius: 999px;\n  background: #b90000; color: #fff; text-decoration: none; justify-self: start;\n}\n.btn:hover { background: #900; }"),
+    ("h3", "Design tokens with custom properties"),
+    ("code", ":root {\n  --brand: #b90000;\n  --ink: #1b2431;\n  --radius: 12px;\n  --space-1: .5rem; --space-2: 1rem; --space-3: 2rem;\n}\n.card { border-radius: var(--radius); padding: var(--space-2); }\n.btn { background: var(--brand); }"),
+    ("p", "Change --brand once and every component follows. Put the variables in :root so they are available everywhere."),
+]),
+
+("Lesson 11: Styling essentials - the three ways to add CSS", [
+    ("table", [["Method", "How", "Use when"],
+               ["External style sheet", "<link rel=\"stylesheet\" href=\"styles.css\"> in <head>", "Always, for real sites: one file shared by all pages, cached by the browser"],
+               ["Internal style sheet", "<style> ... </style> in <head>", "Single-page demos, emails, this reference's examples"],
+               ["Inline style", "style=\"color: red\" attribute on the element", "Rarely: one-off values generated by a program; hard to override and maintain"]]),
+    ("h3", "Anatomy of a rule"),
+    ("code", "selector {\n  property: value;      /* a declaration */\n  property: value;\n}\n\nh1 {\n  color: #b90000;\n  font-size: 2rem;\n}"),
+    ("h3", "Comments"),
+    ("code", "/* CSS comments look like this and can span\n   several lines. There is no // comment in CSS. */"),
+    ("h3", "Units"),
+    ("table", [["Unit", "Meaning", "Typical use"], ["px", "CSS pixel", "Borders, small fixed sizes"], ["rem", "Relative to the root font size (16px by default)", "Font sizes, spacing, widths - respects user zoom settings"],
+               ["em", "Relative to the element's own font size", "Padding around text, icon sizes"], ["%", "Relative to the parent", "Widths"],
+               ["vw / vh", "1% of viewport width/height", "Full-screen sections, fluid type"], ["ch", "Width of the digit 0", "Line length (max-width: 65ch)"],
+               ["fr", "Fraction of free space (Grid only)", "Column tracks"]]),
+    ("h3", "Colours"),
+    ("code", "color: red;                 /* 148 named colours */\ncolor: #b90000;             /* hex: rr gg bb */\ncolor: #b90000cc;           /* hex with alpha */\ncolor: rgb(185 0 0);\ncolor: rgb(185 0 0 / 50%);  /* 50% transparent */\ncolor: hsl(0 100% 36%);     /* hue, saturation, lightness */\ncolor: oklch(50% 0.2 25);   /* perceptually uniform, wide gamut */\ncolor: currentColor;        /* the element's text colour */"),
+]),
+
+("Lesson 12: Selectors and specificity", [
+    ("p", "Selectors are like addresses for elements: they point CSS at the exact parts of the page you want to change."),
+    ("table", [["Selector type", "Example", "Matches"], ["Type", "p { }", "All <p> elements"], ["Class", ".btn { }", "Elements with class=\"btn\""],
+               ["ID", "#hero { }", "The element with id=\"hero\""], ["Universal", "* { }", "All elements"],
+               ["Attribute", "a[target=\"_blank\"], input[type=\"email\"], [class^=\"icon-\"]", "Elements by attribute presence or value"],
+               ["Descendant", ".card p", "Any <p> inside .card"], ["Child", ".card > h3", "<h3> directly inside .card"],
+               ["Adjacent sibling", "h2 + p", "The <p> immediately after an <h2>"], ["General sibling", "h2 ~ p", "Every <p> after an <h2> in the same parent"],
+               ["Pseudo-class", "a:hover, input:required, li:nth-child(2n), :is(), :where(), :has()", "Elements in a state or position"],
+               ["Pseudo-element", "p::first-line, p::after, li::marker", "Parts of an element"]]),
+    ("h3", "Specificity: who wins"),
+    ("p", "When two rules set the same property on the same element, the more specific selector wins. Count (IDs, classes/attributes/pseudo-classes, types/pseudo-elements). "
+          "Inline styles beat everything except !important. If specificity ties, the later rule wins."),
+    ("table", [["Selector", "Score (id, class, type)"], ["p", "0,0,1"], [".card p", "0,1,1"], [".card.highlight p", "0,2,1"], ["#feature.card p", "1,1,1"], ["style=\"...\"", "1,0,0,0 (inline)"], [":where(.a .b)", "0,0,0 (where adds nothing)"]]),
+    ("code", "<article class=\"card\"><p>Default card text.</p></article>\n<article class=\"card highlight\"><p>Highlight card text.</p></article>\n<article id=\"feature\" class=\"card highlight\"><p>Feature card text (ID wins).</p></article>\n\n<style>\n.card p { color: #475569; }\n.card.highlight p { color: #2563eb; }\n#feature.card p { color: #be123c; }   /* highest specificity: wins */\n</style>"),
+    ("h3", "Using the cascade strategically"),
+    ("ul", ["Write from general to specific: base styles first, overrides later.", "Prefer classes; avoid IDs and long descendant chains in selectors.",
+            "Avoid !important. If you need it, the real fix is a better selector or order.", "Use @layer to put resets, base, components and utilities in explicit layers.",
+            "Debug in DevTools: the Styles panel shows every matching rule, crossed out when overridden."]),
+]),
+
+("Lesson 13: Cascade and inheritance", [
+    ("p", "The cascade decides which declaration wins, in this order: (1) origin and importance (user-agent < user < author; !important reverses), "
+          "(2) cascade layers, (3) specificity, (4) source order. Inheritance passes some property values from parent to child automatically."),
+    ("table", [["Inherited by default", "Not inherited"], ["color, font-*, line-height, text-align, letter-spacing, visibility, cursor, list-style, direction", "margin, padding, border, background, width, height, display, position"]]),
+    ("code", "body { color: #1b2431; font-family: Georgia, serif; }   /* all text inherits these */\n.box { border: 1px solid; }                              /* children do NOT get a border */\n\n/* keywords that work on every property */\n.reset { color: inherit; }     /* take the parent's value */\n.plain { all: initial; }       /* specification default */\n.norm  { all: unset; }         /* inherit if inheritable, otherwise initial */\n.rev   { all: revert; }        /* browser default style */"),
+    ("h3", "Cascade layers"),
+    ("code", "@layer reset, base, components, utilities;\n\n@layer reset { * { margin: 0; box-sizing: border-box; } }\n@layer base { body { font: 1rem/1.6 system-ui; } }\n@layer components { .btn { padding: .5rem 1rem; } }\n@layer utilities { .hidden { display: none; } }\n/* later layers beat earlier ones regardless of specificity */"),
+]),
+
+("Lesson 14: Typography", [
+    ("code", "body {\n  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;\n  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);\n  line-height: 1.6;\n}\nh1 { font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; }\nh2 { font-size: 1.75rem; }\np  { max-width: 65ch; margin-block: 0 1em; }\n.lead { font-size: 1.25rem; color: #475569; }\n.caps { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; }\n.num { font-variant-numeric: tabular-nums; }   /* aligned digits in tables */"),
+    ("h3", "Loading a web font"),
+    ("code", "@font-face {\n  font-family: 'Inter';\n  src: url('fonts/inter.woff2') format('woff2');\n  font-weight: 100 900;\n  font-display: swap;\n}"),
+    ("p", "Or link a font service in the <head> with <link rel=\"preconnect\"> and <link rel=\"stylesheet\">. Always list fallback fonts after the web font."),
+    ("h3", "Arabic and right-to-left text"),
+    ("code", "<html lang=\"ar\" dir=\"rtl\">\n...\nbody { font-family: 'Noto Naskh Arabic', 'Cairo', 'Segoe UI', Tahoma, sans-serif; line-height: 1.8; }\n/* use logical properties so layout mirrors automatically */\n.card { padding-inline-start: 1rem; margin-inline-end: auto; border-inline-start: 4px solid #b90000; }"),
+    ("ul", ["Font stacks: preferred font first, similar fallbacks next, generic family (serif, sans-serif, monospace) last.",
+            "Line length 45-75 characters; line-height 1.5-1.7 for body text.", "Use rem for font sizes so users can enlarge text in their browser settings.",
+            "Do not justify text on the web; ragged right reads better and avoids rivers."]),
+]),
+
+("Lesson 15: Colours and backgrounds", [
+    ("code", ":root {\n  --brand: #b90000;\n  --brand-dark: color-mix(in oklab, var(--brand), black 20%);\n  --surface: #fff;\n  --ink: #1b2431;\n}\n.hero {\n  background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #0f172a 100%);\n  color: #fff;\n}\n.banner {\n  background-image: url('hero.jpg');\n  background-size: cover;\n  background-position: center;\n  background-repeat: no-repeat;\n}\n.tint { background-color: rgb(185 0 0 / 10%); }\n.card { background: var(--surface); box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08); }"),
+    ("h3", "Contrast"),
+    ("p", "Text must have a contrast ratio of at least 4.5:1 against its background (3:1 for large text). #767676 on white is the lightest grey that passes. "
+          "Check with the DevTools colour picker or a contrast checker. Never convey information by colour alone."),
+    ("h3", "Dark mode"),
+    ("code", ":root { color-scheme: light dark; }\n@media (prefers-color-scheme: dark) {\n  :root { --surface: #14181f; --ink: #e6e9ef; }\n}\nbody { background: var(--surface); color: var(--ink); }"),
+]),
+
+("Lesson 16: The box model", [
+    ("p", "Every element is a rectangular box: content in the middle, padding around it, the border wrapping both, and the margin as the outside buffer between neighbours."),
+    ("code", "+---------------- margin (transparent) ----------------+\n|  +------------- border ---------------------------+  |\n|  |  +---------- padding ------------------------+ |  |\n|  |  |                                           | |  |\n|  |  |               content                     | |  |\n|  |  |                                           | |  |\n|  |  +-------------------------------------------+ |  |\n|  +------------------------------------------------+  |\n+------------------------------------------------------+"),
+    ("h3", "content-box versus border-box"),
+    ("p", "By default (box-sizing: content-box) width and height apply to the content only, so a 300px box with 24px padding and a 2px border is really 352px wide. "
+          "With border-box the declared size includes padding and border: a 300px box stays 300px. Almost every project switches to border-box globally."),
+    ("code", "*, *::before, *::after { box-sizing: border-box; }\n\n.card {\n  width: 320px;\n  padding: 24px;\n  border: 2px solid #cbd5f5;\n  margin-bottom: 24px;\n}\n.callout {\n  margin: 32px 0;\n  padding: 16px;\n  border-left: 6px solid #2563eb;\n  background: #eff6ff;\n}"),
+    ("h3", "Shorthands"),
+    ("table", [["Declaration", "Meaning"], ["margin: 24px;", "All four sides"], ["margin: 24px 16px;", "top/bottom 24px, left/right 16px"],
+               ["padding: 8px 12px 16px;", "top 8, left/right 12, bottom 16"], ["padding: 1px 2px 3px 4px;", "top, right, bottom, left (clockwise)"],
+               ["border: 2px solid #1d4ed8;", "width, style, colour"], ["margin: 0 auto;", "Centre a block with a width"], ["margin-inline: auto;", "Same, using logical properties"]]),
+    ("h3", "Collapsing margins"),
+    ("ul", ["Vertical margins between block elements collapse to the largest value (a 24px bottom margin followed by a 16px top margin gives 24px, not 40px).",
+            "A parent and its first/last child can share margins unless padding, a border or display: flow-root intervenes.",
+            "Margins never collapse inside Flexbox or Grid containers - one more reason to use gap."]),
+    ("h3", "Visualising with DevTools"),
+    ("p", "Inspect an element in Chrome or Firefox and look at the Computed panel: it shows a diagram with margin, border, padding and content measurements. Hover each part to highlight it on the page."),
+    ("h3", "Spacing strategies"),
+    ("ul", ["Create a spacing scale (base of 4 or 8 pixels) and stick to it: 4, 8, 16, 24, 32, 48.", "Store it in custom properties (--space-2: 1rem) for consistency.",
+            "Combine gap with Flexbox or Grid to separate items instead of adding margins to each one."]),
+]),
+
+("Lesson 17: Layout fundamentals - normal flow", [
+    ("p", "Without any layout CSS, browsers lay elements out in normal flow: block boxes stack vertically and fill the width; inline boxes flow horizontally inside lines. "
+          "Every layout technique is a way of taking elements out of, or rearranging, this flow."),
+    ("table", [["display value", "Behaviour"], ["block", "New line, full width, respects width/height/margins"], ["inline", "Flows in text; width/height ignored; only horizontal padding/margin effective"],
+               ["inline-block", "Flows in text but respects width/height/vertical margins"], ["flex / inline-flex", "Children laid out along one axis"],
+               ["grid / inline-grid", "Children placed in rows and columns"], ["flow-root", "Block that contains its floats and stops margin collapsing"],
+               ["none", "Removed from rendering and from the accessibility tree"], ["contents", "Box disappears, children remain"]]),
+    ("h3", "Floats (legacy but still useful for text wrap)"),
+    ("code", "img.left { float: left; margin: 0 1rem 1rem 0; }\n.clearfix::after { content: ''; display: block; clear: both; }\n/* modern: */ .wrapper { display: flow-root; }"),
+    ("h3", "Overflow"),
+    ("code", ".box { height: 200px; overflow: auto; }      /* scrollbars when needed */\n.clip { overflow: hidden; }                   /* cut off */\n.marquee { white-space: nowrap; overflow-x: auto; }"),
+]),
+
+("Lesson 18: Positioning and z-index", [
+    ("table", [["position", "Behaviour"], ["static (default)", "Normal flow; top/left have no effect"],
+               ["relative", "Normal flow, then nudged by top/left; creates a reference for absolute children"],
+               ["absolute", "Removed from flow; placed relative to the nearest positioned ancestor"],
+               ["fixed", "Removed from flow; placed relative to the viewport; stays while scrolling"],
+               ["sticky", "Normal flow until it reaches the given offset, then sticks (inside its parent)"]]),
+    ("code", ".card { position: relative; }\n.card .badge {\n  position: absolute; top: 12px; right: 12px;\n  background: #b90000; color: #fff; padding: 2px 8px; border-radius: 999px;\n}\n.site-header { position: sticky; top: 0; z-index: 10; background: #fff; }\n.back-to-top { position: fixed; bottom: 1rem; inset-inline-end: 1rem; }\n.modal-backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / 50%); z-index: 100; }"),
+    ("h3", "z-index and stacking contexts"),
+    ("ul", ["z-index only works on positioned elements (and flex/grid items).", "Higher values are drawn on top. Keep a scale: 10 header, 100 dropdown, 1000 modal.",
+            "opacity < 1, transform, filter and position: fixed create a new stacking context: children cannot escape it no matter how large their z-index."]),
+]),
+
+("Lesson 19: Flexbox", [
+    ("p", "Flexbox lays out children in one dimension - a row or a column - and distributes space between them. It is ideal for navigation bars, toolbars, card strips, media objects and form rows."),
+    ("h3", "Creating a flex container"),
+    ("code", ".toolbar {\n  display: flex;          /* children become flex items in a row */\n  gap: 16px;\n  align-items: center;\n}\n.toolbar .spacer { flex: 1 1 auto; }   /* pushes following items to the right */"),
+    ("h3", "Axes and alignment"),
+    ("ul", ["The main axis follows flex-direction (row = horizontal, column = vertical). Distribute items along it with justify-content.",
+            "The cross axis is perpendicular. Align items on it with align-items (all) or align-self (one).",
+            "Use gap for consistent spacing instead of margins."]),
+    ("table", [["Property (container)", "Values"], ["flex-direction", "row | row-reverse | column | column-reverse"], ["flex-wrap", "nowrap | wrap | wrap-reverse"],
+               ["justify-content", "flex-start | center | flex-end | space-between | space-around | space-evenly"],
+               ["align-items", "stretch | flex-start | center | flex-end | baseline"], ["align-content", "Same as justify-content, for multiple lines"], ["gap", "row-gap column-gap"]]),
+    ("table", [["Property (item)", "Meaning"], ["flex: grow shrink basis", "How the item takes and gives up space (default 0 1 auto)"], ["flex: 1", "Equal widths, share all free space"],
+               ["flex: 0 0 300px", "Fixed 300px, never grows or shrinks"], ["flex: 1 1 220px", "Ideal 220px, may grow or shrink; wraps nicely"],
+               ["order", "Visual order (default 0); does not change tab order"], ["align-self", "Override align-items for one item"]]),
+    ("h3", "Card strip"),
+    ("code", "<section class=\"cards\">\n  <article><h2>Prototype</h2><p>Validate ideas quickly with interactive mockups.</p></article>\n  <article><h2>Build</h2><p>Create accessible, responsive components in code.</p></article>\n  <article><h2>Ship</h2><p>Automate deployment pipelines and monitoring.</p></article>\n</section>\n\n<style>\n.cards {\n  display: flex;\n  gap: 24px;\n  justify-content: center;\n  align-items: stretch;\n  flex-wrap: wrap;\n}\n.cards article {\n  flex: 1 1 220px;\n  padding: 24px;\n  border-radius: 16px;\n  background: #f1f5f9;\n}\n</style>"),
+    ("h3", "Common patterns"),
+    ("code", "/* centre anything */\n.center { display: flex; justify-content: center; align-items: center; min-height: 100vh; }\n\n/* split layout 2:1 */\n.split { display: flex; gap: 2rem; }\n.split > main { flex: 2; }\n.split > aside { flex: 1; }\n\n/* media object that stacks on small screens */\n.media { display: flex; gap: 1rem; flex-wrap: wrap; }\n.media img { flex: 0 0 120px; }\n.media .body { flex: 1 1 240px; }\n\n/* sticky footer */\nbody { min-height: 100vh; display: flex; flex-direction: column; }\nmain { flex: 1; }"),
+]),
+
+("Lesson 20: CSS Grid", [
+    ("p", "Grid lays out children in two dimensions at once. You declare tracks (columns and rows) on the container and place items into cells or areas. "
+          "A track is one column or row - imagine drawing a table with lines; Grid lets you define those lines in CSS."),
+    ("code", ".layout {\n  display: grid;\n  grid-template-columns: 240px 1fr;      /* two columns */\n  grid-template-rows: auto 1fr auto;     /* three rows */\n  gap: 24px;\n  min-height: 100vh;\n}"),
+    ("h3", "Track sizing"),
+    ("table", [["Pattern", "Meaning"], ["300px 1fr 1fr", "Fixed sidebar, two equal flexible columns"], ["repeat(12, minmax(0, 1fr))", "Classic 12-column grid"],
+               ["repeat(auto-fit, minmax(220px, 1fr))", "As many 220px+ columns as fit; collapses empty tracks"], ["repeat(auto-fill, minmax(220px, 1fr))", "Same but keeps empty tracks"],
+               ["fit-content(300px)", "Shrink to content, max 300px"], ["max-content / min-content", "Size to the longest / shortest content"]]),
+    ("h3", "Placing items"),
+    ("code", ".hero .copy   { grid-column: span 6; }          /* auto row, six columns wide */\n.item         { grid-column: 1 / 7; grid-row: 2 / span 2; }\n.full         { grid-column: 1 / -1; }          /* first to last line */\n\n/* named areas */\n.page {\n  display: grid;\n  grid-template-columns: 240px 1fr;\n  grid-template-areas:\n    'header header'\n    'nav    main'\n    'footer footer';\n}\n.page > header { grid-area: header; }\n.page > nav    { grid-area: nav; }\n.page > main   { grid-area: main; }\n.page > footer { grid-area: footer; }\n@media (max-width: 700px) {\n  .page { grid-template-columns: 1fr; grid-template-areas: 'header' 'nav' 'main' 'footer'; }\n}"),
+    ("h3", "Alignment"),
+    ("ul", ["justify-items / align-items align content inside each cell.", "justify-content / align-content distribute the whole grid inside the container.",
+            "place-items and place-content combine both axes: place-items: center centres everything."]),
+    ("h3", "Marketing layout example"),
+    ("code", "<section class=\"hero\">\n  <div class=\"copy\">\n    <h1>Design systems that scale</h1>\n    <p>Unify design and engineering with a shared language.</p>\n    <a class=\"cta\" href=\"#\">Get started</a>\n  </div>\n  <div class=\"visual\">\n    <h2>Release highlights</h2>\n    <ul><li>Theme builder</li><li>Usage analytics</li><li>Accessibility tracking</li></ul>\n  </div>\n</section>\n<section class=\"features\">\n  <article><h3>Token management</h3><p>...</p></article>\n  <article><h3>Component lifecycles</h3><p>...</p></article>\n  <article><h3>Design reviews</h3><p>...</p></article>\n</section>"),
+    ("code", ".hero {\n  display: grid;\n  grid-template-columns: repeat(12, minmax(0, 1fr));\n  gap: 24px;\n  padding: 88px clamp(24px, 6vw, 80px);\n  background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #0f172a 100%);\n  color: #fff;\n}\n.hero .copy   { grid-column: span 6; max-width: 480px; }\n.hero .visual { grid-column: span 6; background: rgba(255,255,255,0.09); border-radius: 24px; padding: 40px; }\n.features {\n  display: grid;\n  gap: 24px;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  padding: clamp(32px, 5vw, 80px);\n}\n.features article { border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px; background: #fff; }\n@media (max-width: 900px) {\n  .hero .copy, .hero .visual { grid-column: 1 / -1; }\n}"),
+    ("p", "The hero spans six columns per side on large screens and collapses to full width through the media query; the feature grid adapts its card count automatically."),
+]),
+
+("Lesson 21: Layout patterns", [
+    ("p", "A few patterns cover most pages. Copy them and adjust the numbers."),
+    ("code", "/* 1. Centred content column */\n.container { width: min(100% - 2rem, 70rem); margin-inline: auto; }\n\n/* 2. Holy grail: header, sidebar, content, footer */\n.holy { display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: 16rem 1fr; min-height: 100vh; }\n.holy > header, .holy > footer { grid-column: 1 / -1; }\n\n/* 3. Auto grid of cards */\n.grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }\n\n/* 4. Sidebar that stacks when narrow (no media query) */\n.with-sidebar { display: flex; flex-wrap: wrap; gap: 2rem; }\n.with-sidebar > aside { flex: 1 1 15rem; }\n.with-sidebar > main  { flex: 999 1 25rem; }\n\n/* 5. Cluster of tags/buttons */\n.cluster { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }\n\n/* 6. Stack with consistent vertical rhythm */\n.stack > * + * { margin-block-start: 1rem; }\n\n/* 7. Cover: hero with centred content */\n.cover { min-height: 100vh; display: grid; place-items: center; }\n\n/* 8. Full-bleed section inside a narrow column */\n.full-bleed { width: 100vw; margin-inline: calc(50% - 50vw); }"),
+]),
+
+("Lesson 22: Responsive design", [
+    ("ul", ["Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> - without it nothing else works on phones.",
+            "Design mobile-first: write styles for narrow screens first, then add min-width media queries for tablets and desktops.",
+            "Use relative units (rem, %, vw, ch) so elements scale naturally.",
+            "A breakpoint is the width where your layout needs to change. Choose breakpoints from your content, not from device names."]),
+    ("h3", "Mobile-first media queries"),
+    ("code", ":root { --space: clamp(1rem, 2vw, 1.5rem); }\n.page { display: grid; gap: var(--space); }\n@media (min-width: 768px) {\n  .page { grid-template-columns: 240px 1fr; }\n}\n@media (min-width: 1200px) {\n  .page { grid-template-columns: 280px 2fr 1fr; }\n}"),
+    ("h3", "Fluid grids and typography"),
+    ("code", ".cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }\nh1 { font-size: clamp(1.75rem, 1.2rem + 2.5vw, 3rem); }   /* min, preferred, max */\np  { max-width: 65ch; }"),
+    ("h3", "Container queries"),
+    ("code", ".card-holder { container-type: inline-size; }\n@container (min-width: 500px) {\n  .card { display: grid; grid-template-columns: 160px 1fr; }\n}"),
+    ("p", "Container queries watch the size of a parent element instead of the whole screen, so a component adapts wherever it is placed."),
+    ("h3", "Responsive media"),
+    ("code", "img, video, iframe { max-width: 100%; height: auto; }\n.video-wrap { aspect-ratio: 16 / 9; }\n.video-wrap iframe { width: 100%; height: 100%; }"),
+    ("h3", "Other media features"),
+    ("code", "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }\n@media (prefers-color-scheme: dark) { ... }\n@media (hover: hover) { .card:hover { transform: translateY(-4px); } }   /* only devices with a mouse */\n@media print { nav, footer { display: none; } }\n@media (orientation: landscape) { ... }"),
+    ("h3", "Testing"),
+    ("ul", ["Use DevTools device mode (Ctrl+Shift+M) to preview breakpoints.", "Test on a real phone when possible; check touch target size (at least 44x44px) and both orientations.",
+            "Check text at 200% zoom: nothing should overlap or be cut off."]),
+]),
+
+("Lesson 23: Responsive components", [
+    ("code", "/* Navigation that becomes a hamburger menu without JavaScript */\n<nav class=\"nav\">\n  <input type=\"checkbox\" id=\"menu\" class=\"nav__toggle\" hidden>\n  <label for=\"menu\" class=\"nav__button\" aria-label=\"Menu\">&#9776;</label>\n  <ul class=\"nav__list\">\n    <li><a href=\"/\">Home</a></li>\n    <li><a href=\"/books/\">Books</a></li>\n    <li><a href=\"/contact/\">Contact</a></li>\n  </ul>\n</nav>\n\n<style>\n.nav__list { list-style: none; margin: 0; padding: 0; display: none; }\n.nav__toggle:checked ~ .nav__list { display: block; }\n@media (min-width: 700px) {\n  .nav__button { display: none; }\n  .nav__list { display: flex !important; gap: 1rem; }\n}\n</style>"),
+    ("code", "/* Responsive table (see the Lists and tables chapter) */\n.table-wrapper { overflow-x: auto; }\n\n/* Responsive card: image beside text when there is room */\n.card { display: grid; gap: 1rem; }\n@container (min-width: 480px) { .card { grid-template-columns: 200px 1fr; } }\n\n/* Responsive embed */\n.embed { aspect-ratio: 16 / 9; width: 100%; }\n\n/* Responsive form: labels beside fields on wide screens */\n.form-row { display: grid; gap: .5rem; }\n@media (min-width: 600px) { .form-row { grid-template-columns: 10rem 1fr; align-items: center; } }"),
+]),
+
+("Lesson 24: Custom properties (CSS variables)", [
+    ("p", "Custom properties store a value under a name that starts with two dashes. Read it with var(). They cascade and inherit like other properties, can be changed in media queries or on a class, and can be read and set from JavaScript."),
+    ("code", ":root {\n  --brand: #b90000;\n  --radius: 12px;\n  --shadow: 0 10px 25px rgb(15 23 42 / 8%);\n}\n.btn { background: var(--brand); border-radius: var(--radius); }\n.card { box-shadow: var(--shadow); padding: var(--card-padding, 1rem); }   /* fallback value */\n\n/* theming by scope */\n.theme-green { --brand: #04AA6D; }\n\n/* change on state */\n.btn:hover { --brand: #900; }\n\n/* JavaScript */\ndocument.documentElement.style.setProperty('--brand', '#0055aa');"),
+    ("h3", "Typed properties with @property"),
+    ("code", "@property --angle {\n  syntax: '<angle>';\n  inherits: false;\n  initial-value: 0deg;\n}\n.spin { background: conic-gradient(from var(--angle), red, blue); transition: --angle 1s; }\n.spin:hover { --angle: 360deg; }"),
+]),
+
+("Lesson 25: calc() and CSS functions", [
+    ("table", [["Function", "Purpose", "Example"],
+               ["calc()", "Arithmetic mixing units", "width: calc(100% - 2rem)"], ["min()", "Smallest of several values", "width: min(90%, 60rem)"],
+               ["max()", "Largest of several values", "font-size: max(1rem, 2vw)"], ["clamp()", "Value between a minimum and maximum", "font-size: clamp(1rem, 2vw, 1.5rem)"],
+               ["var()", "Read a custom property", "color: var(--brand, black)"], ["attr()", "Read an HTML attribute (content only)", "content: attr(data-label)"],
+               ["url()", "Reference a file", "background: url('bg.png')"], ["rgb() hsl() oklch() color-mix()", "Colours", "color-mix(in oklab, red, white 30%)"],
+               ["linear-gradient() radial-gradient() conic-gradient()", "Gradient images", "background: linear-gradient(90deg, red, blue)"],
+               ["repeat() minmax() fit-content()", "Grid tracks", "repeat(auto-fit, minmax(200px, 1fr))"], ["translate() rotate() scale()", "Transforms", "transform: rotate(45deg)"],
+               ["counter()", "Generated numbering", "content: counter(item)"], ["env()", "Environment values (phone notches)", "padding-bottom: env(safe-area-inset-bottom)"],
+               ["round() mod() rem() abs() sign()", "Maths", "width: round(down, 33.3%, 1px)"]]),
+    ("code", ".sidebar { width: calc(100% / 3 - 1rem); }\n.container { width: min(100% - 2rem, 70rem); }\nh1 { font-size: clamp(1.75rem, 1rem + 3vw, 3rem); }\n.hero { min-height: calc(100vh - var(--header-height)); }"),
+]),
+
+("Lesson 26: Transitions", [
+    ("p", "A transition animates a property smoothly from its old value to its new value when the value changes (on hover, focus, class change...). Set it on the element's normal state, not on the :hover state, so it plays both ways."),
+    ("code", ".btn {\n  background: #b90000;\n  transition: background-color .2s ease, transform .15s ease;\n}\n.btn:hover { background: #900; transform: translateY(-2px); }\n\n/* longhands */\n.panel {\n  transition-property: opacity, transform;\n  transition-duration: 300ms;\n  transition-timing-function: cubic-bezier(.2, .8, .2, 1);\n  transition-delay: 0s;\n}"),
+    ("table", [["Timing function", "Feel"], ["ease (default)", "Fast start, slow end"], ["linear", "Constant speed"], ["ease-in", "Slow start"], ["ease-out", "Slow end (best for entering)"], ["ease-in-out", "Slow both ends"], ["steps(4)", "Jumps in 4 steps"], ["cubic-bezier(x1,y1,x2,y2)", "Custom curve"]]),
+    ("ul", ["Animate only transform and opacity when possible; they are cheap for the browser. Animating width, height or top causes layout work.",
+            "Keep durations short: 150-300ms for interface feedback.", "Respect prefers-reduced-motion.",
+            "display cannot be transitioned; use opacity/visibility or the newer transition-behavior: allow-discrete with @starting-style."]),
+]),
+
+("Lesson 27: Transforms", [
+    ("code", ".a { transform: translate(20px, 10px); }      /* move */\n.b { transform: rotate(15deg); }              /* turn */\n.c { transform: scale(1.1); }                 /* grow 10% */\n.d { transform: skewX(10deg); }               /* slant */\n.e { transform: rotate(45deg) scale(.8); }    /* combined, applied right to left */\n.f { transform-origin: top left; }            /* pivot point */\n\n/* individual properties (no ordering problems) */\n.g { translate: 0 -4px; rotate: 3deg; scale: 1.05; }\n\n/* 3D */\n.scene { perspective: 800px; }\n.card3d { transform: rotateY(30deg); transform-style: preserve-3d; backface-visibility: hidden; }"),
+    ("ul", ["Transforms do not affect the layout of other elements; the box keeps its original space.", "They create a stacking context and a containing block for fixed children.",
+            "Combine with transition for hover lift effects: .card:hover { transform: translateY(-4px); }"]),
+]),
+
+("Lesson 28: Animations", [
+    ("code", "@keyframes fade-up {\n  from { opacity: 0; transform: translateY(12px); }\n  to   { opacity: 1; transform: none; }\n}\n.reveal { animation: fade-up .5s ease-out both; }\n\n@keyframes pulse {\n  0%, 100% { transform: scale(1); }\n  50%      { transform: scale(1.06); }\n}\n.badge { animation: pulse 1.5s ease-in-out infinite; }\n\n/* longhands */\n.spinner {\n  animation-name: spin;\n  animation-duration: 1s;\n  animation-timing-function: linear;\n  animation-iteration-count: infinite;\n  animation-direction: normal;      /* reverse | alternate */\n  animation-fill-mode: forwards;    /* keep final state */\n  animation-play-state: running;    /* paused */\n  animation-delay: 0s;\n}\n@keyframes spin { to { transform: rotate(1turn); } }\n\n/* scroll-driven (new) */\n.progress { animation: grow linear; animation-timeline: scroll(); }\n@keyframes grow { from { scale: 0 1; } to { scale: 1 1; } }"),
+    ("ul", ["Use transitions for state changes and animations for things that run on their own or loop.", "Pause or remove animations for users who set prefers-reduced-motion.",
+            "Avoid animating more than a few elements at once on mobile."]),
+]),
+
+("Lesson 29: Effects and filters", [
+    ("code", ".card { box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 8px 24px rgb(0 0 0 / 12%); }\n.text { text-shadow: 0 1px 2px rgb(0 0 0 / 40%); }\n.round { border-radius: 16px; }   /* 50% for a circle */\n.glass { background: rgb(255 255 255 / 60%); backdrop-filter: blur(12px); }\n.grey { filter: grayscale(100%); }\n.grey:hover { filter: none; }\n.dim { filter: brightness(.8) contrast(1.1) saturate(1.2); }\n.blurred { filter: blur(4px); }\n.shadowed-png { filter: drop-shadow(0 4px 6px rgb(0 0 0 / 30%)); }   /* follows transparent shape */\n.fade { opacity: .6; }\n.blend { mix-blend-mode: multiply; }\n.gradient-text {\n  background: linear-gradient(90deg, #b90000, #ff7a00);\n  -webkit-background-clip: text; background-clip: text; color: transparent;\n}\n.clipped { clip-path: circle(50%); }\n.cut { clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); }"),
+]),
+
+("Lesson 30: Accessibility", [
+    ("ul", ["Use semantic HTML first: headings, lists, tables, buttons, links and landmarks give screen readers structure for free.",
+            "Every image needs alt text; decorative images use alt=\"\".", "Every form control needs a label. Error messages must be text, associated with the field via aria-describedby.",
+            "Keyboard: everything clickable must be reachable with Tab and operable with Enter/Space. Never remove :focus outlines without a visible replacement (:focus-visible).",
+            "Colour contrast at least 4.5:1 for text, 3:1 for large text and UI components. Do not use colour alone to convey meaning.",
+            "Set lang on <html>; use dir=\"rtl\" for Arabic and Hebrew.", "Respect user preferences: prefers-reduced-motion, prefers-color-scheme, prefers-contrast.",
+            "Use ARIA only when no native element does the job. aria-label, aria-labelledby, aria-describedby, aria-current, aria-expanded and role are the most common.",
+            "Hide content properly: display: none / hidden attribute hides from everyone; the .sr-only pattern hides visually but keeps it for screen readers.",
+            "Test with the keyboard alone, with a screen reader (NVDA on Windows, VoiceOver on Mac/iOS, TalkBack on Android) and with an automatic checker (Lighthouse, axe)."]),
+    ("code", ".sr-only {\n  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;\n  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;\n}\n.skip-link { position: absolute; top: -100px; }\n.skip-link:focus { top: 0; }\n\n<a class=\"skip-link\" href=\"#main\">Skip to content</a>\n<button aria-expanded=\"false\" aria-controls=\"menu\">Menu</button>\n<ul id=\"menu\" hidden>...</ul>"),
+]),
+
+("Lesson 31: Design systems", [
+    ("p", "A design system is the set of tokens (colours, spacing, type scale), components and rules a site is built from. Even a small site benefits: decide once, reuse everywhere."),
+    ("code", ":root {\n  /* colour tokens */\n  --c-brand: #b90000; --c-ink: #1b2431; --c-muted: #5b6472; --c-line: #d9d2c3; --c-surface: #fff; --c-bg: #faf8f3;\n  /* type scale (1.25 ratio) */\n  --fs-0: 1rem; --fs-1: 1.25rem; --fs-2: 1.563rem; --fs-3: 1.953rem; --fs-4: 2.441rem;\n  /* spacing scale */\n  --s-1: .25rem; --s-2: .5rem; --s-3: 1rem; --s-4: 1.5rem; --s-5: 2rem; --s-6: 3rem;\n  /* shape */\n  --radius: 12px; --shadow: 0 10px 25px rgb(15 23 42 / 8%);\n}"),
+    ("h3", "Naming conventions"),
+    ("table", [["Convention", "Example", "Idea"], ["BEM", ".card, .card__title, .card--featured", "Block, element, modifier"], ["Utility classes", ".mt-3, .flex, .text-center", "One class = one declaration"],
+               ["State classes", ".is-open, .is-active", "Toggled by JavaScript"], ["Data attributes", "[data-state=\"open\"]", "State without class juggling"]]),
+    ("h3", "File organisation"),
+    ("code", "css/\n  reset.css        /* box-sizing, margins, images */\n  tokens.css       /* :root variables */\n  base.css         /* body, headings, links, tables, forms */\n  components/      /* card.css, button.css, nav.css */\n  utilities.css    /* .sr-only, .container, .stack */\n\n/* one entry file */\n@layer reset, tokens, base, components, utilities;\n@import url('reset.css') layer(reset);\n@import url('tokens.css') layer(tokens);\n..."),
+]),
+
+("Lesson 32: Performance", [
+    ("ul", ["Put CSS in <head> (render-blocking but needed first) and scripts at the end of <body> or with defer.",
+            "Compress images: AVIF/WebP, correct dimensions, loading=\"lazy\" below the fold, width/height attributes to avoid layout shift.",
+            "Use font-display: swap and preload the main font: <link rel=\"preload\" href=\"font.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>.",
+            "Keep CSS small: remove unused rules, avoid deep selectors, use one style sheet per site.",
+            "Prefer transform/opacity animations; use will-change sparingly.", "content-visibility: auto on long lists skips rendering off-screen sections.",
+            "Preconnect to third-party origins you will use soon: <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>.",
+            "Measure with Lighthouse (DevTools > Lighthouse) and aim for good Core Web Vitals: LCP under 2.5s, CLS under 0.1, INP under 200ms."]),
+    ("code", "<link rel=\"preload\" as=\"image\" href=\"hero.avif\" fetchpriority=\"high\">\n<img src=\"hero.avif\" alt=\"...\" width=\"1600\" height=\"900\" fetchpriority=\"high\">\n<img src=\"later.jpg\" alt=\"...\" width=\"800\" height=\"600\" loading=\"lazy\" decoding=\"async\">\n<script src=\"app.js\" defer></script>"),
+]),
+
+("Lesson 33: Debugging and testing", [
+    ("h3", "DevTools checklist"),
+    ("ul", ["Elements panel: is the HTML what you expected? Unclosed tags show up as unexpected nesting here.",
+            "Styles panel: which rules apply? Crossed-out declarations are overridden (specificity/order) or invalid (typo). A yellow warning triangle means the property or value is unknown.",
+            "Computed panel: the final value of every property and the box model diagram.",
+            "Toggle :hov to force :hover/:focus states; edit values live and copy them back to your file.",
+            "Console: red messages for 404 (file not found - check paths and spelling) and script errors.",
+            "Network panel: is styles.css actually loading? Status 200 is good; 404 means the path is wrong."]),
+    ("h3", "Common CSS bugs and fixes"),
+    ("table", [["Symptom", "Likely cause", "Fix"],
+               ["Nothing changes", "Style sheet not loaded, cached, or selector does not match", "Check Network panel; hard reload (Ctrl+F5); inspect the element"],
+               ["Property ignored", "Typo, invalid value, or property does not apply to that display type", "Look for the warning icon; check width on inline elements, vertical-align on blocks"],
+               ["Margin does not work", "Margin collapse or inline element", "Use padding, display: block/flow-root, or gap"],
+               ["Element wider than screen", "100% width plus padding (content-box)", "box-sizing: border-box; max-width: 100%"],
+               ["z-index has no effect", "Element not positioned or trapped in a stacking context", "Add position: relative; move it out of the transformed/opacity parent"],
+               ["Centre does not work", "margin: auto on an element without width, or on inline", "Set a width or use flex/grid centring"],
+               ["Text overflows box", "Long word/URL", "overflow-wrap: anywhere; or <wbr>"],
+               ["Font not applied", "Wrong name, quotes, or font not loaded", "Check @font-face URL in Network panel; quote multi-word names"]]),
+    ("h3", "Validate and test"),
+    ("ul", ["HTML validator: https://validator.w3.org/ - CSS validator: https://jigsaw.w3.org/css-validator/",
+            "Test in at least Chrome and Firefox; check Safari on an iPhone if you can.", "Test keyboard navigation and zoom to 200%.",
+            "Print preview (Ctrl+P) to check @media print styles."]),
+]),
+
+("Lesson 34: Tooling and automation (optional)", [
+    ("p", "None of this is required to build a site, but as projects grow these tools save time."),
+    ("table", [["Tool", "What it does"], ["Editor extensions (Prettier, Emmet, Live Server)", "Auto-format, expand abbreviations (ul>li*3), reload the browser on save"],
+               ["Git", "Version control: keep history, undo mistakes, collaborate"], ["Sass / PostCSS", "Pre-processors adding nesting, mixins, autoprefixing (CSS now has native nesting)"],
+               ["Stylelint / HTMLHint", "Catch errors and enforce style rules automatically"], ["Lighthouse", "Audits for performance, accessibility, SEO"],
+               ["Bundlers (Vite, esbuild)", "Combine and minify files for production"], ["Static hosting (GitHub Pages, Netlify)", "Publish a folder of HTML/CSS for free"]]),
+    ("h3", "Native CSS nesting"),
+    ("code", ".card {\n  padding: 1rem;\n  & h3 { margin: 0; }\n  &:hover { box-shadow: var(--shadow); }\n  & .btn { margin-top: .5rem; }\n  @media (min-width: 600px) { padding: 2rem; }\n}"),
+]),
+
+("Lesson 35: Project - a complete landing page", [
+    ("p", "This project combines everything: semantic structure, a responsive navigation, a hero built with Grid, a features section with Flexbox cards, a pricing table, a form and a footer. Copy both files, open index.html, then change the words, colours and images."),
+    ("code", "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Cairo Book Shop - Learn HTML and CSS</title>\n  <meta name=\"description\" content=\"PDF and printed books about web development, in Arabic and English.\">\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <a class=\"skip-link\" href=\"#main\">Skip to content</a>\n  <header class=\"site-header\">\n    <a class=\"logo\" href=\"/\">Cairo Book Shop</a>\n    <nav aria-label=\"Main\">\n      <ul class=\"nav\">\n        <li><a href=\"#features\">Why us</a></li>\n        <li><a href=\"#pricing\">Pricing</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <main id=\"main\">\n    <section class=\"hero\">\n      <div class=\"hero__copy\">\n        <h1>Learn HTML and CSS from zero</h1>\n        <p class=\"lead\">Clear books, real examples, Arabic and English editions.</p>\n        <a class=\"btn\" href=\"#pricing\">See the books</a>\n      </div>\n      <img class=\"hero__image\" src=\"images/books.jpg\" alt=\"Three books on a wooden desk\" width=\"800\" height=\"600\">\n    </section>\n\n    <section id=\"features\" class=\"features\">\n      <h2>Why readers choose us</h2>\n      <div class=\"cards\">\n        <article class=\"card\"><h3>Step by step</h3><p>Every chapter builds on the last.</p></article>\n        <article class=\"card\"><h3>Searchable PDF</h3><p>Find any tag or property in seconds.</p></article>\n        <article class=\"card\"><h3>Free updates</h3><p>New editions delivered to your inbox.</p></article>\n      </div>\n    </section>\n\n    <section id=\"pricing\" class=\"pricing\">\n      <h2>Pricing</h2>\n      <div class=\"table-wrapper\">\n        <table>\n          <caption>Editions and prices</caption>\n          <thead><tr><th scope=\"col\">Edition</th><th scope=\"col\">Format</th><th scope=\"col\">Price</th></tr></thead>\n          <tbody>\n            <tr><th scope=\"row\">Starter</th><td>PDF</td><td>120 EGP</td></tr>\n            <tr><th scope=\"row\">Complete</th><td>PDF + print</td><td>350 EGP</td></tr>\n          </tbody>\n        </table>\n      </div>\n    </section>\n\n    <section id=\"contact\" class=\"contact\">\n      <h2>Contact us</h2>\n      <form action=\"/contact\" method=\"post\" class=\"form\">\n        <div class=\"form-row\"><label for=\"n\">Name</label><input id=\"n\" name=\"name\" required autocomplete=\"name\"></div>\n        <div class=\"form-row\"><label for=\"e\">Email</label><input id=\"e\" name=\"email\" type=\"email\" required autocomplete=\"email\"></div>\n        <div class=\"form-row\"><label for=\"m\">Message</label><textarea id=\"m\" name=\"message\" rows=\"4\" required></textarea></div>\n        <button class=\"btn\" type=\"submit\">Send</button>\n      </form>\n    </section>\n  </main>\n\n  <footer class=\"site-footer\">\n    <p>&copy; 2026 Cairo Book Shop &middot; <a href=\"/privacy/\">Privacy</a> &middot; <a href=\"mailto:info@example.com\">info@example.com</a></p>\n  </footer>\n</body>\n</html>"),
+    ("code", "/* styles.css */\n@layer reset, base, layout, components;\n\n@layer reset {\n  *, *::before, *::after { box-sizing: border-box; }\n  body, h1, h2, h3, p, ul { margin: 0; }\n  img { max-width: 100%; height: auto; display: block; }\n}\n\n@layer base {\n  :root {\n    --brand: #b90000; --ink: #1b2431; --muted: #5b6472; --line: #d9d2c3; --bg: #faf8f3; --surface: #fff;\n    --radius: 14px; --shadow: 0 10px 25px rgb(15 23 42 / 8%);\n    --space: clamp(1rem, 2vw, 1.5rem);\n  }\n  body { font: 1.05rem/1.6 Georgia, serif; color: var(--ink); background: var(--bg); }\n  h1, h2, h3 { font-family: system-ui, sans-serif; line-height: 1.15; }\n  h1 { font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem); }\n  h2 { font-size: 1.75rem; margin-bottom: var(--space); }\n  a { color: var(--brand); }\n  a:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }\n  .lead { font-size: 1.2rem; color: var(--muted); }\n}\n\n@layer layout {\n  .site-header { position: sticky; top: 0; z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line);\n                 display: flex; flex-wrap: wrap; gap: var(--space); align-items: center; justify-content: space-between; padding: .75rem var(--space); }\n  .nav { display: flex; gap: .25rem; list-style: none; padding: 0; }\n  .nav a { display: block; padding: .5rem .9rem; border-radius: 999px; text-decoration: none; color: var(--ink); }\n  .nav a:hover { background: var(--bg); }\n  main > section { padding: clamp(2rem, 6vw, 5rem) var(--space); max-width: 70rem; margin-inline: auto; }\n  .hero { display: grid; gap: var(--space); align-items: center; }\n  @media (min-width: 800px) { .hero { grid-template-columns: 1.1fr 1fr; } }\n  .hero__image { border-radius: var(--radius); box-shadow: var(--shadow); }\n  .cards { display: flex; flex-wrap: wrap; gap: var(--space); }\n  .card { flex: 1 1 220px; }\n  .site-footer { border-top: 1px solid var(--line); padding: var(--space); text-align: center; color: var(--muted); font-size: .9rem; }\n}\n\n@layer components {\n  .btn { display: inline-block; padding: .7rem 1.4rem; border-radius: 999px; border: 0; background: var(--brand); color: #fff;\n         font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s, background-color .2s; }\n  .btn:hover { background: #900; transform: translateY(-2px); }\n  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space); box-shadow: var(--shadow); }\n  .card h3 { margin-bottom: .5rem; }\n  .table-wrapper { overflow-x: auto; }\n  table { width: 100%; border-collapse: collapse; background: var(--surface); }\n  caption { text-align: left; padding: .5rem 0; color: var(--muted); }\n  th, td { padding: .8rem 1rem; text-align: left; border-bottom: 1px solid var(--line); }\n  thead th { background: var(--brand); color: #fff; }\n  tbody tr:nth-child(even) { background: #fcfbf8; }\n  .form { display: grid; gap: 1rem; max-width: 36rem; }\n  .form-row { display: grid; gap: .3rem; }\n  @media (min-width: 600px) { .form-row { grid-template-columns: 8rem 1fr; align-items: start; } }\n  label { font-weight: 600; }\n  input, textarea { width: 100%; padding: .6rem .8rem; border: 1px solid #bbb; border-radius: 8px; font: inherit; }\n  input:focus-visible, textarea:focus-visible { outline: 3px solid #ffbf47; border-color: var(--brand); }\n  .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--brand); color: #fff; padding: .5rem 1rem; }\n  .skip-link:focus { top: 1rem; }\n  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }\n}"),
+    ("h3", "Exercises"),
+    ("ul", ["Change the colour tokens to your own brand and watch every component update.", "Add a fourth card and confirm the row wraps correctly on a narrow window.",
+            "Add an Arabic version: set lang=\"ar\" dir=\"rtl\" and replace left/right properties with logical ones (inline-start / inline-end).",
+            "Add a dark mode with prefers-color-scheme.", "Run the page through the HTML validator and Lighthouse; fix every warning."]),
+]),
+
+("Lesson 36: Quick quiz and answers", [
+    ("table", [["Question", "Answer"],
+               ["Which element creates an ordered list?", "<ol> (with <li> items)"], ["Which attribute connects a <label> to its control?", "for, matching the control's id"],
+               ["What does border-collapse: collapse do?", "Merges adjacent cell borders into single lines"], ["What is the specificity of #a .b p?", "1,1,1"],
+               ["Which CSS property makes a flex container?", "display: flex"], ["How do you make images never overflow?", "img { max-width: 100%; height: auto; }"],
+               ["What does the viewport meta tag do?", "Makes the page use the real device width on phones"], ["Which unit is relative to the root font size?", "rem"],
+               ["What does gap do?", "Adds space between flex/grid items without margins"], ["How do you centre a block horizontally?", "Give it a width and margin-inline: auto (or use flex/grid)"],
+               ["Where should <main> appear?", "Once per page, containing the unique content"], ["What is the difference between <b> and <strong>?", "<strong> means importance; <b> is only visual/keyword"],
+               ["Which selector matches every second row?", "tr:nth-child(even)"], ["What does box-sizing: border-box change?", "width/height include padding and border"],
+               ["What replaces the bgcolor attribute?", "CSS background-color"]]),
+]),
+
+]

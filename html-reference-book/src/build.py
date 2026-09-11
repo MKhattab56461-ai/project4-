@@ -16,6 +16,7 @@ from data_attrs import GLOBAL_ATTRS, EVENT_ATTRS, INPUT_TYPES
 from data_css import CSS_INTRO, CSS_SELECTORS, CSS_PROPERTIES, CSS_HTML_STYLING_GUIDE, CSS_LISTS_TABLES
 from data_refs import (LINK_TYPES, META_NAMES, AUTOCOMPLETE_TOKENS, MIME_TYPES, URL_SCHEMES,
                        COLOR_NAMES, ENTITIES, GUIDES, GLOSSARY)
+from data_course import COURSE
 import elements_a_d, elements_e_h, elements_i_o, elements_p_s, elements_t_z
 
 ELEMENTS = (elements_a_d.ELEMENTS + elements_e_h.ELEMENTS + elements_i_o.ELEMENTS
@@ -272,7 +273,7 @@ def build_pdf(path):
     story += [Spacer(1, 90), P(TITLE, "title"), P(SUBTITLE, "subtitle"), Spacer(1, 20),
               P("HTML 1 \u2022 HTML 2.0 \u2022 HTML 3.2 \u2022 HTML 4.01 \u2022 XHTML \u2022 HTML5 \u2022 Living Standard", "center"),
               Spacer(1, 10), P("Elements \u2022 Attributes \u2022 Global attributes \u2022 Events \u2022 Input types \u2022 CSS \u2022 Entities \u2022 Guides", "center"),
-              Spacer(1, 120), P("Compiled from the HTML Living Standard, MDN Web Docs, htmlreference.io, codeshack.io and W3Schools.", "center"),
+              Spacer(1, 120), P("Compiled from the HTML Living Standard, MDN Web Docs, htmlreference.io, codeshack.io and the W3Schools HTML and CSS tutorial.", "center"),
               P("Edition of September 2026", "center"), PageBreak()]
     # ----- TOC
     toc = TableOfContents()
@@ -604,13 +605,24 @@ def build_pdf(path):
     story += heading("Styling HTML elements: cookbook", 0, "csscook") + blocks(CSS_HTML_STYLING_GUIDE) + [PageBreak()]
     story += heading("Lists and tables with CSS", 0, "csslt") + blocks(CSS_LISTS_TABLES) + [PageBreak()]
 
+    # ----- Course
+    story += part(12, "HTML and CSS Course", "Thirty-six lessons from first page to finished project, following the W3Schools HTML and CSS tutorial.")
+    story += heading("About this course", 0, "course")
+    story.append(P("This part is a guided course rather than a reference: read the lessons in order, type the examples, and change them. "
+                   "Its structure follows the W3Schools HTML and CSS tutorial (foundations, styling core, layout, enhancements, quality, project). "
+                   "Whenever a lesson mentions an element or property, the full details are in Parts 6 and 11."))
+    story.extend(rl_table([["Lesson", "Topic"]] + [[str(i + 1), t.split(":", 1)[1].strip() if ":" in t else t] for i, (t, _) in enumerate(COURSE)]))
+    story.append(PageBreak())
+    for i, (ct, cb) in enumerate(COURSE):
+        story += heading(ct, 1, "lesson%d" % i) + blocks(cb) + [PageBreak()]
+
     # ----- Guides
-    story += part(12, "Practical Guides", "Step-by-step guidance for pages, lists, tables, forms, media, accessibility, SEO and migration.")
+    story += part(13, "Practical Guides", "Step-by-step guidance for pages, lists, tables, forms, media, accessibility, SEO and migration.")
     for i, (gt, gb) in enumerate(GUIDES):
         story += heading(gt, 0, "guide%d" % i) + blocks(gb) + [PageBreak()]
 
     # ----- Glossary and index
-    story += part(13, "Glossary and Index", "Definitions of terms and an alphabetical index of everything in the book.")
+    story += part(14, "Glossary and Index", "Definitions of terms and an alphabetical index of everything in the book.")
     story += heading("Glossary", 0, "glossary")
     story.extend(rl_table([["Term", "Definition"]] + [list(g) for g in GLOSSARY]))
     story.append(PageBreak())
@@ -647,7 +659,7 @@ def build_pdf(path):
     for p in CSS_PROPERTIES:
         entries.append((p[1] + " (CSS)", "Part 11: " + p[0]))
     for g in GLOSSARY:
-        entries.append((g[0], "Part 13: glossary"))
+        entries.append((g[0], "Part 14: glossary"))
     entries.sort(key=lambda x: re.sub(r"[<>]", "", x[0]).lower())
     rows = [["Term", "Where to find it"]] + [list(x) for x in entries]
     story.extend(rl_table(rows, col_widths=[AVAIL * 0.32, AVAIL * 0.68]))
@@ -806,11 +818,14 @@ def build_html(path):
     secs.append(section("css-lists-tables", "Lists and tables with CSS", blocks(CSS_LISTS_TABLES), kind="CSS", keywords="css list ul ol dl table td th border collapse zebra list-style marker bullets responsive table"))
     add_part("part-css", "Part 11: CSS Reference", secs)
 
+    secs = [section("lesson-%d" % i, ct, blocks(cb), kind="Lesson", keywords="course lesson tutorial w3schools") for i, (ct, cb) in enumerate(COURSE)]
+    add_part("part-course", "Part 12: HTML and CSS Course", secs)
+
     secs = [section("guide-%d" % i, gt, blocks(gb), kind="Guide") for i, (gt, gb) in enumerate(GUIDES)]
-    add_part("part-guides", "Part 12: Practical Guides", secs)
+    add_part("part-guides", "Part 13: Practical Guides", secs)
 
     secs = [section("glossary", "Glossary", table([["Term", "Definition"]] + [list(g) for g in GLOSSARY]), kind="Glossary", keywords=" ".join(g[0] for g in GLOSSARY))]
-    add_part("part-glossary", "Part 13: Glossary", secs)
+    add_part("part-glossary", "Part 14: Glossary", secs)
 
     el_links = "".join("<a href=\"#el-%s\">&lt;%s&gt;</a>" % (e["name"], e["name"]) for e in ELEMENTS)
     nav_html = "".join("<li><a href=\"#%s\">%s</a></li>" % (pid, E(t)) for pid, t in nav)
