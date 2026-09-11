@@ -559,6 +559,29 @@ def build_pdf(path):
     def code_block(text):
         return Preformatted(text, S["code"], maxLineLength=70)
 
+    from reportlab.platypus import Image as RLImage
+    SHOTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shots")
+
+    def shot_flowables(key, caption="What the browser shows"):
+        """The rendered picture of an example (made with render_shots.py in headless Chrome)."""
+        fp = os.path.join(SHOTS, key + ".png")
+        if not os.path.exists(fp):
+            return []
+        from reportlab.lib.utils import ImageReader
+        iw, ih = ImageReader(fp).getSize()
+        w = AVAIL
+        h = ih * w / iw
+        if h > 150 * mm:
+            h = 150 * mm
+            w = iw * h / ih
+        img = RLImage(fp, width=w, height=h)
+        img.hAlign = "LEFT"
+        t = Table([[img]], colWidths=[w + 4])
+        t.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 0.6, LINE), ("LEFTPADDING", (0, 0), (-1, -1), 2), ("RIGHTPADDING", (0, 0), (-1, -1), 2),
+                               ("TOPPADDING", (0, 0), (-1, -1), 2), ("BOTTOMPADDING", (0, 0), (-1, -1), 2)]))
+        t.hAlign = "LEFT"
+        return [P(caption, "smallb"), t, Spacer(1, 4)]
+
     def rl_table(rows, col_widths=None, head=True, font=None):
         data = []
         for i, r in enumerate(rows):
@@ -845,6 +868,7 @@ def build_pdf(path):
         ], col_widths=[AVAIL * 0.26, AVAIL * 0.74], head=False))
         story.append(P("Minimal example", "h3"))
         story.append(code_block(e["examples"][0][1] if e["examples"] else e["syntax"]))
+        story += shot_flowables("ex-%s-0" % e["name"], "Result in the browser")
         if e["mistakes"]:
             story.append(P("Most common mistake", "h3"))
             story.append(P(e["mistakes"][0]))
@@ -895,10 +919,13 @@ def build_pdf(path):
                 story.append(KeepTogether([P(an, "h3"), P("Values: %s   |   Since: %s" % (av, aver), "meta"), P(ad), P(how, "caption"), code_block(ex)]))
         story.append(PageBreak())
         story.append(P("<%s>: worked examples" % e["name"], "h2"))
-        for (t, c, note) in e["examples"]:
-            items = [P(t, "smallb"), code_block(c)]
+        story.append(P("Each example shows the code, then a picture of what a browser draws for it, then the explanation.", "caption"))
+        for i, (t, c, note) in enumerate(e["examples"]):
+            items = [P("Example %d: %s" % (i + 1, t), "h3"), P("Code", "smallb"), code_block(c)]
+            items += shot_flowables("ex-%s-%d" % (e["name"], i), "Result in the browser")
             if note:
-                items.append(P(note, "caption"))
+                items.append(P("Explanation", "smallb"))
+                items.append(P(note))
             story.append(KeepTogether(items))
         if e["css"]:
             story.append(P("Default browser CSS", "h3"))
@@ -928,6 +955,7 @@ def build_pdf(path):
         story.extend(rl_table([["Attribute", "Note"]] + [list(a) for a in sattrs]))
         story.append(P("Example", "h3"))
         story.append(code_block(ex))
+        story += shot_flowables("input-" + typ, "Result in the browser")
         if notes:
             story.append(P(notes, "caption"))
         story.append(P("Also accepted: the common input attributes name, value, disabled, form, autofocus, required (where meaningful), and all global attributes.", "caption"))
@@ -1192,6 +1220,15 @@ def build_pdf(path):
 # ============================================================================
 def build_html(path):
     E = htmlmod.escape
+    import base64
+    SHOTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shots")
+
+    def shot_img(key, alt):
+        fp = os.path.join(SHOTS, key + ".png")
+        if not os.path.exists(fp):
+            return ""
+        data = base64.b64encode(open(fp, "rb").read()).decode()
+        return "<figure class=\"shot\"><figcaption>Result in the browser</figcaption><img src=\"data:image/png;base64,%s\" alt=\"%s\" loading=\"lazy\"></figure>" % (data, E(alt))
 
     def blocks(seq):
         out = []
@@ -1269,8 +1306,9 @@ def build_html(path):
         else:
             b.append("<p>Only the global attributes and event handler attributes.</p>")
         b.append("<h3>Examples</h3>")
-        for (t, c, note) in e["examples"]:
-            b.append("<h4>%s</h4><pre><code>%s</code></pre>%s" % (E(t), E(c), ("<p class=\"small\">%s</p>" % E(note)) if note else ""))
+        for i, (t, c, note) in enumerate(e["examples"]):
+            b.append("<h4>Example %d: %s</h4><pre><code>%s</code></pre>%s%s" % (i + 1, E(t), E(c), shot_img("ex-%s-%d" % (e["name"], i), "Browser rendering of the %s example" % e["name"]),
+                                                                             ("<p><b>Explanation:</b> %s</p>" % E(note)) if note else ""))
         if e["css"]:
             b.append("<h3>Default browser CSS</h3><pre><code>%s</code></pre>" % E(e["css"]))
         if e["a11y"]:
@@ -1285,8 +1323,8 @@ def build_html(path):
 
     secs = [section("input-types", "Input types overview", table([["type", "Control", "Since"]] + [[t[0], t[1], t[2]] for t in INPUT_TYPES]), kind="Index")]
     for (typ, ttl, since, desc, sattrs, ex, notes) in INPUT_TYPES:
-        b = "<p class=\"meta\">Since: %s</p><p>%s</p><h3>Type-specific attributes</h3>%s<h3>Example</h3><pre><code>%s</code></pre>%s" % (
-            E(since), E(desc), table([["Attribute", "Note"]] + [list(a) for a in sattrs]), E(ex), ("<p class=\"small\">%s</p>" % E(notes)) if notes else "")
+        b = "<p class=\"meta\">Since: %s</p><p>%s</p><h3>Type-specific attributes</h3>%s<h3>Example</h3><pre><code>%s</code></pre>%s%s" % (
+            E(since), E(desc), table([["Attribute", "Note"]] + [list(a) for a in sattrs]), E(ex), shot_img("input-" + typ, "Browser rendering of input type=" + typ), ("<p class=\"small\">%s</p>" % E(notes)) if notes else "")
         secs.append(section("input-" + typ, "<input type=\"%s\"> %s" % (typ, ttl), b, kind="Input type", keywords="input type " + typ + " " + ttl))
     add_part("part-inputs", "Part 7: The input Element in Depth", secs)
 
@@ -1397,6 +1435,7 @@ def build_html(path):
 <title>%(title)s</title>
 <meta name="description" content="%(sub)s">
 <style>
+.shot { margin: .6rem 0 1rem; } .shot img { max-width: 100%%; border: 1px solid var(--line); border-radius: 6px; background: #fff; } .shot figcaption { font-size: .8rem; color: var(--muted); margin-bottom: .2rem; }
 :root { --brand:#b90000; --ink:#1b2431; --muted:#5b6472; --line:#d9d2c3; --bg:#faf8f3; --panel:#fff; --code:#f4f1ea; }
 * { box-sizing: border-box; }
 body { margin:0; font-family: Georgia, "Times New Roman", serif; color:var(--ink); background:var(--bg); line-height:1.6; }
