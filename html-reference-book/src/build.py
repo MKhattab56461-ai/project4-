@@ -17,6 +17,7 @@ from data_css import CSS_INTRO, CSS_SELECTORS, CSS_PROPERTIES, CSS_HTML_STYLING_
 from data_refs import (LINK_TYPES, META_NAMES, AUTOCOMPLETE_TOKENS, MIME_TYPES, URL_SCHEMES,
                        COLOR_NAMES, ENTITIES, GUIDES, GLOSSARY)
 from data_course import COURSE
+from data_projects import all_projects, THEMES, TYPES
 import elements_a_d, elements_e_h, elements_i_o, elements_p_s, elements_t_z
 
 ELEMENTS = (elements_a_d.ELEMENTS + elements_e_h.ELEMENTS + elements_i_o.ELEMENTS
@@ -130,6 +131,255 @@ def elements_for_version(keys):
             out.append(e)
     return out
 
+
+# Line-by-line explanations for project code -------------------------------------------------
+HTML_EXPLAIN = [
+    (r"<!DOCTYPE html>", "Declares modern HTML so the browser renders in standards mode."),
+    (r"<html lang=", "Root element; lang tells screen readers and search engines the page language."),
+    (r'<meta charset="utf-8">', "Character encoding: makes Arabic, accents and symbols display correctly."),
+    (r'<meta name="viewport"', "Makes the page use the real device width on phones."),
+    (r"<title>", "Text shown in the browser tab and search results."),
+    (r'<link rel="stylesheet"', "Loads the external CSS file styles.css."),
+    (r"<header", "Introductory content: logo, title, navigation."),
+    (r"<nav", "A block of navigation links; aria-label names it for screen readers."),
+    (r"<main", "The unique content of this page; exactly one per page."),
+    (r"<section", "A thematic group of content, normally with its own heading."),
+    (r"<article", "A self-contained piece: card, post, product."),
+    (r"<aside", "Content related to, but separate from, the main content."),
+    (r"<footer", "Footer of the page or of a section."),
+    (r"<h1", "The main heading; only one per page."),
+    (r"<h2", "Second-level heading for a section."),
+    (r"<h3", "Third-level heading, inside an h2 section."),
+    (r"<p", "A paragraph of text."),
+    (r'<a class="btn"', "A link styled as a button; it navigates, so it is a link and not a <button>."),
+    (r"<a href=", "A hyperlink; href gives the destination."),
+    (r"<ul", "Unordered (bulleted) list."),
+    (r"<ol", "Ordered (numbered) list; the order matters."),
+    (r"<li", "One list item."),
+    (r"<dl", "Description list of term / description pairs."),
+    (r"<dt", "A term (name) in a description list."),
+    (r"<dd", "The description of the preceding term."),
+    (r"<img", "An image; alt describes it, width and height reserve space before it loads."),
+    (r"<figure", "Self-contained media with an optional caption."),
+    (r"<figcaption", "Caption for the figure."),
+    (r"<picture", "Container offering several image sources; the browser picks the first it supports."),
+    (r"<video", "Video player; controls shows the built-in buttons."),
+    (r"<audio", "Audio player."),
+    (r"<source", "One media source with its MIME type."),
+    (r"<track", "Captions or subtitles file for media."),
+    (r"<iframe", "Embeds another page; title describes it for assistive technology."),
+    (r"<table", "Tabular data in rows and columns."),
+    (r"<caption", "Title of the table."),
+    (r"<thead", "Group of header rows."),
+    (r"<tbody", "Group of data rows."),
+    (r"<tfoot", "Group of footer rows (totals)."),
+    (r"<tr", "A table row."),
+    (r'<th scope="col"', "Header cell for a column."),
+    (r'<th scope="row"', "Header cell for a row."),
+    (r"<th", "A header cell."),
+    (r"<td", "A data cell."),
+    (r"<form", "A form; action is where the data goes, method how it is sent."),
+    (r"<fieldset", "Groups related form controls."),
+    (r"<legend", "Caption for the fieldset."),
+    (r"<label", "Text label for a control; for matches the control's id, or the label wraps the control."),
+    (r'type="email"', "Email field: validated automatically and shows the @ keyboard on phones."),
+    (r'type="password"', "Password field: characters are hidden."),
+    (r'type="radio"', "Radio button: one choice from a group sharing the same name."),
+    (r'type="checkbox"', "Checkbox: on or off."),
+    (r'type="date"', "Date picker."),
+    (r'type="time"', "Time picker."),
+    (r'type="number"', "Numeric input with min, max and step."),
+    (r'type="tel"', "Telephone number; shows the phone keypad on mobiles."),
+    (r'type="search"', "Search field."),
+    (r"<input", "A form control; its type decides what it looks like."),
+    (r"<select", "Drop-down list."),
+    (r"<option", "One choice in a select or datalist."),
+    (r"<datalist", "Suggestions for an input linked with the list attribute."),
+    (r"<textarea", "Multi-line text field."),
+    (r"<button", "A clickable button; inside a form it submits by default."),
+    (r"required", "The field must be filled before the form can be submitted."),
+    (r"autocomplete=", "Tells the browser which saved value to offer (name, email, tel...)."),
+    (r"<details", "Disclosure widget that can be opened and closed."),
+    (r"<summary", "The always-visible heading of a details element."),
+    (r"<dialog", "A dialog box; showModal() opens it as a modal."),
+    (r"<time", "A date or time; datetime holds the machine-readable value."),
+    (r"<address", "Contact information for the page or article."),
+    (r"<blockquote", "A long quotation from another source."),
+    (r"<cite", "Title of a work or source."),
+    (r"<strong", "Strong importance (bold by default)."),
+    (r"<b>", "Keyword or name drawn to attention without extra importance."),
+    (r"<small", "Side comment or fine print."),
+    (r"<span", "Generic inline container for styling."),
+    (r"<div", "Generic block container for grouping and layout."),
+    (r"<progress", "Progress of a task."),
+    (r"<meter", "A measurement within a known range."),
+    (r"<search", "Container for search functionality."),
+    (r"aria-current=", "Tells assistive technology which item is the current page or step."),
+    (r"aria-label=", "Accessible name for an element that has no visible text."),
+    (r'aria-hidden="true"', "Hides decorative content from screen readers."),
+    (r'role="', "Gives the element an ARIA role for assistive technology."),
+    (r'loading="lazy"', "Defers loading until the image is near the viewport."),
+    (r"<script", "JavaScript; here only a few lines to open a dialog or switch a theme."),
+    (r"&copy;", "Character entity for the copyright sign."),
+    (r"&middot;", "Character entity for a middle dot separator."),
+]
+CSS_EXPLAIN = [
+    (r"box-sizing: border-box", "Width and height include padding and border, which makes sizing predictable."),
+    (r":root {", "Custom properties (variables) defined on the root so every element can use them."),
+    (r"--brand", "The brand colour variable; change it once and every use follows."),
+    (r"font-family", "The typeface stack: preferred font first, fallbacks after."),
+    (r"line-height", "Space between lines; 1.5 to 1.7 is comfortable for body text."),
+    (r"max-width", "Limits how wide the element can grow, keeping lines readable."),
+    (r"margin: 0 auto", "Centres a block horizontally: zero top/bottom, automatic left/right."),
+    (r"margin-inline: auto", "Same as margin: 0 auto using logical properties."),
+    (r"padding", "Space inside the element between its border and content."),
+    (r"display: grid", "Turns the element into a grid container."),
+    (r"grid-template-columns", "Defines the columns of the grid."),
+    (r"grid-template-areas", "Names regions of the grid so children can be placed by name."),
+    (r"grid-area", "Places a child into a named area."),
+    (r"repeat(auto-fit", "Creates as many columns as fit; auto-fit collapses empty tracks."),
+    (r"repeat(auto-fill", "Creates as many columns as fit; auto-fill keeps empty tracks."),
+    (r"minmax(", "A track that is at least the first value and at most the second."),
+    (r"place-items: center", "Centres items horizontally and vertically in a grid."),
+    (r"place-content: center", "Centres the whole grid content in the container."),
+    (r"display: flex", "Turns the element into a flex container (one-dimensional layout)."),
+    (r"flex-direction: column", "Stacks flex items vertically."),
+    (r"flex-direction: column-reverse", "Stacks flex items vertically in reverse visual order."),
+    (r"flex-wrap: wrap", "Allows flex items to move to a new line when they do not fit."),
+    (r"justify-content: space-between", "Spreads items so the first touches the start and the last the end."),
+    (r"justify-content: center", "Centres items along the main axis."),
+    (r"align-items: center", "Centres items on the cross axis."),
+    (r"align-items: start", "Aligns items to the start of the cross axis (no stretching)."),
+    (r"align-content: center", "Centres the lines of a multi-line flex or grid container."),
+    (r"flex: 1 1", "The item can grow and shrink from the given basis."),
+    (r"flex: 1;", "All items share free space equally."),
+    (r"flex: 0 0", "Fixed size: never grows or shrinks."),
+    (r"flex-basis: 100%", "The item takes a whole line, pushing the next items down."),
+    (r"gap:", "Space between grid or flex items without extra margins."),
+    (r"order:", "Changes the visual order of a flex item without changing the source."),
+    (r"list-style: none", "Removes bullets or numbers from a list."),
+    (r"list-style-type", "Chooses the bullet or numbering style."),
+    (r"text-decoration: none", "Removes the underline from links."),
+    (r"text-align: center", "Centres inline content such as text."),
+    (r"text-align: right", "Right-aligns inline content, typical for numbers."),
+    (r"text-transform: uppercase", "Displays text in capitals without changing the HTML."),
+    (r"letter-spacing", "Adds space between letters; useful for small capitals."),
+    (r"font-variant-numeric: tabular-nums", "Makes all digits the same width so columns of numbers line up."),
+    (r"clamp(", "A fluid value between a minimum and a maximum, based on the middle expression."),
+    (r"min(", "Uses the smaller of the listed values."),
+    (r"border-radius: 50%", "Turns a square into a circle."),
+    (r"border-radius: 999px", "Fully rounded pill shape."),
+    (r"border-radius", "Rounds the corners."),
+    (r"border-collapse: collapse", "Merges adjacent table cell borders into single lines."),
+    (r"border-collapse: separate", "Keeps each cell's border separate so cells look like tiles."),
+    (r"border-spacing", "Gap between cells in the separate border model."),
+    (r"table-layout: fixed", "Columns get equal widths regardless of content; faster rendering."),
+    (r"border-left", "A thick left border used as an accent stripe."),
+    (r"border-top", "A top border used as an accent or separator."),
+    (r"border-bottom", "A bottom border used as a separator line."),
+    (r"border: 0", "Removes the default border (for example on an iframe or button)."),
+    (r"box-shadow", "Soft shadow that lifts the element from the page."),
+    (r"text-shadow", "Shadow behind text to improve contrast over images."),
+    (r"background: linear-gradient", "A gradient (here often used as a translucent overlay over an image)."),
+    (r"background-size: cover", "Scales the background image to cover the box without distortion."),
+    (r"background:", "Background colour or image."),
+    (r"object-fit: cover", "Crops an image to fill its box while keeping its proportions."),
+    (r"aspect-ratio", "Keeps a fixed width-to-height ratio, reserving space before media loads."),
+    (r"overflow: hidden", "Clips content that sticks out, so images follow rounded corners."),
+    (r"overflow-x: auto", "Adds a horizontal scrollbar only when needed (responsive tables)."),
+    (r"position: relative", "Keeps normal flow but becomes the reference for absolutely positioned children."),
+    (r"position: absolute", "Removes the element from flow and positions it relative to the nearest positioned ancestor."),
+    (r"position: sticky", "Scrolls normally until it reaches the given offset, then sticks."),
+    (r"position: fixed", "Stays fixed relative to the viewport while scrolling."),
+    (r"inset: 0", "Shorthand for top, right, bottom and left all zero: stretches over the parent."),
+    (r"z-index", "Stacking order for positioned elements; higher is on top."),
+    (r"translate:", "Moves the element without affecting the layout of others."),
+    (r"transform: scale", "Enlarges or shrinks the element visually."),
+    (r"transition", "Animates property changes smoothly, for example on hover."),
+    (r"animation", "Runs a @keyframes animation."),
+    (r"opacity", "Transparency from 0 (invisible) to 1 (solid)."),
+    (r"filter: brightness", "Darkens or brightens the element; a cheap hover effect."),
+    (r"backdrop-filter", "Blurs or filters whatever is behind the element."),
+    (r"::before", "Generated content inserted before the element's content (decorations, numbers, lines)."),
+    (r"::after", "Generated content inserted after the element's content."),
+    (r"::backdrop", "The dimmed layer behind a modal dialog."),
+    (r"content:", "The text or empty string for a pseudo-element."),
+    (r"counter-reset", "Starts a CSS counter."),
+    (r"counter-increment", "Adds one to the counter for each matching element."),
+    (r"counter(", "Prints the current counter value in generated content."),
+    (r":hover", "Applies while the pointer is over the element."),
+    (r":focus-visible", "Applies when the element is focused by keyboard; keeps focus rings visible."),
+    (r":checked", "Applies to a checked radio or checkbox; combined with ~ it drives CSS-only widgets."),
+    (r":target", "Applies to the element whose id matches the URL fragment."),
+    (r":not(", "Excludes elements from a selector."),
+    (r":empty", "Matches elements with no children or text."),
+    (r":nth-child(even)", "Every second element: zebra striping."),
+    (r":first-child", "The first child of its parent."),
+    (r":last-child", "The last child of its parent."),
+    (r"li + li", "Adjacent sibling combinator: every li that follows another li."),
+    (r"~ ", "General sibling combinator: later siblings of the matched element."),
+    (r"[aria-current", "Attribute selector: styles the current page or step."),
+    (r"[open]", "Attribute selector: a details or dialog that is open."),
+    (r"[data-theme", "Attribute selector on a data attribute set by JavaScript."),
+    (r":user-invalid", "A field the user has edited that fails validation."),
+    (r"accent-color", "Colours native checkboxes, radios, progress and range controls."),
+    (r"color-scheme", "Tells the browser which colour schemes the page supports so native controls match."),
+    (r"@media (prefers-color-scheme: dark)", "Applies when the user's system is in dark mode."),
+    (r"@media (min-width", "Applies from the given width upwards (mobile-first breakpoint)."),
+    (r"@media (max-width", "Applies up to the given width."),
+    (r"@media print", "Applies only when printing."),
+    (r"@page", "Sets the printed page margins."),
+    (r"scroll-margin-top", "Leaves room above an anchor target so a sticky header does not cover it."),
+    (r"cursor: pointer", "Shows the hand cursor to indicate something clickable."),
+    (r"font: inherit", "Makes form controls use the page font instead of the browser default."),
+    (r"width: 100%", "Fills the container width."),
+    (r"min-height: 100vh", "At least as tall as the viewport."),
+    (r"height: auto", "Keeps the natural height, preserving image proportions."),
+    (r"pointer-events: none", "The element ignores mouse clicks."),
+    (r".sr-only", "Visually hidden but still read by screen readers."),
+    (r"clip: rect(0 0 0 0)", "Part of the screen-reader-only pattern: clips the box to nothing."),
+    (r"white-space: nowrap", "Prevents text from wrapping to a new line."),
+    (r"font-weight", "Thickness of the text."),
+    (r"font-size", "Size of the text."),
+    (r"color:", "Text colour."),
+    (r"margin", "Space outside the element."),
+    (r"border", "The line around the element: width, style and colour."),
+    (r"display: block", "Element starts on a new line and fills the width (used on links and images)."),
+    (r"display: inline-block", "Flows in text but accepts width, height and vertical padding."),
+    (r"display: none", "Removes the element from rendering completely."),
+    (r"visibility", "Hides while keeping the space."),
+    (r"vertical-align: top", "Aligns cell content to the top."),
+    (r"text-overflow", "Shows an ellipsis for overflowing text."),
+]
+
+
+def explain_lines(code, table, css=False):
+    """Return [(fragment, explanation)] for lines (HTML) or declarations (CSS) matching a pattern; each pattern once."""
+    out = []
+    used = set()
+    if css:
+        parts = []
+        for line in code.split("\n"):
+            line = line.strip()
+            if not line:
+                continue
+            m = re.match(r"^([^{]+)\{(.*)\}?$", line)
+            if m and not line.startswith("@"):
+                parts.append(m.group(1).strip() + " {")
+                parts.extend(d.strip() + ";" for d in m.group(2).rstrip("}").split(";") if d.strip())
+            else:
+                parts.append(line)
+        lines = parts
+    else:
+        lines = [l.strip() for l in code.split("\n") if l.strip()]
+    for line in lines:
+        for pat, why in table:
+            if pat in line and pat not in used:
+                used.add(pat)
+                out.append((line if len(line) <= 70 else line[:67] + "...", why))
+                break
+    return out
+
 # ============================================================================
 # PDF
 # ============================================================================
@@ -189,6 +439,7 @@ def build_pdf(path):
     S["caption"] = ParagraphStyle("caption", fontName="Sans", fontSize=8.2, leading=11, textColor=MUTED, spaceAfter=8)
     S["toc0"] = ParagraphStyle("toc0", fontName="Sans-Bold", fontSize=10.5, leading=15, spaceBefore=6)
     S["toc1"] = ParagraphStyle("toc1", fontName="Sans", fontSize=9, leading=12.5, leftIndent=14)
+    S["toc2"] = ParagraphStyle("toc2", fontName="Sans", fontSize=8, leading=11, leftIndent=28, textColor=MUTED)
     S["idx"] = ParagraphStyle("idx", fontName="Sans", fontSize=8.2, leading=11)
 
     def esc(t):
@@ -277,7 +528,7 @@ def build_pdf(path):
               P("Edition of September 2026", "center"), PageBreak()]
     # ----- TOC
     toc = TableOfContents()
-    toc.levelStyles = [S["toc0"], S["toc1"]]
+    toc.levelStyles = [S["toc0"], S["toc1"], S["toc2"]]
     story += [P("Contents", "h1"), toc, NextPageTemplate("body"), PageBreak()]
 
     def part(num, title, sub):
@@ -664,6 +915,70 @@ def build_pdf(path):
     rows = [["Term", "Where to find it"]] + [list(x) for x in entries]
     story.extend(rl_table(rows, col_widths=[AVAIL * 0.32, AVAIL * 0.68]))
 
+    # ----- Projects
+    PROJECTS = all_projects()
+    story += part(15, "Practice Projects", "%d complete, ready-to-type projects: %d page types for %d different businesses, each with full HTML and CSS, a build guide, checklist and exercises." % (len(PROJECTS), len(TYPES), len(THEMES)))
+    story += heading("How to use the projects", 0, "projects")
+    story.append(P("Every project is a small but complete website page. Each one gives you: a brief, learning goals, the elements and CSS "
+                   "features it teaches, a step-by-step build guide, the complete index.html and styles.css to type or copy, an explanation "
+                   "table for the important lines, a checklist to verify your result, and three exercises that extend it."))
+    story.append(P("Projects are organised by type (%d types) and each type is repeated for %d businesses, so you can pick the theme closest "
+                   "to your own idea, or build the same page for several themes to see how the same HTML skeleton changes with different content. "
+                   "Level 1 projects need only Parts 2 and 6 of this book; level 2 add Flexbox and Grid; level 3 add pseudo-classes such as :checked "
+                   "and :target, dialog, counters and a little JavaScript." % (len(TYPES), len(THEMES))))
+    story.append(P("Project types", "h2"))
+    story.extend(rl_table([["#", "Type", "Level", "Teaches"]] + [[str(i + 1), tp["title"].replace(" for {name}", "").replace(" for {person}", ""), str(tp["level"]), ", ".join(tp["css"][:4])] for i, tp in enumerate(TYPES)],
+                          col_widths=[AVAIL * 0.06, AVAIL * 0.4, AVAIL * 0.1, AVAIL * 0.44]))
+    story.append(P("Business themes", "h2"))
+    story.extend(rl_table([["Theme", "City", "Offers"]] + [[th["name"], th["city"], th["tagline"]] for th in THEMES]))
+    story.append(PageBreak())
+    lastkey = None
+    for pr in PROJECTS:
+        if pr["key"] != lastkey:
+            tp = next(x for x in TYPES if x["key"] == pr["key"])
+            story += [Bookmark("ptype-" + pr["key"], "Type: " + tp["title"].replace(" for {name}", "").replace(" for {person}", ""), 1),
+                      P("Project type: " + tp["title"].replace(" for {name}", "").replace(" for {person}", ""), "h1"),
+                      P("Level %d   |   %d projects, one per theme" % (tp["level"], len(THEMES)), "meta"), P(tp["brief"]), PageBreak()]
+            lastkey = pr["key"]
+        th = pr["theme"]
+        story += [Bookmark("proj-%d" % pr["number"], "Project %d: %s" % (pr["number"], pr["title"]), 2)]
+        story.append(P("Project %d: %s" % (pr["number"], pr["title"]), "h1"))
+        story.append(P("Theme: %s (%s)   |   Level %d   |   Files: index.html, styles.css" % (th["name"], th["city"], pr["level"]), "meta"))
+        story.append(P("Brief", "h3"))
+        story.append(P(pr["brief"]))
+        story.append(P("Learning goals", "h3"))
+        for g in pr["goals"]:
+            story.append(Paragraph(esc(g), S["li"], bulletText="\u2022"))
+        story.append(P("Elements and CSS used", "h3"))
+        story.extend(rl_table([["HTML elements", "CSS features"], [", ".join(pr["elements"]), ", ".join(pr["css"])]], col_widths=[AVAIL * 0.5, AVAIL * 0.5]))
+        story.append(P("Build guide", "h3"))
+        for i, st in enumerate(pr["steps"]):
+            story.append(Paragraph(esc(st), S["li"], bulletText="%d." % (i + 1)))
+        story.append(PageBreak())
+        story.append(P("Project %d: index.html" % pr["number"], "h2"))
+        story.append(code_block(pr["html"]))
+        story.append(P("Project %d: styles.css" % pr["number"], "h2"))
+        story.append(code_block(pr["css_code"]))
+        hx = explain_lines(pr["html"], HTML_EXPLAIN)
+        cx = explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)
+        story.append(PageBreak())
+        story.append(P("Project %d explained line by line" % pr["number"], "h2"))
+        story.append(P("The important lines of index.html", "h3"))
+        story.extend(rl_table([["Line", "What it does"]] + [[a, b] for a, b in hx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
+        story.append(P("The important declarations of styles.css", "h3"))
+        story.extend(rl_table([["Declaration", "What it does"]] + [[a, b] for a, b in cx], col_widths=[AVAIL * 0.42, AVAIL * 0.58]))
+        story.append(P("Check your work", "h3"))
+        for c in pr["checklist"]:
+            story.append(Paragraph(esc(c), S["li"], bulletText="\u2610"))
+        story.append(P("Exercises", "h3"))
+        for i, ex in enumerate(pr["exercises"]):
+            story.append(Paragraph(esc(ex), S["li"], bulletText="%d." % (i + 1)))
+        story.append(P("Theme data for this project", "h3"))
+        story.extend(rl_table([["Field", "Value"], ["Business", th["name"]], ["Tagline", th["tagline"]], ["City", th["city"]], ["Owner", th["person"]],
+                               ["Brand colour", th["primary"]], ["Accent colour", th["accent"]], ["Offers", "; ".join("%s (%s)" % (a, c) for a, b, c in th["items"])]],
+                              col_widths=[AVAIL * 0.25, AVAIL * 0.75]))
+        story.append(PageBreak())
+
     # ----- Page templates
     def on_page(canvas, doc):
         canvas.saveState()
@@ -826,6 +1141,25 @@ def build_html(path):
 
     secs = [section("glossary", "Glossary", table([["Term", "Definition"]] + [list(g) for g in GLOSSARY]), kind="Glossary", keywords=" ".join(g[0] for g in GLOSSARY))]
     add_part("part-glossary", "Part 14: Glossary", secs)
+
+    PROJECTS = all_projects()
+    secs = []
+    for pr in PROJECTS:
+        th = pr["theme"]
+        b = ("<p class=\"meta\">Theme: %s (%s) &middot; Level %d</p><h3>Brief</h3><p>%s</p><h3>Learning goals</h3><ul>%s</ul>"
+             "<h3>Elements and CSS</h3><p><b>HTML:</b> %s<br><b>CSS:</b> %s</p><h3>Build guide</h3><ol>%s</ol>"
+             "<h3>index.html</h3><pre><code>%s</code></pre><h3>styles.css</h3><pre><code>%s</code></pre>"
+             "<h3>Explained line by line</h3>%s%s"
+             "<h3>Check your work</h3><ul>%s</ul><h3>Exercises</h3><ol>%s</ol>") % (
+            E(th["name"]), E(th["city"]), pr["level"], E(pr["brief"]), "".join("<li>%s</li>" % E(g) for g in pr["goals"]),
+            E(", ".join(pr["elements"])), E(", ".join(pr["css"])), "".join("<li>%s</li>" % E(x) for x in pr["steps"]),
+            E(pr["html"]), E(pr["css_code"]),
+            table([["HTML line", "What it does"]] + [[a, b] for a, b in explain_lines(pr["html"], HTML_EXPLAIN)]),
+            table([["CSS declaration", "What it does"]] + [[a, b] for a, b in explain_lines(pr["css_code"], CSS_EXPLAIN, css=True)]),
+            "".join("<li>%s</li>" % E(x) for x in pr["checklist"]), "".join("<li>%s</li>" % E(x) for x in pr["exercises"]))
+        secs.append(section("project-%d" % pr["number"], "Project %d: %s" % (pr["number"], pr["title"]), b, kind="Project",
+                            keywords="project %s %s %s level %d" % (pr["key"], th["slug"], " ".join(pr["css"]), pr["level"])))
+    add_part("part-projects", "Part 15: Practice Projects (%d)" % len(PROJECTS), secs)
 
     el_links = "".join("<a href=\"#el-%s\">&lt;%s&gt;</a>" % (e["name"], e["name"]) for e in ELEMENTS)
     nav_html = "".join("<li><a href=\"#%s\">%s</a></li>" % (pid, E(t)) for pid, t in nav)
