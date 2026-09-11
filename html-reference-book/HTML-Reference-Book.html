@@ -4227,7 +4227,56 @@ h1 { font-size: clamp(1.75rem, 1rem + 3vw, 3rem); }
 }</code></pre>
 <h3>Exercises</h3>
 <ul><li>Change the colour tokens to your own brand and watch every component update.</li><li>Add a fourth card and confirm the row wraps correctly on a narrow window.</li><li>Add an Arabic version: set lang=&quot;ar&quot; dir=&quot;rtl&quot; and replace left/right properties with logical ones (inline-start / inline-end).</li><li>Add a dark mode with prefers-color-scheme.</li><li>Run the page through the HTML validator and Lighthouse; fix every warning.</li></ul><div class="note">Practice projects for this lesson: <a href="#project-21">Project 21: Landing page for Port Said Seafood</a> &middot; <a href="#project-1107">Project 1107: Complete one-page website for Green Leaf Cafe</a></div></section>
-<section id="lesson-35" class="entry" data-kind="Lesson" data-title="Lesson 36: Quick quiz and answers" data-keywords="course lesson tutorial w3schools javascript"><h2 class="entry-title">Lesson 36: Quick quiz and answers</h2><table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody><tr><td>Which element creates an ordered list?</td><td>&lt;ol&gt; (with &lt;li&gt; items)</td></tr><tr><td>Which attribute connects a &lt;label&gt; to its control?</td><td>for, matching the control&#x27;s id</td></tr><tr><td>What does border-collapse: collapse do?</td><td>Merges adjacent cell borders into single lines</td></tr><tr><td>What is the specificity of #a .b p?</td><td>1,1,1</td></tr><tr><td>Which CSS property makes a flex container?</td><td>display: flex</td></tr><tr><td>How do you make images never overflow?</td><td>img { max-width: 100%; height: auto; }</td></tr><tr><td>What does the viewport meta tag do?</td><td>Makes the page use the real device width on phones</td></tr><tr><td>Which unit is relative to the root font size?</td><td>rem</td></tr><tr><td>What does gap do?</td><td>Adds space between flex/grid items without margins</td></tr><tr><td>How do you centre a block horizontally?</td><td>Give it a width and margin-inline: auto (or use flex/grid)</td></tr><tr><td>Where should &lt;main&gt; appear?</td><td>Once per page, containing the unique content</td></tr><tr><td>What is the difference between &lt;b&gt; and &lt;strong&gt;?</td><td>&lt;strong&gt; means importance; &lt;b&gt; is only visual/keyword</td></tr><tr><td>Which selector matches every second row?</td><td>tr:nth-child(even)</td></tr><tr><td>What does box-sizing: border-box change?</td><td>width/height include padding and border</td></tr><tr><td>What replaces the bgcolor attribute?</td><td>CSS background-color</td></tr></tbody></table><div class="note">Practice projects for this lesson: <a href="#project-453">Project 453: 404 error page for Pyramid Fitness</a> &middot; <a href="#project-1039">Project 1039: Glossary with letter navigation for Sahara Pet Care</a></div></section>
+<section id="lesson-35" class="entry" data-kind="Lesson" data-title="Lesson 36: Worked examples explained line by line" data-keywords="course lesson tutorial w3schools javascript"><h2 class="entry-title">Lesson 36: Worked examples explained line by line</h2><p>This lesson repeats the most important ideas of the course as small complete examples. Each example is followed by a table that explains every line, so you can check your understanding before starting the JavaScript lessons and the projects.</p>
+<h3>Example 1: a page skeleton</h3>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Cairo Books&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Cairo Books&lt;/h1&gt;&lt;/header&gt;
+  &lt;main&gt;&lt;p&gt;Welcome.&lt;/p&gt;&lt;/main&gt;
+  &lt;footer&gt;&lt;small&gt;&amp;copy; 2026&lt;/small&gt;&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<table><thead><tr><th>Line</th><th>What it does</th></tr></thead><tbody><tr><td>&lt;!DOCTYPE html&gt;</td><td>Tells the browser this is modern HTML (standards mode).</td></tr><tr><td>&lt;html lang=&quot;en&quot;&gt;</td><td>Root element; lang helps screen readers and search engines.</td></tr><tr><td>&lt;meta charset=&quot;utf-8&quot;&gt;</td><td>Text encoding, so Arabic and symbols display correctly.</td></tr><tr><td>&lt;meta name=&quot;viewport&quot; ...&gt;</td><td>Makes the page use the real device width on phones.</td></tr><tr><td>&lt;title&gt;</td><td>Tab title and search result title.</td></tr><tr><td>&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;</td><td>Loads the external CSS file.</td></tr><tr><td>&lt;header&gt; / &lt;main&gt; / &lt;footer&gt;</td><td>Landmarks: the three big regions of a page; main appears once.</td></tr><tr><td>&lt;small&gt;&amp;copy; 2026&lt;/small&gt;</td><td>Fine print with the copyright entity.</td></tr></tbody></table>
+<h3>Example 2: a labelled form</h3>
+<pre><code>&lt;form action=&quot;/subscribe&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+  &lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required autocomplete=&quot;email&quot;&gt;
+  &lt;button&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<table><thead><tr><th>Line</th><th>What it does</th></tr></thead><tbody><tr><td>&lt;form action method=&quot;post&quot;&gt;</td><td>Where and how the data is sent.</td></tr><tr><td>&lt;label for=&quot;email&quot;&gt;</td><td>Connects the text to the field with the matching id; clicking the label focuses the field.</td></tr><tr><td>type=&quot;email&quot; required</td><td>Browser validation: must be filled and look like an email.</td></tr><tr><td>name=&quot;email&quot;</td><td>The key sent to the server; without name nothing is sent.</td></tr><tr><td>autocomplete=&quot;email&quot;</td><td>Lets the browser fill the saved address.</td></tr><tr><td>&lt;button&gt;</td><td>Inside a form, a button submits by default.</td></tr></tbody></table>
+<h3>Example 3: a data table</h3>
+<pre><code>&lt;table&gt;
+  &lt;caption&gt;Prices&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Book&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Grammar&lt;/td&gt;&lt;td&gt;120 EGP&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Atlas&lt;/td&gt;&lt;td&gt;250 EGP&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+<pre><code>table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #ccc; padding: .5rem; text-align: left; }
+tbody tr:nth-child(even) { background: #f6f6f6; }</code></pre>
+<table><thead><tr><th>Line</th><th>What it does</th></tr></thead><tbody><tr><td>&lt;caption&gt;</td><td>The table title, read first by screen readers.</td></tr><tr><td>&lt;th scope=&quot;col&quot;&gt;</td><td>A header cell that labels its column.</td></tr><tr><td>&lt;thead&gt; / &lt;tbody&gt;</td><td>Groups header and body rows; lets CSS target them.</td></tr><tr><td>border-collapse: collapse</td><td>Merges adjacent cell borders into single lines.</td></tr><tr><td>tr:nth-child(even)</td><td>Every second row: zebra striping.</td></tr></tbody></table>
+<h3>Example 4: a responsive card row</h3>
+<pre><code>.cards { display: flex; flex-wrap: wrap; gap: 1rem; }
+.card { flex: 1 1 16rem; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgb(0 0 0 / 10%); }
+.card img { max-width: 100%; height: auto; }</code></pre>
+<table><thead><tr><th>Declaration</th><th>What it does</th></tr></thead><tbody><tr><td>display: flex</td><td>The container lays its children in a row.</td></tr><tr><td>flex-wrap: wrap</td><td>Cards drop to a new line when the row is full.</td></tr><tr><td>gap: 1rem</td><td>Space between cards without margins.</td></tr><tr><td>flex: 1 1 16rem</td><td>Each card starts at 16rem, can grow and shrink: responsive without media queries.</td></tr><tr><td>max-width: 100%; height: auto</td><td>Images never overflow their card and keep their proportions.</td></tr></tbody></table>
+<h3>Example 5: specificity and the cascade</h3>
+<pre><code>p { color: gray; }          /* 0,0,1 */
+.note { color: blue; }      /* 0,1,0 */
+#intro { color: green; }    /* 1,0,0 */
+&lt;p id=&quot;intro&quot; class=&quot;note&quot;&gt;Which colour?&lt;/p&gt;</code></pre>
+<table><thead><tr><th>Rule</th><th>Explanation</th></tr></thead><tbody><tr><td>p</td><td>One element: specificity 0,0,1.</td></tr><tr><td>.note</td><td>One class: 0,1,0 beats any number of elements.</td></tr><tr><td>#intro</td><td>One id: 1,0,0 beats any number of classes, so the text is green.</td></tr><tr><td>Equal specificity</td><td>The later rule in the file wins.</td></tr><tr><td>Inherited values</td><td>color is inherited by children; border and margin are not.</td></tr></tbody></table>
+<h3>What to do next</h3>
+<ul><li>Build the two projects that follow this lesson, then continue with Lesson 37 to add JavaScript.</li><li>Whenever a line is unclear, search the element or property in Parts 6 and 11 of this book.</li></ul><div class="note">Practice projects for this lesson: <a href="#project-453">Project 453: 404 error page for Pyramid Fitness</a> &middot; <a href="#project-1039">Project 1039: Glossary with letter navigation for Sahara Pet Care</a></div></section>
 <section id="lesson-36" class="entry" data-kind="Lesson" data-title="Lesson 37: JavaScript - your first script" data-keywords="course lesson tutorial w3schools javascript"><h2 class="entry-title">Lesson 37: JavaScript - your first script</h2><p>Create app.js next to index.html, link it with &lt;script src=&quot;app.js&quot; defer&gt;&lt;/script&gt; in the head, and write:</p>
 <pre><code>console.log(&#x27;The page is ready&#x27;);
 const heading = document.querySelector(&#x27;h1&#x27;);
