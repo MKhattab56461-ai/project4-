@@ -68,6 +68,34 @@ SUBSTITUTE_JS = r"""
 HEAD_ONLY = {"base", "head", "link", "meta", "style", "title", "script", "noscript", "frameset", "frame", "html", "body", "template", "slot", "noframes", "isindex", "nextid", "bgsound", "keygen", "command", "menuitem", "element", "shadow", "portal", "fencedframe", "rb", "rtc", "xmp", "listing", "plaintext"}
 
 
+PHOTOS = os.path.join(os.path.dirname(__file__), "..", "photos")
+
+
+def photo_map():
+    """basename (without extension) -> data URL of a real photo from ../photos."""
+    m = {}
+    for fn in os.listdir(PHOTOS):
+        base, ext = os.path.splitext(fn)
+        mime = "image/png" if ext == ".png" else "image/jpeg"
+        m[base] = "data:%s;base64,%s" % (mime, base64.b64encode(open(os.path.join(PHOTOS, fn), "rb").read()).decode())
+    return m
+
+
+PHOTO_JS = """
+(() => {
+  const photos = %s;
+  document.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src') || '';
+    if (src.startsWith('data:')) return;
+    const base = src.split('/').pop().split('?')[0].replace(/\\.[a-z0-9]+$/i, '');
+    const key = Object.keys(photos).find(k => k === base) || Object.keys(photos).find(k => base.startsWith(k.replace(/-\\d+$/, '')) && base.replace(/-\\d+$/, '') === k.replace(/-\\d+$/, ''));
+    if (key) { img.removeAttribute('srcset'); img.removeAttribute('sizes'); img.src = photos[key]; }
+  });
+  document.querySelectorAll('picture source').forEach(s => s.remove());
+})();
+"""
+
+
 class Chrome:
     def __init__(self):
         t = json.load(urllib.request.urlopen(urllib.request.Request(CDP + "/json/new?about:blank", method="PUT")))
@@ -77,6 +105,7 @@ class Chrome:
         self.call("Page.enable")
         self.call("Runtime.enable")
         self.frame = self.call("Page.getFrameTree")["frameTree"]["frame"]["id"]
+        self.photo_js = PHOTO_JS % json.dumps(photo_map())
 
     def call(self, method, **params):
         self.n += 1
@@ -89,8 +118,9 @@ class Chrome:
     def shot(self, html, out):
         self.call("Emulation.setDeviceMetricsOverride", width=WIDTH, height=420, deviceScaleFactor=2, mobile=False)
         self.call("Page.setDocumentContent", frameId=self.frame, html=FRAME_CSS + html)
+        self.call("Runtime.evaluate", expression=self.photo_js, awaitPromise=False)
         self.call("Runtime.evaluate", expression=SUBSTITUTE_JS, awaitPromise=False)
-        time.sleep(0.15)
+        time.sleep(0.3)
         h = self.call("Runtime.evaluate", expression="(() => { let m = 0; for (const el of document.body.querySelectorAll('*')) { const r = el.getBoundingClientRect(); if (r.height) m = Math.max(m, r.bottom); } return Math.ceil(m) + window.scrollY; })()", returnByValue=True)["result"]["value"]
         h = max(40, min(int(h) + 16, 900))
         self.call("Emulation.setDeviceMetricsOverride", width=WIDTH, height=h, deviceScaleFactor=2, mobile=False)
