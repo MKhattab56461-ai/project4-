@@ -4,6 +4,8 @@ A reference book for HTML 1, 2.0, 3.2, 4.01, XHTML, HTML5 and the Living Standar
 
 | File | What it is |
 |------|------------|
+| **`HTML-Elements-Illustrated.pdf`** | **The short illustrated edition (238 pages, A4): every element - what it does, example code, and a real picture of what the browser shows. Start here.** |
+| `HTML-Elements-Illustrated.html` | Same content as one searchable web page (type an element name). |
 | `HTML-Reference-Book.pdf` | The printable book (13,000+ pages, A5, bookmarks + table of contents + index). Search with Ctrl+F. |
 | `HTML-Reference-Book.html` | The same content as one web page with an instant search box. Open it in any browser, type a word (for example `footer`, `td`, `font-family`, `href`) and only matching entries stay visible. Press `/` to jump to the search box, `Esc` to clear. |
 | `src/` | The Python sources. `python3 src/build.py` regenerates both files (needs `pip install reportlab`). |
